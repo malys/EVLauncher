@@ -1,0 +1,55 @@
+name: Bug report
+description: The launcher misbehaves on the head unit
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please do not report security issues here — see
+        [SECURITY.md](https://github.com/malys/MG4_Simple_Launcher/blob/master/SECURITY.md)
+        for private reporting.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What the launcher did, and what you expected instead.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Shown on the system-info page, or the GitHub release you installed (e.g. v1.4).
+    validations:
+      required: true
+  - type: dropdown
+    id: channel
+    attributes:
+      label: Channel
+      options: ["stable", "unstable", "Not sure"]
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Head unit / firmware
+      description: "MG4 infotainment version, e.g. SWI68. Or the emulator profile, if that is where it happened."
+  - type: dropdown
+    id: default_home
+    attributes:
+      label: Was it set as the default home?
+      options: ["Yes, default launcher", "No, started as a normal app", "Not sure"]
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: What you tapped, swiped or long-pressed, in order.
+      render: text
+  - type: textarea
+    id: logcat
+    attributes:
+      label: Logcat
+      description: "If you can get it: `adb logcat -d | grep -i mg4`. A stack trace is worth ten descriptions."
+      render: text

@@ -5,8 +5,18 @@
 </p>
 
 MG4 Simple Launcher is a simple custom home launcher designed for the MG4 head
-unit (1920×720, landscape). It reuses the original SAIC launcher artwork so it
-fits visually with the system, while providing a minimal, focused home screen.
+unit (1920×720, landscape). It is part of the **MG4 app suite** (MG4Control,
+MG4Tasker, ABRP Uploader, MG4 Swipe Launcher) and shares its dark Material 3
+theme, its CI/CD and security gates, and its two-channel release model.
+
+## ⚠️ Upgrading from an earlier build — please read
+
+The application id changed from `com.tommasov.mg4simplelauncher` to
+**`com.mg4.launcher.simple`**, and the app is now signed with the **MG4 suite platform
+key** (the same key as MG4Control and MG4Tasker). Either change alone forces a fresh
+install: **uninstall the previous version first**, then install the new one, then set it
+as the default home again from Android settings. Favorites are stored per-app, so they are
+reset.
 
 ## Features
 
@@ -21,10 +31,29 @@ fits visually with the system, while providing a minimal, focused home screen.
     **Settings** apps, side by side as icons.
 - **System apps & updates**: inside the *All apps* drawer, the header carries a
   **System apps** button (only system apps, `FLAG_SYSTEM`) next to **Check for
-  updates**, plus a **back** button to return home.
-- **Light / dark theme**: follows the system day/night mode automatically, using
-  the original SAIC light and dark artwork.
+  updates** (unstable channel only), plus a **back** button to return home.
+- **MG4 suite theme**: dark Material 3 on the shared `mg4_*` colour and spacing
+  tokens, with the suite's 64 dp touch target. Dark is imposed rather than
+  following the system: the screen faces the driver at night, and a light
+  background filling the windscreen is glare, not a preference.
 - **Persisted favorites**: the three chosen apps are saved across reboots.
+
+## Channels
+
+Two build flavors, like the sibling apps:
+
+- **stable** — tagged releases, **no self-update**. The updater class is not in the
+  APK and the manifest declares no `INTERNET` permission. Installed offline, from a
+  USB stick.
+- **unstable** — a pre-release published on every push to `master`, with OTA so
+  testers stay current without manual work. Application id
+  `com.mg4.launcher.simple.unstable`, so it installs beside a stable build (only one
+  of the two can be the default home at a time).
+
+The unstable updater accepts an APK only over https from an allowlisted GitHub host,
+and only if it is signed with the same certificate as the running app — otherwise it
+deletes the file. Install is still a manual tap: the app does not hold
+`REQUEST_INSTALL_PACKAGES`. See [SECURITY.md](SECURITY.md).
 
 ## Changing a pinned app
 
@@ -60,15 +89,86 @@ while the page is visible:
 
 ## Build
 
-Standard Android project (Java, AGP 8.6, Gradle 8.7, `minSdk 28` / `targetSdk 34`).
+Standard Android project (Java + Kotlin, AGP 8.6, Gradle 8.7, `minSdk 28` /
+`targetSdk 34`). JDK 17 is required and pinned in `mise.toml`.
 
 ```
-./gradlew assembleDebug
+mise run build            # stable debug APK
+mise run build-unstable   # unstable debug APK (OTA enabled)
+mise run test             # JVM unit tests, both channels
+mise run permissions      # permission-drift gate, same check the CI runs
 ```
 
-The debug APK is produced under `app/build/outputs/apk/debug/`.
+Or directly:
+
+```
+./gradlew assembleStableDebug
+./gradlew assembleUnstableDebug
+```
+
+APKs land under `app/build/outputs/apk/<channel>/debug/`.
+
+To sign locally, in `gradle.properties` (never committed) or as environment
+variables — the same MG4 suite platform key used by MG4Control and MG4Tasker:
+
+```
+mg4.keystore=/path/to/platform.keystore
+mg4.keystore.password=…
+mg4.key.alias=platform
+mg4.key.password=…
+```
+
+
+### Emulator
+
+```
+mise run emulator-setup    # one-off: SDK images + both AVDs (needs /dev/kvm)
+mise run emulator-screen   # API 28 at MG4 panel geometry — the useful one for UI work
+mise run emulator-car      # API 33 Automotive — automotive system UI, wrong OS version
+mise run run               # build, install and start on whatever device is connected
+mise run emulator-stop
+```
+
+Neither profile is faithful on both axes: the vehicle runs AAOS 9 (API 28), but Google
+publishes no Automotive system image below API 33. The screen profile is the one that
+matters here — it is 1920x1080 @ 160dpi, the panel geometry confirmed from the ROM
+(`SWI68-29958-1300R69`). The `1920×720` quoted above is the usable app area left under the
+system UI; set `EMU_HEIGHT=720` in `mise.toml` and re-run `emulator-setup` to model that
+instead.
+
+The AVDs are named per repo (`mg4simple-*`, `mg4swipe-*`), matching the `mg4tasker-*` /
+`mg4abrp-*` convention used by the sibling projects.
+
+`mise run run` starts the launcher as an ordinary activity — that does **not** make it the
+default home. Use `mise run set-home` (or press Home on the emulator and pick it in the
+chooser) to exercise it as the real launcher.
+
+### CI/CD
+
+| Workflow | Trigger | Blocking |
+|---|---|---|
+| `tests.yml` | push / PR | JVM unit tests, both channels |
+| `security.yml` | push / PR | permission-drift gate + gitleaks; mobsfscan / semgrep / OWASP are informational SARIF |
+| `unstable.yml` | push to `master` | builds and publishes the rolling `unstable` pre-release |
+| `release.yml` | `v*` tag | builds, checks, and publishes the stable APK |
+
+Every `uses-permission` must be listed with a justification in
+`.github/security/permission-allowlist.txt`, or the build fails.
+
+## Project documents
+
+- [SECURITY.md](SECURITY.md) — threat model, what the OTA path guarantees, how to report
+  a vulnerability privately
+- [DISCLAIMER.md](DISCLAIMER.md) — no warranty, no liability, and what running this on a
+  vehicle head unit means concretely
+- [CONTRIBUTING.md](CONTRIBUTING.md) — ground rules and the checks to run before a PR
+- [LICENSE.md](LICENSE.md) — this is a fork of an **unlicensed** upstream project; read it
+  before reusing anything
+- [AGENTS.md](AGENTS.md) — architecture notes for contributors and coding agents
 
 ## Disclaimer (English)
+
+The full text lives in [DISCLAIMER.md](DISCLAIMER.md). In short:
 
 This project is provided **for study and educational purposes only**. It is an
 experimental, non-commercial project and is not affiliated with, endorsed by, or

@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest a behaviour for the launcher
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the situation in the car, not the solution you have in mind.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What you would like it to do
+    validations:
+      required: true
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Please confirm
+      options:
+        - label: This does not require reading or writing a vehicle setting — that belongs in MG4Control, and automation in MG4Tasker.
+          required: true
+        - label: If it needs a new Android permission, I have said which one and why.
+          required: true
+        - label: I have considered that this screen is used by a driver, sometimes parked in the dark, sometimes in a hurry.
+          required: true
