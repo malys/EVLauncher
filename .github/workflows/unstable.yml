@@ -1,0 +1,105 @@
+name: Unstable
+
+# Unstable / pre-release channel. These builds DO self-update: the app checks GitHub
+# pre-releases and downloads a newer unstable APK (https + host allowlist + signature check).
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build and publish unstable APK
+    runs-on: ubuntu-latest
+    env:
+      MG4_KEYSTORE_BASE64: ${{ secrets.MG4_KEYSTORE_BASE64 }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Decode platform keystore
+        if: ${{ env.MG4_KEYSTORE_BASE64 != '' }}
+        run: |
+          printf '%s' "$MG4_KEYSTORE_BASE64" | tr -d '[:space:]' | base64 -d > "$RUNNER_TEMP/platform.keystore"
+          if [ "$(head -c1 "$RUNNER_TEMP/platform.keystore" | od -An -tx1 | tr -d ' ')" != "30" ]; then
+            echo "::error::MG4_KEYSTORE_BASE64 is invalid. Recreate the secret with: base64 -w0 platform.keystore"
+            exit 1
+          fi
+          echo "MG4_KEYSTORE=$RUNNER_TEMP/platform.keystore" >> "$GITHUB_ENV"
+
+      - name: Run checks
+        run: |
+          chmod +x gradlew
+          bash .github/security/check-permissions.sh
+          ./gradlew testUnstableDebugUnitTest lintUnstableDebug --no-daemon
+
+      - name: Resolve unstable version
+        id: version
+        run: |
+          v=$(./gradlew -q printUnstableVersion -PunstableBuild=${{ github.run_number }} --no-daemon | tail -1)
+          echo "value=$v" >> "$GITHUB_OUTPUT"
+
+      - name: Build unstable release APK
+        env:
+          MG4_KEYSTORE_PASSWORD: ${{ secrets.MG4_KEYSTORE_PASSWORD }}
+          MG4_KEY_ALIAS: ${{ secrets.MG4_KEY_ALIAS }}
+          MG4_KEY_PASSWORD: ${{ secrets.MG4_KEY_PASSWORD }}
+        run: ./gradlew assembleUnstableRelease -PunstableBuild=${{ github.run_number }} --no-daemon
+
+      - name: Collect APK
+        run: |
+          mkdir -p dist
+          # The release tag is the fixed string "unstable", so the version lives in the asset
+          # name: the updater matches ".apk" + "unstable" and reads the version from it.
+          find app/build/outputs/apk -name "app-unstable-release.apk" \
+            -exec cp {} "dist/MG4SimpleLauncher-unstable-${{ steps.version.outputs.value }}.apk" \;
+          ls -la dist/
+
+      - name: Build timestamp
+        id: date
+        run: echo "value=$(date -u +'%Y-%m-%d %H:%M UTC')" >> "$GITHUB_OUTPUT"
+
+      # One rolling pre-release: drop the previous release and its tag so the new one is
+      # published at this commit instead of leaving the tag behind on the old sha.
+      - name: Reset rolling unstable release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release delete unstable --cleanup-tag --yes || true
+
+      - name: Publish pre-release
+        uses: softprops/action-gh-release@v2
+        with:
+          # Fixed tag, overwritten on every build. The in-app updater does not read a
+          # version from here — it reads it from the APK asset name.
+          tag_name: unstable
+          name: Unstable
+          prerelease: true
+          files: dist/*.apk
+          body: |
+            ## Unstable build ${{ steps.date.outputs.value }}
+
+            Version `${{ steps.version.outputs.value }}` (run ${{ github.run_number }}).
+
+            Automated build from `master`. **Not tested on a vehicle.**
+
+            Installed unstable builds update themselves from this channel. The updater
+            accepts an APK only over https from a GitHub host, and only if it is signed with
+            the same certificate as the running app — otherwise it deletes the file. Install
+            is still a manual tap.
+
+            The unstable id is `com.mg4.launcher.simple.unstable`, so it installs beside a
+            stable build. Both cannot be the default home at once — pick one in Android
+            settings.
+
+            Commit: ${{ github.sha }}

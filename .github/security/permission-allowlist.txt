@@ -1,0 +1,28 @@
+# Allowed permissions for MG4 Simple Launcher.
+# Any uses-permission in a manifest NOT listed here FAILS the CI.
+# Why: this app replaces the home screen. It runs on every boot, sees every installed
+# package, and is the first thing the driver touches. Every new permission widens that
+# surface and must be reviewed here.
+#
+# One line = one full permission name. '#' = comment.
+
+# --- App drawer ---
+# Required on API 30+ to enumerate launchable apps. Without it the drawer is empty.
+android.permission.QUERY_ALL_PACKAGES
+
+# --- System-info page ---
+# Read-only: active connection type and Wi-Fi link speed for the second carousel page.
+# Neither permission opens a socket, and neither exposes SSID/BSSID/MAC (never queried).
+android.permission.ACCESS_NETWORK_STATE
+android.permission.ACCESS_WIFI_STATE
+
+# --- Network / OTA — UNSTABLE flavor only ---
+# Declared solely in src/unstable/AndroidManifest.xml. The unstable channel self-updates
+# (checks GitHub pre-releases, https + host allowlist + signature check). The stable APK
+# has neither this permission nor any updater code, by construction.
+android.permission.INTERNET
+
+# --- Deliberately NOT allowed ---
+# REQUEST_INSTALL_PACKAGES was dropped when the third-party update server was replaced by
+# the suite's OTA model. The updater downloads to public Downloads and stops there; the
+# user taps the file and the system installer prompts. Re-adding it needs a review.
