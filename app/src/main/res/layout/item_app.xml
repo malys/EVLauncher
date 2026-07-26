@@ -24,6 +24,6 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:textColor="@color/text_primary"
+        android:textColor="@color/mg4_text_primary"
         android:textSize="@dimen/drawer_label_size" />
 </LinearLayout>

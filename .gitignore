@@ -80,3 +80,6 @@ lint/tmp/
 # OS-specific files
 .DS_Store
 Thumbs.db
+# Local mise override (machine-specific) — mise.toml itself is committed.
+mise.local.toml
+.mise.local.toml

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Transparent at rest, subtle tonal highlight only while pressed: gives the two
-     fixed icons touch feedback without drawing a permanent tile inside the card. -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true">
+<!-- Transparent at rest, ripple only while pressed: gives the two fixed icons touch
+     feedback without drawing a permanent tile inside the card. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/mg4_pressed_strong">
+    <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/native_button_radius" />
-            <solid android:color="@color/button_surface_pressed" />
+            <corners android:radius="@dimen/mg4_corner" />
+            <solid android:color="@android:color/white" />
         </shape>
     </item>
-    <item android:drawable="@android:color/transparent" />
-</selector>
+</ripple>

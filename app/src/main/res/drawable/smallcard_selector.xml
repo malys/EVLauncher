@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Background for the two stacked cards in the fourth column (all apps / system apps). -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true" android:drawable="@drawable/bg_clicked" />
-    <item android:drawable="@drawable/bg_normal" />
-</selector>
+<!-- Stacked cards in the fourth home column and the system-info tiles. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/mg4_pressed_strong">
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/mg4_corner" />
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/mg4_corner" />
+            <solid android:color="@color/mg4_surface" />
+        </shape>
+    </item>
+</ripple>

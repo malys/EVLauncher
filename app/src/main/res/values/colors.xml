@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- MG4 suite palette — the same tokens as MG4Control and MG4Tasker. The SAIC light
+     palette this app shipped with is gone: the suite is dark-only, on purpose. -->
 <resources>
-    <!-- Carried over from the original SAIC launcher palette for visual consistency. -->
-    <color name="text_primary">#3c4143</color>
-    <color name="text_secondary">#7f3c4143</color>
-    <color name="accent">#056eff</color>
-    <color name="scrim">#66000000</color>
-    <color name="drawer_background">#f2ffffff</color>
+    <color name="mg4_background">#FF101214</color>
+    <color name="mg4_surface">#FF181B1F</color>
+    <color name="mg4_surface_raised">#FF22262B</color>
+    <color name="mg4_accent">#FF4FC3F7</color>
+    <color name="mg4_on_accent">#FF06131A</color>
+    <color name="mg4_text_primary">#FFF2F5F7</color>
+    <color name="mg4_text_secondary">#FF9EA6AE</color>
+    <color name="mg4_error">#FFEF6B6B</color>
 
-    <!-- Tonal surface for the native-style drawer buttons (tints of text_primary). -->
-    <color name="button_surface">#1f3c4143</color>
-    <color name="button_surface_pressed">#3d3c4143</color>
+    <!-- Pressed-state overlays on the surfaces above. Alpha, not a separate hue, so a
+         pressed card still reads as the same card. -->
+    <color name="mg4_pressed">#1FFFFFFF</color>
+    <color name="mg4_pressed_strong">#33FFFFFF</color>
 </resources>

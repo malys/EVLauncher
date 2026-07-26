@@ -1,0 +1,177 @@
+# MG4 Simple Launcher development environment — aligned with MG4Tasker / MG4Control.
+#
+#   mise install    installs the JDK
+#   mise run test   JVM unit tests
+#   mise tasks      list everything
+#
+# Why pin the JDK: AGP 8.6 requires Java 17. The machine default (JDK 26) fails the build
+# with an unhelpful class-version error.
+
+[tools]
+java = "17"
+
+[env]
+ANDROID_HOME = "{{env.HOME}}/Android/Sdk"
+ANDROID_SDK_ROOT = "{{env.HOME}}/Android/Sdk"
+_.path = [
+    "{{env.HOME}}/Android/Sdk/platform-tools",
+    "{{env.HOME}}/Android/Sdk/cmdline-tools/latest/bin",
+]
+
+# ── Emulator ─────────────────────────────────────────────────────────────────────
+# The vehicle runs AAOS 9 (API 28), but Google publishes no Automotive image below
+# API 33. Two profiles, each faithful on one axis:
+#   emulator-car     API 33 Automotive — the automotive system UI (wrong OS version).
+#   emulator-screen  API 28, the MG4 panel geometry, but a plain phone/tablet system UI.
+# For a launcher the screen profile is the one that matters: it is the only way to see
+# whether the home cards and drawer grid land where the driver expects.
+#
+# One AVD pair per repo, like mg4tasker-* and mg4abrp-*, so a reshaped AVD here never
+# surprises a sibling project.
+#
+# Geometry: 1920x1080 @ 160dpi, confirmed from the ROM (SWI68-29958-1300R69). The README
+# quotes 1920×720 — that is the usable app area left under the system UI, not the panel.
+# To model the usable area instead, set EMU_HEIGHT=720 and re-run emulator-setup.
+EMU_CAR_AVD = "mg4simple-car"
+EMU_CAR_IMAGE = "system-images;android-33;android-automotive;x86_64"
+EMU_SCREEN_AVD = "mg4simple-screen"
+EMU_SCREEN_IMAGE = "system-images;android-28;google_apis;x86_64"
+EMU_WIDTH = "1920"
+EMU_HEIGHT = "1080"
+EMU_DENSITY = "160"
+
+# -Dorg.gradle.java.home: without it Gradle reuses a daemon started by the VS Code Java
+# extension, whose JRE has no jlink — the build then fails on JdkImageTransform, unrelated
+# to the code.
+[tasks.build]
+description = "Build the stable debug APK"
+run = './gradlew -Dorg.gradle.java.home=$JAVA_HOME assembleStableDebug'
+
+[tasks.build-unstable]
+description = "Build the unstable debug APK (OTA enabled)"
+run = './gradlew -Dorg.gradle.java.home=$JAVA_HOME assembleUnstableDebug'
+
+[tasks.test]
+description = "JVM unit tests, both channels"
+run = './gradlew -Dorg.gradle.java.home=$JAVA_HOME testStableDebugUnitTest testUnstableDebugUnitTest'
+
+[tasks.lint]
+description = "Android lint, stable channel"
+run = './gradlew -Dorg.gradle.java.home=$JAVA_HOME lintStableDebug'
+
+[tasks.permissions]
+description = "Permission-drift gate (same check the CI runs)"
+run = 'bash .github/security/check-permissions.sh'
+
+[tasks.check]
+description = "What the CI runs: permission gate + unit tests + lint"
+depends = ["permissions", "test", "lint"]
+
+[tasks.release]
+description = "Stable release APK (needs the platform keystore)"
+run = './gradlew -Dorg.gradle.java.home=$JAVA_HOME assembleStableRelease'
+
+[tasks.clean]
+run = './gradlew -Dorg.gradle.java.home=$JAVA_HOME clean'
+
+[tasks.emulator-setup]
+description = "Install the emulator + system images and create both AVDs"
+run = '''
+set -e
+SDK="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+AVDM="$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager"
+
+if [ ! -e /dev/kvm ]; then
+  echo "ERROR: /dev/kvm missing — no hardware acceleration, the emulator is unusable." >&2
+  echo "Under WSL2: enable nested virtualisation on the Windows side." >&2
+  exit 1
+fi
+if ! id -nG | tr ' ' '\n' | grep -qx kvm; then
+  echo "WARNING: user not in the kvm group. Fix with:" >&2
+  echo "  sudo usermod -aG kvm $USER   # then log out and back in" >&2
+fi
+
+yes | "$SDK" --sdk_root="$ANDROID_HOME" --licenses > /dev/null
+"$SDK" --sdk_root="$ANDROID_HOME" "emulator" "platform-tools" "$EMU_CAR_IMAGE" "$EMU_SCREEN_IMAGE"
+
+create_avd() {
+  name="$1"; image="$2"; device="$3"
+  if "$AVDM" list avd 2>/dev/null | grep -q "Name: $name"; then
+    echo "AVD $name already present"
+  else
+    echo no | "$AVDM" create avd -n "$name" -k "$image" -d "$device" --force
+  fi
+  cfg="$HOME/.android/avd/$name.avd/config.ini"
+  # MG4 panel geometry. Without this the AVD keeps the generic profile's density and the
+  # home cards do not sit where the driver sees them.
+  sed -i '/^hw.lcd/d;/^disk.dataPartition.size/d' "$cfg"
+  {
+    echo "hw.lcd.width=$EMU_WIDTH"
+    echo "hw.lcd.height=$EMU_HEIGHT"
+    echo "hw.lcd.density=$EMU_DENSITY"
+    echo "disk.dataPartition.size=4G"
+  } >> "$cfg"
+  echo "AVD $name configured at ${EMU_WIDTH}x${EMU_HEIGHT} @ ${EMU_DENSITY}dpi"
+}
+
+create_avd "$EMU_CAR_AVD" "$EMU_CAR_IMAGE" "automotive_1024p_landscape"
+create_avd "$EMU_SCREEN_AVD" "$EMU_SCREEN_IMAGE" "pixel_c"
+'''
+
+# swiftshader_indirect, not "host": WSL2 exposes no real GPU (Mesa llvmpipe only), and
+# -gpu host makes the emulator die on startup with "Your GPU cannot be used for hardware
+# rendering" before any window ever appears. Software rendering is slower but actually boots.
+[tasks.emulator-car]
+description = "Start the Automotive emulator (API 33 — automotive system UI)"
+run = '''
+set -e
+"$ANDROID_HOME/emulator/emulator" -avd "$EMU_CAR_AVD" \
+  -gpu swiftshader_indirect -no-snapshot-save -no-boot-anim &
+"$ANDROID_HOME/platform-tools/adb" wait-for-device
+echo "Car emulator ready."
+'''
+
+[tasks.emulator-screen]
+description = "Start the MG4 screen emulator (API 28, MG4 geometry — no car services)"
+run = '''
+set -e
+"$ANDROID_HOME/emulator/emulator" -avd "$EMU_SCREEN_AVD" \
+  -gpu swiftshader_indirect -no-snapshot-save -no-boot-anim &
+"$ANDROID_HOME/platform-tools/adb" wait-for-device
+echo "Screen emulator ready."
+'''
+
+[tasks.emulator-stop]
+description = "Stop the running emulator"
+run = '"$ANDROID_HOME/platform-tools/adb" emu kill || true'
+
+[tasks.run]
+description = "Build, install and start the APK on the emulator or the connected vehicle"
+depends = ["build"]
+run = '''
+set -e
+ADB="$ANDROID_HOME/platform-tools/adb"
+if [ -z "$($ADB devices | sed '1d' | grep -w device || true)" ]; then
+  echo "No device. Run 'mise run emulator-screen' (or emulator-car), or plug in the vehicle." >&2
+  exit 1
+fi
+APK=$(ls -t app/build/outputs/apk/stable/debug/*.apk | head -1)
+echo "Installing $APK"
+$ADB install -r -g "$APK"
+$ADB shell am start -n "com.mg4.launcher.simple/.MainActivity"
+echo "Started."
+echo
+echo "This is a HOME app: 'am start' opens it once, it does not make it the default."
+echo "To exercise it as the real home, press Home on the emulator and pick it in the"
+echo "chooser, or run:  mise run set-home"
+'''
+
+[tasks.set-home]
+description = "Make this launcher the default home on the connected device"
+run = '''
+set -e
+ADB="$ANDROID_HOME/platform-tools/adb"
+# cmd package set-home-activity exists from API 28 up, which is the vehicle's floor.
+$ADB shell cmd package set-home-activity "com.mg4.launcher.simple/.MainActivity"
+echo "Default home set to MG4 Simple Launcher."
+'''

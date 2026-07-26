@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Background for the three vertical favorite cards. Reuses the original SAIC
-     big-card art, swapping to the "clicked" variant while pressed. -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true" android:drawable="@drawable/bigcard_bg_clicked" />
-    <item android:drawable="@drawable/bigcard_bg_normal" />
-</selector>
+<!-- Favourite card on the home screen. Raised MG4 surface, suite corner radius, Material ripple instead of the old pressed-state PNG. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/mg4_pressed_strong">
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/mg4_corner" />
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/mg4_corner" />
+            <solid android:color="@color/mg4_surface_raised" />
+        </shape>
+    </item>
+</ripple>

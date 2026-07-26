@@ -24,4 +24,11 @@
     <string name="sys_uptime">Allumé depuis %1$s</string>
     <string name="sys_android">Android %1$s · API %2$d</string>
     <string name="sys_launcher">Launcher %1$s (%2$d)</string>
+    <!-- Mise à jour OTA — canal unstable uniquement. Une build stable n\'a pas d\'updater. -->
+    <string name="update_check_action">Rechercher des mises à jour</string>
+    <string name="update_up_to_date">Vous avez déjà la dernière version</string>
+    <string name="update_check_failed">Impossible de vérifier les mises à jour</string>
+    <string name="update_downloading">Téléchargement de unstable %1$s</string>
+    <string name="update_already_downloaded">Mise à jour déjà téléchargée — ouvrez-la depuis Téléchargements</string>
+    <string name="update_rejected">Mise à jour refusée : signature invalide</string>
 </resources>

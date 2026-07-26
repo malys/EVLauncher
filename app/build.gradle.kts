@@ -1,66 +1,103 @@
-import java.io.FileInputStream
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.android.application)
-}
-
-// Release signing credentials live in keystore.properties (git-ignored), so the
-// same stable key signs every build and users can always update in place.
-val keystorePropertiesFile = rootProject.file("keystore.properties")
-val keystoreProperties = Properties().apply {
-    if (keystorePropertiesFile.exists()) {
-        load(FileInputStream(keystorePropertiesFile))
-    }
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
-    namespace = "com.tommasov.mg4simplelauncher"
+    namespace = "com.mg4.launcher.simple"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.tommasov.mg4simplelauncher"
+        applicationId = "com.mg4.launcher.simple"
         minSdk = 28
         targetSdk = 34
         versionCode = 5
         versionName = "1.4"
+    }
 
-        // Base URL of the update server; the version manifest lives at <base>/version.json
-        buildConfigField(
-            "String",
-            "UPDATE_BASE_URL",
-            "\"https://ws2.tommasovietina.it/mg4/MG4_Simple_Launcher/\""
-        )
+    // Signed with the SAME platform keystore as the rest of the MG4 suite (MG4Control,
+    // MG4Tasker). The launcher claims no privileged permission of its own — the shared key
+    // is what makes the suite one installable set, and it is what the unstable OTA
+    // signature check compares an incoming APK against.
+    val keystorePath = System.getenv("MG4_KEYSTORE") ?: (project.findProperty("mg4.keystore") as String?)
+    signingConfigs {
+        if (keystorePath != null && file(keystorePath).exists()) {
+            create("platform") {
+                storeFile = file(keystorePath)
+                storePassword = System.getenv("MG4_KEYSTORE_PASSWORD") ?: (project.findProperty("mg4.keystore.password") as String?)
+                keyAlias = System.getenv("MG4_KEY_ALIAS") ?: (project.findProperty("mg4.key.alias") as String?) ?: "platform"
+                keyPassword = System.getenv("MG4_KEY_PASSWORD") ?: (project.findProperty("mg4.key.password") as String?)
+            }
+        }
+    }
+
+    // Distribution channels (mirrors MG4Tasker / MG4Control / ABRP):
+    //  - stable  : tagged releases, NO self-update. The updater class is not in the APK and
+    //              the manifest carries no INTERNET permission. Installed offline from USB.
+    //  - unstable: pre-releases published on every push to master, with OTA so testers stay
+    //              current without manual work. Installs alongside stable (.unstable suffix).
+    flavorDimensions += "channel"
+    productFlavors {
+        create("stable") {
+            dimension = "channel"
+            buildConfigField("boolean", "OTA_ENABLED", "false")
+        }
+        create("unstable") {
+            dimension = "channel"
+            applicationIdSuffix = ".unstable"
+            // Version stays numerically comparable for the updater ("1.4.42-unstable"):
+            // the CI passes -PunstableBuild=<n>; 0 locally.
+            versionName = "${defaultConfig.versionName}.${project.findProperty("unstableBuild") ?: "0"}"
+            versionNameSuffix = "-unstable"
+            buildConfigField("boolean", "OTA_ENABLED", "true")
+        }
     }
 
     buildFeatures {
         buildConfig = true
     }
 
-    signingConfigs {
-        create("release") {
-            if (keystorePropertiesFile.exists()) {
-                storeFile = rootProject.file(keystoreProperties["storeFile"] as String)
-                storePassword = keystoreProperties["storePassword"] as String
-                keyAlias = keystoreProperties["keyAlias"] as String
-                keyPassword = keystoreProperties["keyPassword"] as String
-            }
-        }
-    }
-
     buildTypes {
         release {
+            // R8 off: an unminified APK stays verifiable line-by-line against this source,
+            // which matters more here than a few hundred kB on a head unit.
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
+            signingConfigs.findByName("platform")?.let { signingConfig = it }
+        }
+        debug {
+            signingConfigs.findByName("platform")?.let { signingConfig = it }
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
+}
+
+// Prints the unstable versionName so the unstable workflow can name the APK asset
+// numerically comparable ("MG4SimpleLauncher-unstable-1.4.42.apk"). The pre-release itself
+// is always tagged "unstable" and overwritten, so the asset name is what the updater reads.
+tasks.register("printUnstableVersion") {
+    doLast {
+        println("${android.defaultConfig.versionName}.${project.findProperty("unstableBuild") ?: "0"}")
     }
 }
 
@@ -71,4 +108,6 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.recyclerview)
     implementation(libs.viewpager2)
+
+    testImplementation(libs.junit)
 }
