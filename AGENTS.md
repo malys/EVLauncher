@@ -2,7 +2,7 @@
 
 Custom home launcher for the SAIC MG4 head unit (1920×720, landscape). Part of the MG4 app
 suite alongside [MG4Control](../MG4Control), [MG4Tasker](../MG4Tasker),
-[ABRP_Uploader](../MG4ABRPUploader) and [MG4 Swipe Launcher](../MG4SwipeLauncher).
+[MG4ABRPUploader](../MG4ABRPUploader) and [MG4 Swipe Launcher](../MG4SwipeLauncher).
 
 Fork of [Tommasov/MG4_Simple_Launcher](https://github.com/Tommasov/MG4_Simple_Launcher) —
 see [`LICENSE.md`](LICENSE.md), the licence situation is not the usual one.

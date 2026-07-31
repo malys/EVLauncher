@@ -6,7 +6,7 @@
 
 MG4 Simple Launcher is a simple custom home launcher designed for the MG4 head
 unit (1920×720, landscape). It is part of the **MG4 app suite** (MG4Control,
-MG4Tasker, ABRP Uploader, MG4 Swipe Launcher) and shares its dark Material 3
+MG4Tasker, MG4ABRPUploader, MG4 Swipe Launcher) and shares its dark Material 3
 theme, its CI/CD and security gates, and its two-channel release model.
 
 ## ⚠️ Upgrading from an earlier build — please read
