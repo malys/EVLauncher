@@ -23,8 +23,11 @@ reset.
 - **Swipeable two-page home**: a horizontal carousel (`ViewPager2`). Swipe left/right
   between the launcher home (page 1) and a **system-info** screen (page 2). A
   SAIC-style bar indicator at the bottom centre shows the current page.
-- **Three favorite cards** (page 1): three vertical cards, each launching one app of
-  your choice. Tap a card to open its app; **long-press** to assign or change it.
+- **Favorite cards** (page 1): a grid of cards, each launching one app of your
+  choice — up to **12**. Tap a card to open its app; **long-press** to replace or
+  remove it. The last tile is always a **+**, which is how a new app is added.
+  Rows and columns follow the number of cards (1 row up to 4 apps, 2 rows up to 8,
+  3 rows beyond), so the tiles stay as large as the count allows.
 - **Fourth column**:
   - **All apps** (top card): every launchable app, in a grid.
   - **Two fixed shortcuts** (bottom card): the Android 9 default **Files** and
@@ -33,10 +36,11 @@ reset.
   **System apps** button (only system apps, `FLAG_SYSTEM`) next to **Check for
   updates** (unstable channel only), plus a **back** button to return home.
 - **MG4 suite theme**: dark Material 3 on the shared `mg4_*` colour and spacing
-  tokens, with the suite's 64 dp touch target. Dark is imposed rather than
+  tokens, with the suite's 72 dp touch target. Dark is imposed rather than
   following the system: the screen faces the driver at night, and a light
   background filling the windscreen is glare, not a preference.
-- **Persisted favorites**: the three chosen apps are saved across reboots.
+- **Persisted favorites**: the chosen apps are saved across reboots (a home page
+  built with an older three-slot version is migrated on first launch).
 
 ## Channels
 
@@ -57,8 +61,9 @@ deletes the file. Install is still a manual tap: the app does not hold
 
 ## Changing a pinned app
 
-**Long-press** one of the three big cards to open the app picker, then tap the app
-you want in that slot. Your choice is saved across reboots.
+**Long-press** a card to choose between *replace* and *remove*; replacing opens the
+app picker. To **add** one, tap the trailing **+** tile and pick an app. Your choices
+are saved across reboots.
 
 ## Second screen (system info)
 

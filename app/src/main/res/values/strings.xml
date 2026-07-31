@@ -4,6 +4,9 @@
     <string name="system_apps">System apps</string>
     <string name="add_favorite">Tap to choose</string>
     <string name="pick_favorite_title">Choose a favorite app</string>
+    <string name="favorite_menu_title">Favorite app</string>
+    <string name="favorite_replace">Replace with another app</string>
+    <string name="favorite_remove">Remove from home</string>
     <string name="empty_favorite">Empty</string>
     <string name="cd_settings">Settings</string>
     <string name="cd_files">Files</string>

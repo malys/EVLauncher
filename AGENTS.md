@@ -53,11 +53,13 @@ the unstable flavour only.
 
 ## Layout of the code
 
-`MainActivity` hosts the `ViewPager2` carousel: `HomeFragment` (three favourite cards +
+`MainActivity` hosts the `ViewPager2` carousel: `HomeFragment` (a runtime-built grid of
+favourite cards, up to `PreferencesManager.MAX_FAVORITES`, plus the trailing "add" tile +
 all-apps / shortcut column) and `SystemInfoFragment` (device, memory, storage, network —
 all permission-free reads, refreshed only while visible). `AppDrawerActivity` is the full
 grid plus the system-apps filter (`FLAG_SYSTEM`) and, on unstable, the update button.
-`PreferencesManager` persists the three chosen packages; `AppLauncher`/`AppInfo`/
+`PreferencesManager` persists the chosen packages as one ordered, hole-free list, and
+migrates the old three-slot keys on first read; `AppLauncher`/`AppInfo`/
 `AppListAdapter` are the shared launch-and-list plumbing.
 
 ## Reference patterns (shared with the suite)
@@ -67,7 +69,7 @@ grid plus the system-apps filter (`FLAG_SYSTEM`) and, on unstable, the update bu
   exists. Never a literal secret in a build file.
 - **Security CI**: `.github/workflows/security.yml` — blocking permission-drift gate +
   gitleaks, plus informational SARIF from mobsfscan / semgrep / dependency-check.
-- **Theme**: dark Material 3 on the shared `mg4_*` colour and spacing tokens, 64 dp touch
+- **Theme**: dark Material 3 on the shared `mg4_*` colour and spacing tokens, 72 dp touch
   targets. Dark is imposed, not system-following — glare on a windscreen at night.
 - **Language**: English by default (code, comments, commits, docs).
 

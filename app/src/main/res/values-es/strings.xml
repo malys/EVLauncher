@@ -5,6 +5,9 @@
     <string name="system_apps">Apps del sistema</string>
     <string name="add_favorite">Toca para elegir</string>
     <string name="pick_favorite_title">Elige una app favorita</string>
+    <string name="favorite_menu_title">App favorita</string>
+    <string name="favorite_replace">Sustituir por otra app</string>
+    <string name="favorite_remove">Quitar de la pantalla de inicio</string>
     <string name="empty_favorite">Vacío</string>
     <string name="cd_settings">Ajustes</string>
     <string name="cd_files">Archivos</string>
