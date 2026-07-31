@@ -2,16 +2,16 @@
 <resources>
     <!-- MG4 suite tokens (same values as MG4Tasker). Vehicle screen: ~10 inches, ~70 cm
          from the driver, used while driving. Everything is larger than on a hand-held phone. -->
-    <dimen name="touch_target">64dp</dimen>
+    <dimen name="touch_target">72dp</dimen>
     <dimen name="spacing_xs">4dp</dimen>
     <dimen name="spacing_sm">8dp</dimen>
     <dimen name="spacing_md">16dp</dimen>
     <dimen name="spacing_lg">24dp</dimen>
 
-    <dimen name="text_title">24sp</dimen>
-    <dimen name="text_body">18sp</dimen>
-    <dimen name="text_secondary">15sp</dimen>
-    <dimen name="text_label">14sp</dimen>
+    <dimen name="text_title">26sp</dimen>
+    <dimen name="text_body">20sp</dimen>
+    <dimen name="text_secondary">17sp</dimen>
+    <dimen name="text_label">16sp</dimen>
 
     <!-- Corner radius shared by every MG4 surface. -->
     <dimen name="mg4_corner">12dp</dimen>
@@ -22,6 +22,9 @@
     <dimen name="card_gap">16dp</dimen>
     <dimen name="favorite_icon_size">160dp</dimen>
     <dimen name="favorite_label_size">30sp</dimen>
+    <!-- Grille à plusieurs rangées : la tuile est deux fois moins haute, le libellé
+         doit laisser la place à l'icône qu'il décrit. -->
+    <dimen name="favorite_label_size_small">20sp</dimen>
     <dimen name="small_card_label_size">28sp</dimen>
     <dimen name="drawer_title_size">30sp</dimen>
     <dimen name="drawer_icon_size">88dp</dimen>
