@@ -9,8 +9,34 @@ unit (1920×720, landscape). It is part of the **MG4 app suite** (MG4Control,
 MG4Tasker, MG4ABRPUploader, MG4 Swipe Launcher) and shares its dark Material 3
 theme, its CI/CD and security gates, and its two-channel release model.
 
-## ⚠️ Upgrading from an earlier build — please read
+## Contents
 
+- [Screenshots](#screenshots)
+- [⚠️ Upgrading from an earlier build — please read](#upgrading-from-an-earlier-build-please-read)
+- [Features](#features)
+- [Channels](#channels)
+- [Changing a pinned app](#changing-a-pinned-app)
+- [Second screen (system info)](#second-screen-system-info)
+- [Building](#building)
+- [Project documents](#project-documents)
+- [Security](#security)
+- [Contributing](#contributing)
+- [Legal](#legal)
+
+## Screenshots
+<p align="center">
+  <img width="320" height="180" alt="ezgif-295db3ba8dbf70b5" src="https://github.com/user-attachments/assets/7a3e3bb3-c81e-41d8-ad17-c9b56d28c359" />
+</p>
+
+<p align="center">
+  <img src="https://ws2.tommasovietina.it/mg4/MG4_Simple_Launcher/Screenshot_1782141845.png" alt="MG4 Simple Launcher — home screen" width="800" />
+</p>
+
+<p align="center">
+  <img src="https://ws2.tommasovietina.it/mg4/MG4_Simple_Launcher/Screenshot_1782141854.png" alt="MG4 Simple Launcher — system info screen" width="800" />
+</p>
+
+## ⚠️ Upgrading from an earlier build — please read
 The application id changed from `com.tommasov.mg4simplelauncher` to
 **`com.mg4.launcher.simple`**, and the app is now signed with the **MG4 suite platform
 key** (the same key as MG4Control and MG4Tasker). Either change alone forces a fresh
@@ -19,7 +45,6 @@ as the default home again from Android settings. Favorites are stored per-app, s
 reset.
 
 ## Features
-
 - **Swipeable two-page home**: a horizontal carousel (`ViewPager2`). Swipe left/right
   between the launcher home (page 1) and a **system-info** screen (page 2). A
   SAIC-style bar indicator at the bottom centre shows the current page.
@@ -43,7 +68,6 @@ reset.
   built with an older three-slot version is migrated on first launch).
 
 ## Channels
-
 Two build flavors, like the sibling apps:
 
 - **stable** — tagged releases, **no self-update**. The updater class is not in the
@@ -60,13 +84,11 @@ deletes the file. Install is still a manual tap: the app does not hold
 `REQUEST_INSTALL_PACKAGES`. See [SECURITY.md](SECURITY.md).
 
 ## Changing a pinned app
-
 **Long-press** a card to choose between *replace* and *remove*; replacing opens the
 app picker. To **add** one, tap the trailing **+** tile and pick an app. Your choices
 are saved across reboots.
 
 ## Second screen (system info)
-
 Swipe right from the home to reach the system-info page (`SystemInfoFragment` /
 `res/layout/fragment_system.xml`). It shows live, permission-free stats that refresh
 while the page is visible:
@@ -78,22 +100,7 @@ while the page is visible:
 - **Network**: active connection type (Wi-Fi / mobile / Ethernet / offline) and, on
   Wi-Fi, the negotiated link speed.
 
-## Screenshots
-
-<p align="center">
-  <img width="320" height="180" alt="ezgif-295db3ba8dbf70b5" src="https://github.com/user-attachments/assets/7a3e3bb3-c81e-41d8-ad17-c9b56d28c359" />
-</p>
-
-<p align="center">
-  <img src="https://ws2.tommasovietina.it/mg4/MG4_Simple_Launcher/Screenshot_1782141845.png" alt="MG4 Simple Launcher — home screen" width="800" />
-</p>
-
-<p align="center">
-  <img src="https://ws2.tommasovietina.it/mg4/MG4_Simple_Launcher/Screenshot_1782141854.png" alt="MG4 Simple Launcher — system info screen" width="800" />
-</p>
-
-## Build
-
+## Building
 Standard Android project (Java + Kotlin, AGP 8.6, Gradle 8.7, `minSdk 28` /
 `targetSdk 34`). JDK 17 is required and pinned in `mise.toml`.
 
@@ -161,7 +168,6 @@ Every `uses-permission` must be listed with a justification in
 `.github/security/permission-allowlist.txt`, or the build fails.
 
 ## Project documents
-
 - [SECURITY.md](SECURITY.md) — threat model, what the OTA path guarantees, how to report
   a vulnerability privately
 - [DISCLAIMER.md](DISCLAIMER.md) — no warranty, no liability, and what running this on a
@@ -171,8 +177,18 @@ Every `uses-permission` must be listed with a justification in
   before reusing anything
 - [AGENTS.md](AGENTS.md) — architecture notes for contributors and coding agents
 
-## Disclaimer (English)
+## Security
+See [SECURITY.md](SECURITY.md) for the threat model and how to report a vulnerability
+privately.
 
+## Contributing
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. In short: this
+code runs in a moving vehicle, so changes stay small, carry tests, and say in the diff
+what would break without them. Anything touching the interface follows
+[DESIGN.md](DESIGN.md).
+
+## Legal
+### Disclaimer (English)
 The full text lives in [DISCLAIMER.md](DISCLAIMER.md). In short:
 
 This project is provided **for study and educational purposes only**. It is an
@@ -190,8 +206,7 @@ driving.
 All graphic resources, trademarks, and brand names belong to their respective
 owners and are used here for study purposes only.
 
-## Avvertenze (Italiano)
-
+### Avvertenze (Italiano)
 Questo progetto è fornito **esclusivamente a scopo di studio ed educativo**. È un
 progetto sperimentale, non commerciale, non affiliato né approvato o supportato da
 SAIC, MG o da alcun costruttore di veicoli.
