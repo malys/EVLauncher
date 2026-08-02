@@ -1,23 +1,79 @@
-## What and why
+# Pull Request
 
-<!-- What changes, and what problem it solves. The diff already says what; explain why. -->
+**Type of Change**
+- [ ] Bug fix (non-breaking, fixes issue #_)
+- [ ] Feature (non-breaking, adds functionality)
+- [ ] Breaking change (fix or feature that changes existing functionality)
+- [ ] Documentation update
 
-## Verification
+**Related Issue**
+Closes #(issue)
 
-<!-- Be specific about what you actually ran. "Not verified on a head unit" is a fine and
-     expected answer — most of this can only be confirmed on the car or an emulator. -->
+## Description
 
-- [ ] `mise run check` passes (permission gate + lint + unit tests)
-- [ ] New behaviour is covered by a unit test
-- [ ] Tried on the emulator (`mise run run`, then `mise run set-home`)
-- [ ] Tried on a real MG4 head unit — if yes, which firmware: <!-- e.g. SWI68 -->
+Please include a summary of the changes and the motivation behind them:
 
-## Launcher-safety checklist
+- What problem does this solve?
+- How was this tested?
+- Are there any breaking changes?
 
-- [ ] Nothing on the home path can crash: `PackageManager` results, stored package names of
-      uninstalled apps, and unresolvable intents all degrade instead of throwing
-- [ ] The app still holds no vehicle privileges (no `android.car.*`, no `sharedUserId`, no
-      MG4Control IPC)
+## Testing
+
+Describe how you tested your changes (local device, emulator, specific scenarios):
+
+- [ ] Tested on emulator (AAOS 9, MT2712)
+- [ ] Tested on physical device (firmware version: _)
+- [ ] Manual test steps: _
+- [ ] Unit/integration tests added/updated
+
+**Display Testing (if applicable)**
+- [ ] No display changes (logic only)
+- [ ] Layout renders correctly on 12.8" infotainment screen
+- [ ] No text overflow or cutoff
+- [ ] Touch targets remain >= 48dp
+- [ ] Readable in both day and night modes (if applicable)
+
+## Code Review Checklist
+
+- [ ] Code follows project style and conventions
+- [ ] No new permissions added without justification
+- [ ] No hardcoded secrets, URLs, or credentials
+- [ ] Comments explain complex logic
+- [ ] Breaking changes documented in commit message
+- [ ] Related documentation (README) updated
+
+**Security Considerations**
+- [ ] No prompt injection vulnerabilities (input validated)
+- [ ] App shortcuts/intents validated before launching
+- [ ] No crashes from malformed input
+- [ ] Dependencies checked for known vulnerabilities
+
+**Stability Considerations**
+- [ ] No crashes observed during testing
+- [ ] No ANR (Application Not Responding) warnings
+- [ ] Launcher remains responsive (< 100ms launch time)
+- [ ] No memory leaks (check with Android Profiler)
+- [ ] Handles missing/uninstalled apps gracefully
+
+## CI/CD Status
+
+Ensure all checks pass:
+- [ ] Tests pass locally (`./gradlew test`)
+- [ ] No new lint errors (`./gradlew lint`)
+- [ ] APK builds without warnings (`./gradlew build`)
+- [ ] Security checks pass (gitleaks, mobsfscan, dependency-check)
+- [ ] `mise run check` passes (permission gate + lint + tests)
+
+## Claude-Assisted Description (Optional)
+
+*If you used Claude AI to refine this PR description, design, or commit messages, summarize how it was improved:*
+- Original issue: _
+- Claude suggestions applied: _
+- Confidence in description clarity: high / medium / low
+
+---
+
+**Note:** All contributions are subject to [CONTRIBUTING.md](CONTRIBUTING.md). Please ensure your PR maintains a responsive, safe launcher for Android Automotive drivers.
 - [ ] No new `uses-permission` — or it is added to
       `.github/security/permission-allowlist.txt` with a justification
 - [ ] Nothing network-shaped added to `src/main/`; OTA code stays in `src/unstable/` behind
