@@ -1,13 +1,23 @@
 # MG4 Simple Launcher
 
-<p align="center">
-  <img src="https://ws2.tommasovietina.it/mg4/MG4_Simple_Launcher.png" alt="MG4 Simple Launcher" width="200" />
-</p>
+<p align="center"><img src="docs/logo.svg" width="440" alt="MG4 Simple Launcher"></p>
+
+[![Tests](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/tests.yml/badge.svg)](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/tests.yml)
+[![Security](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/security.yml/badge.svg)](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/security.yml)
+[![Unstable](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/unstable.yml/badge.svg)](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/unstable.yml)
+[![Release](https://img.shields.io/github/v/release/malys/MG4_Simple_Launcher?include_prereleases&amp;sort=semver)](https://github.com/malys/MG4_Simple_Launcher/releases)
+[![License](https://img.shields.io/badge/license-see%20LICENSE-blue.svg)](LICENSE.md)
 
 MG4 Simple Launcher is a simple custom home launcher designed for the MG4 head
 unit (1920×720, landscape). It is part of the **MG4 app suite** (MG4Control,
 MG4Tasker, MG4ABRPUploader, MG4 Swipe Launcher) and shares its dark Material 3
 theme, its CI/CD and security gates, and its two-channel release model.
+
+> ⚠️ **This software runs on a vehicle head unit.** Do not interact with it while
+> driving. Read [DISCLAIMER.md](DISCLAIMER.md) before installing. This independent
+> project is not affiliated with SAIC Motor or MG Motor.
+
+---
 
 ## Contents
 
@@ -188,7 +198,7 @@ what would break without them. Anything touching the interface follows
 [DESIGN.md](DESIGN.md).
 
 ## Legal
-### Disclaimer (English)
+
 The full text lives in [DISCLAIMER.md](DISCLAIMER.md). In short:
 
 This project is provided **for study and educational purposes only**. It is an
@@ -205,19 +215,3 @@ driving.
 
 All graphic resources, trademarks, and brand names belong to their respective
 owners and are used here for study purposes only.
-
-### Avvertenze (Italiano)
-Questo progetto è fornito **esclusivamente a scopo di studio ed educativo**. È un
-progetto sperimentale, non commerciale, non affiliato né approvato o supportato da
-SAIC, MG o da alcun costruttore di veicoli.
-
-Il software è fornito "così com'è", senza garanzie di alcun tipo, esplicite o
-implicite. L'autore non si assume **alcuna responsabilità** per qualsiasi danno
-diretto, indiretto, incidentale o consequenziale — incluso, a titolo
-esemplificativo, danni al veicolo, al sistema di infotainment, al software o ai
-dati, perdita di funzionalità o conseguenze relative alla sicurezza — derivante
-dall'installazione o dall'uso di questa app. L'utilizzo avviene interamente **a
-proprio rischio**. Non interagire con l'app durante la guida.
-
-Tutte le risorse grafiche, i marchi e i nomi commerciali appartengono ai
-rispettivi proprietari e sono utilizzati qui solo a scopo di studio.
