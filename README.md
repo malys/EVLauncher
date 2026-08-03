@@ -153,7 +153,7 @@ mise run emulator-stop
 
 Neither profile is faithful on both axes: the vehicle runs AAOS 9 (API 28), but Google
 publishes no Automotive system image below API 33. The screen profile is the one that
-matters here — it is 1920x1080 @ 160dpi, the panel geometry confirmed from the ROM
+matters here — the project targets 1920x1080 @ 160dpi
 (`SWI68-29958-1300R69`). The `1920×720` quoted above is the usable app area left under the
 system UI; set `EMU_HEIGHT=720` in `mise.toml` and re-run `emulator-setup` to model that
 instead.

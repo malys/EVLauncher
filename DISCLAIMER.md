@@ -27,8 +27,8 @@ purposes**.
   a bug in it cannot write to the car. What it *can* do is start other apps and occupy the
   screen the driver looks at.
 - **Compatibility is inferred, not certified.** The panel geometry and Android version
-  targeted here come from reading the MG4 ROM (`SWI68-29958-1300R69`), not from a vendor
-  specification. A firmware update can change the system UI, the available apps, or the
+  are project compatibility targets, not a vendor specification. A firmware update can
+  change the system UI, the available apps, or the
   launcher selection screen.
 - The **stable channel has no network access at all** — no `INTERNET` permission, no
   updater code in the APK. The **unstable channel self-updates** from GitHub pre-releases
