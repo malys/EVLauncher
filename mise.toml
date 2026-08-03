@@ -29,7 +29,7 @@ _.path = [
 # One AVD pair per repo, like mg4tasker-* and mg4abrp-*, so a reshaped AVD here never
 # surprises a sibling project.
 #
-# Geometry: 1920x1080 @ 160dpi, confirmed from the ROM (SWI68-29958-1300R69). The README
+# Geometry: project compatibility target of 1920x1080 @ 160dpi. The README
 # quotes 1920×720 — that is the usable app area left under the system UI, not the panel.
 # To model the usable area instead, set EMU_HEIGHT=720 and re-run emulator-setup.
 EMU_CAR_AVD = "mg4simple-car"

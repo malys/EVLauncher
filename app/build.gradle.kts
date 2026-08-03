@@ -45,6 +45,10 @@ android {
         create("unstable") {
             dimension = "channel"
             applicationIdSuffix = ".unstable"
+            // Package Installer orders updates by versionCode. Keep the rolling build
+            // number in it as well as versionName so each OTA is an actual upgrade.
+            versionCode = defaultConfig.versionCode!! * 100_000 +
+                (project.findProperty("unstableBuild")?.toString()?.toIntOrNull() ?: 0)
             // Version stays numerically comparable for the updater ("1.4.42-unstable"):
             // the CI passes -PunstableBuild=<n>; 0 locally.
             versionName = "${defaultConfig.versionName}.${project.findProperty("unstableBuild") ?: "0"}"
