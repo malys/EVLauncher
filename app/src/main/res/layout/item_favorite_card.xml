@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- One favorite tile, added to the home grid at runtime: the number of tiles follows the
-     number of chosen apps, so it cannot be laid out statically. The icon takes the leftover
-     height instead of a fixed size, which is what lets the same tile work at 1x4 and 3x4. -->
+     number of chosen apps, so it cannot be laid out statically. Every app icon gets the same
+     square viewport so drawable intrinsic sizes cannot make neighboring icons look uneven. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,10 +12,9 @@
     android:orientation="vertical"
     android:padding="@dimen/spacing_md">
 
-    <!-- The icon takes the leftover height but is capped: on a single-tile home the tile is
-         the size of the screen, and an icon scaled to match reads as a graphic, not a
-         button. The frame carries the weight so the ImageView can honour maxWidth/maxHeight,
-         which it only does when its own size is wrap_content. -->
+    <!-- The frame absorbs the variable card height. The ImageView itself stays a fixed square:
+         wrap_content would use each app drawable's intrinsic dimensions and produce icons with
+         different widths even though their launcher buttons are identical. -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -23,13 +22,10 @@
 
         <ImageView
             android:id="@+id/favorite_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/favorite_icon_size"
+            android:layout_height="@dimen/favorite_icon_size"
             android:layout_gravity="center"
-            android:adjustViewBounds="true"
             android:contentDescription="@string/add_favorite"
-            android:maxWidth="@dimen/favorite_icon_size"
-            android:maxHeight="@dimen/favorite_icon_size"
             android:scaleType="fitCenter" />
     </FrameLayout>
 
