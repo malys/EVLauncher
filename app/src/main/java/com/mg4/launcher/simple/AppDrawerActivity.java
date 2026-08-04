@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mg4.launcher.simple.update.UpdateHook;
+import com.mg4.launcher.simple.suite.SuiteManagerActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -71,14 +72,18 @@ public class AppDrawerActivity extends AppCompatActivity {
 
         // System apps are reached from the "all apps" drawer header; redundant elsewhere.
         View systemApps = findViewById(R.id.system_apps_button);
+        View suiteApps = findViewById(R.id.suite_apps_button);
         if (MODE_ALL.equals(mode)) {
             systemApps.setOnClickListener(v -> {
                 Intent intent = new Intent(this, AppDrawerActivity.class);
                 intent.putExtra(EXTRA_MODE, MODE_SYSTEM);
                 startActivity(intent);
             });
+            suiteApps.setOnClickListener(v ->
+                    startActivity(new Intent(this, SuiteManagerActivity.class)));
         } else {
             systemApps.setVisibility(View.GONE);
+            suiteApps.setVisibility(View.GONE);
         }
 
         RecyclerView grid = findViewById(R.id.app_grid);

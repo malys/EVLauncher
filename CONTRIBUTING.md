@@ -41,8 +41,8 @@ activity or a fragment.
 Any new `uses-permission` fails CI until it is added to
 `.github/security/permission-allowlist.txt` **with a justification comment**. A launcher
 sees every installed package and starts on every boot; it should not gain capabilities
-quietly. `REQUEST_INSTALL_PACKAGES` was deliberately dropped — re-adding it is a security
-change and needs its own discussion.
+quietly. The unstable suite manager may pass a GitHub-downloaded, fixed-package,
+suite-signed APK to `pm install` only after explicit confirmation.
 
 ## The two channels
 

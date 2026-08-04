@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="suite_title">MG4Suite</string>
+    <string name="suite_repository">Fuente de versiones</string>
+    <string name="suite_refresh">Actualizar</string>
+    <string name="suite_online_ready">Versiones de GitHub · verificación de firma activa</string>
+    <string name="suite_stable_offline">Canal estable · solo aplicaciones instaladas</string>
+    <string name="suite_loading">Comprobando aplicaciones y versiones de GitHub…</string>
+    <string name="suite_installed">Instalada · %1$s</string>
+    <string name="suite_not_installed">No instalada</string>
+    <string name="suite_update_available">Actualización %1$s → %2$s</string>
+    <string name="suite_ready_to_install">Lista para instalar · %1$s</string>
+    <string name="suite_up_to_date">Actualizada · %1$s</string>
+    <string name="suite_downloading">Descargando %1$s…</string>
+    <string name="suite_download_failed">Descarga fallida o APK rechazado</string>
+    <string name="suite_apk_invalid">APK rechazado: el paquete o la firma no coinciden</string>
+    <string name="suite_install">Instalar</string>
+    <string name="suite_update">Actualizar</string>
+    <string name="suite_open">Abrir</string>
+    <string name="suite_release_notes">Cambios en %1$s</string>
+    <string name="suite_no_release_notes">No se proporcionó un registro de cambios para esta versión.</string>
+    <string name="suite_cancel">Cancelar</string>
+    <string name="suite_confirm_install">Continuar al instalador de Android</string>
+    <string name="suite_install_complete">Instalación completada</string>
+    <string name="suite_install_failed">No se pudo abrir el instalador de Android.</string>
+</resources>

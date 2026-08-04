@@ -37,6 +37,13 @@
             android:lineSpacingExtra="6dp"
             android:textColor="@color/mg4_text_secondary"
             android:textSize="@dimen/info_card_body_size" />
+
+        <Button
+            android:id="@+id/about_button"
+            style="@style/Widget.MG4.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about_action" />
     </LinearLayout>
 
     <!-- Memory -->

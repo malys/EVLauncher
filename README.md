@@ -25,6 +25,7 @@ theme, its CI/CD and security gates, and its two-channel release model.
 - [⚠️ Upgrading from an earlier build — please read](#upgrading-from-an-earlier-build-please-read)
 - [Features](#features)
 - [Channels](#channels)
+- [MG4Suite releases](#mg4suite-releases)
 - [Changing a pinned app](#changing-a-pinned-app)
 - [Second screen (system info)](#second-screen-system-info)
 - [Building](#building)
@@ -70,6 +71,8 @@ reset.
 - **System apps & updates**: inside the *All apps* drawer, the header carries a
   **System apps** button (only system apps, `FLAG_SYSTEM`) next to **Check for
   updates** (unstable channel only), plus a **back** button to return home.
+- **MG4Suite manager**: the **MG4Suite** button detects suite apps and, on unstable,
+  checks their GitHub releases for missing installs and updates with changelogs.
 - **MG4 suite theme**: dark Material 3 on the shared `mg4_*` colour and spacing
   tokens, with the suite's 72 dp touch target. Dark is imposed rather than
   following the system: the screen faces the driver at night, and a light
@@ -88,10 +91,19 @@ Two build flavors, like the sibling apps:
   `com.mg4.launcher.simple.unstable`, so it installs beside a stable build (only one
   of the two can be the default home at a time).
 
-The unstable updater accepts an APK only over https from an allowlisted GitHub host,
-and only if it is signed with the same certificate as the running app — otherwise it
-deletes the file. Install is still a manual tap: the app does not hold
-`REQUEST_INSTALL_PACKAGES`. See [SECURITY.md](SECURITY.md).
+The unstable updater downloads to private cache, validates https and the GitHub allowlist
+at every redirect, verifies the running app's certificate, then installs automatically via
+`pm`. The suite manager uses the same path after explicit confirmation. Cached APKs are
+always deleted. See
+[SECURITY.md](SECURITY.md).
+
+## MG4Suite releases
+
+From **All apps → MG4Suite**, stable lists installed suite apps without network access.
+Unstable checks MG4Control's latest online release and each other app's rolling `unstable`
+GitHub prerelease, compares the numeric version carried by the APK asset name, and shows
+the changelog before download. Repositories and package names use a fixed allowlist. Every
+downloaded APK must carry the launcher's signing certificate and match its catalogue entry.
 
 ## Changing a pinned app
 **Long-press** a card to choose between *replace* and *remove*; replacing opens the

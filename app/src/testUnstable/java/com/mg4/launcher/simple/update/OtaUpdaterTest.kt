@@ -74,6 +74,13 @@ class OtaUpdaterTest {
         assertEquals("MG4SimpleLauncher-unstable-unknown.apk", OtaUpdater.downloadFileName(null))
     }
 
+    @Test
+    fun `pm install requires both success text and zero exit`() {
+        assertTrue(OtaUpdater.installSucceeded(0, "Success\n"))
+        assertFalse(OtaUpdater.installSucceeded(1, "Success\n"))
+        assertFalse(OtaUpdater.installSucceeded(0, "Failure [INSTALL_FAILED]"))
+    }
+
     private fun assertArrayEquals(expected: IntArray, actual: IntArray) =
         org.junit.Assert.assertArrayEquals(expected, actual)
 }

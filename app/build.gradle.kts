@@ -112,6 +112,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.recyclerview)
     implementation(libs.viewpager2)
+    implementation("com.google.zxing:core:3.5.3")
 
     testImplementation(libs.junit)
 }

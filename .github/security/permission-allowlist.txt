@@ -23,6 +23,4 @@ android.permission.ACCESS_WIFI_STATE
 android.permission.INTERNET
 
 # --- Deliberately NOT allowed ---
-# REQUEST_INSTALL_PACKAGES was dropped when the third-party update server was replaced by
-# the suite's OTA model. The updater downloads to public Downloads and stops there; the
-# user taps the file and the system installer prompts. Re-adding it needs a review.
+# Installation always remains user-mediated by Android's package installer.

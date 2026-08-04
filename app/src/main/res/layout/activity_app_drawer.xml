@@ -45,6 +45,14 @@
             android:text="@string/system_apps" />
 
         <TextView
+            android:id="@+id/suite_apps_button"
+            style="@style/Widget.MG4.HeaderButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/touch_target"
+            android:layout_marginEnd="@dimen/spacing_sm"
+            android:text="@string/suite_title" />
+
+        <TextView
             android:id="@+id/check_updates_button"
             style="@style/Widget.MG4.HeaderButton"
             android:layout_width="wrap_content"

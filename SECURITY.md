@@ -19,6 +19,8 @@ helps; a working exploit is not required.
 - Anything that gets the unstable updater to accept an APK that is **not** served over https
   from an allowlisted GitHub host, or that is **not** signed with the running app's
   certificate.
+- Anything that makes the suite manager accept an APK outside its fixed package
+  allowlist or signed with a different certificate.
 - Path traversal or overwrite through the OTA download file name, which is derived from a
   remote asset name.
 - Anything that makes the drawer leak the installed-package list off-device.
@@ -44,10 +46,10 @@ helps; a working exploit is not required.
   reaches the system downloader. The downloaded APK must then be signed by the same
   certificate as the running app, or it is deleted rather than offered for install. An
   unreadable archive or a failed API call counts as a mismatch. Both gates are unit-tested.
-- **No `REQUEST_INSTALL_PACKAGES`.** The updater downloads to public Downloads and stops
-  there; the user taps the file and the *system* installer prompts. Holding the
-  install-packages permission to save one tap on a test channel is not a trade worth making.
-  The permission-drift gate blocks it from coming back silently.
+- **Suite installs are confirmed and unstable-only.** After confirmation, the suite manager
+  passes an APK fetched from an allowlisted GitHub URL to the same `/system/bin/pm install`
+  path as the OTA updater. The launcher checks its fixed package and certificate set,
+  shows the changelog, asks for confirmation, then checks the certificate again.
 - **The remote version string never reaches a path raw.** It is reduced to `[a-z0-9._-]`
   before becoming a file name, and there is a unit test for `../../etc/passwd`.
 - **The previous third-party update server is gone.** Earlier versions fetched a manifest

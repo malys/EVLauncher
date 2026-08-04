@@ -4,6 +4,16 @@ All notable changes to this project are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Added an MG4Suite manager that detects installed apps and, on unstable, reads GitHub
+  releases and changelogs, identifies updates, verifies package identity and the shared
+  signing certificate, and opens Android's installer after explicit confirmation.
+- The unstable suite catalogue follows the rolling `unstable` releases and `.unstable`
+  package IDs used by MG4Tasker, MG4 ABRP Uploader, MG4 Swipe Launcher and this launcher.
+
 ## [1.4.0] - 2026-08-02
 
 ### Changed

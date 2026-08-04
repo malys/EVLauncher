@@ -1,24 +1,20 @@
 package com.mg4.launcher.simple.update
 
 import android.content.Context
-import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import com.mg4.launcher.simple.R
-import java.io.File
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * Unstable channel: checks GitHub pre-releases and downloads a newer unstable APK.
- *
- * The install itself stays manual — the user taps the downloaded file. The launcher is not
- * privileged enough to install silently, and asking for REQUEST_INSTALL_PACKAGES to save one
- * tap on a test channel is not a trade worth making.
+ * Unstable channel: checks, downloads, verifies and installs a newer unstable APK.
  */
 object UpdateHook {
 
     private const val TAG = "UpdateHook"
+    private val running = AtomicBoolean(false)
 
     fun isSupported(): Boolean = true
 
@@ -26,9 +22,11 @@ object UpdateHook {
     @JvmStatic
     @JvmOverloads
     fun checkInBackground(context: Context, userInitiated: Boolean = false) {
+        if (!running.compareAndSet(false, true)) return
         val app = context.applicationContext
         Thread({
             try {
+                OtaUpdater.purgeCachedApks(app)
                 val current = app.packageManager.getPackageInfo(app.packageName, 0).versionName
                     ?: return@Thread
                 val update = OtaUpdater.check(current)
@@ -38,35 +36,17 @@ object UpdateHook {
                     return@Thread
                 }
 
-                // Anything already downloaded is verified before the user is pointed at it:
-                // a file in public Downloads can be swapped by another app.
-                val existing = File(
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    OtaUpdater.downloadFileName(update.versionName)
-                )
-                if (existing.isFile) {
-                    if (!OtaUpdater.signatureMatchesRunningApp(app, existing)) {
-                        val deleted = existing.delete()
-                        Log.w(TAG, "Rejected a foreign-signed update (deleted=$deleted)")
-                        if (userInitiated) toast(app, R.string.update_rejected)
-                    } else {
-                        Log.i(TAG, "Update already downloaded and verified: ${existing.name}")
-                        if (userInitiated) toast(app, R.string.update_already_downloaded)
-                    }
-                    return@Thread
-                }
-
-                OtaUpdater.download(app, update)
-                Handler(Looper.getMainLooper()).post {
-                    Toast.makeText(
-                        app,
-                        app.getString(R.string.update_downloading, update.versionName),
-                        Toast.LENGTH_LONG
-                    ).show()
+                val apk = OtaUpdater.download(app, update) ?: return@Thread
+                val installed = try { OtaUpdater.install(app, apk) } finally { apk.delete() }
+                if (!installed) {
+                    Log.w(TAG, "Automatic update installation failed")
+                    if (userInitiated) toast(app, R.string.update_check_failed)
                 }
             } catch (e: Exception) {
                 Log.w(TAG, "Update check failed", e)
                 if (userInitiated) toast(app, R.string.update_check_failed)
+            } finally {
+                running.set(false)
             }
         }, "ota-check").start()
     }

@@ -7,9 +7,7 @@
         tools:ignore="QueryAllPackagesPermission" />
 
     <!-- System-info page: read the active connection type and Wi-Fi link speed. Neither
-         permission opens a socket — INTERNET is declared by the unstable flavor only, and
-         REQUEST_INSTALL_PACKAGES is gone: the updater hands the APK to the user, not to the
-         package installer. -->
+         permission opens a socket; INTERNET is declared by the unstable flavor only. -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
@@ -37,6 +35,12 @@
 
         <activity
             android:name=".AppDrawerActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.MG4SimpleLauncher.Drawer" />
+
+        <activity
+            android:name=".suite.SuiteManagerActivity"
             android:exported="false"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.MG4SimpleLauncher.Drawer" />
