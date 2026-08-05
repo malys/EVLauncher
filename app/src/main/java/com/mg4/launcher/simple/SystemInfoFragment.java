@@ -3,7 +3,6 @@ package com.mg4.launcher.simple;
 import android.app.ActivityManager;
 import android.app.usage.StorageStatsManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -19,23 +18,16 @@ import android.os.Looper;
 import android.os.StatFs;
 import android.os.SystemClock;
 import android.os.storage.StorageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.button.MaterialButton;
 
 import java.util.Locale;
-import java.util.UUID;
 
 /**
  * Carousel page 2: live system information (device, memory, storage, network, uptime).
@@ -45,7 +37,6 @@ public class SystemInfoFragment extends Fragment {
 
     private static final long REFRESH_MS = 3_000;
     private static final double GB = 1024d * 1024d * 1024d;
-    private static final String REPOSITORY_URL = "https://github.com/malys/MG4SimpleLauncher";
 
     private final Handler handler = new Handler(Looper.getMainLooper());
 
@@ -78,28 +69,6 @@ public class SystemInfoFragment extends Fragment {
         storageValue = view.findViewById(R.id.tv_storage_value);
         networkValue = view.findViewById(R.id.tv_network_value);
         networkDetail = view.findViewById(R.id.tv_network_detail);
-        view.findViewById(R.id.about_button).setOnClickListener(v -> showAbout());
-    }
-
-    private void showAbout() {
-        Context ctx = requireContext();
-        String version;
-        try {
-            version = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0).versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            version = getString(R.string.about_version_unknown);
-        }
-        View content = getLayoutInflater().inflate(R.layout.dialog_about, null);
-        content.<TextView>findViewById(R.id.about_version).setText(getString(R.string.about_version, version));
-        ImageView qr = content.findViewById(R.id.about_qr_code);
-        android.graphics.Bitmap bitmap = QrCode.generate(REPOSITORY_URL, 416);
-        if (bitmap != null) qr.setImageBitmap(bitmap);
-        content.findViewById(R.id.about_repository).setOnClickListener(v ->
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(REPOSITORY_URL))));
-        androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(ctx).setView(content).create();
-        content.<MaterialButton>findViewById(R.id.about_close).setOnClickListener(v -> dialog.dismiss());
-        dialog.show();
-        if (dialog.getWindow() != null) dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
     @Override

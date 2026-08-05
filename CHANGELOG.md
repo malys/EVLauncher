@@ -14,6 +14,11 @@ All notable changes to this project are documented here. Format follows
 - The unstable suite catalogue follows the rolling `unstable` releases and `.unstable`
   package IDs used by MG4Tasker, MG4 ABRP Uploader, MG4 Swipe Launcher and this launcher.
 
+### Changed
+
+- Moved the About button from the System page to the app drawer header, next to
+  All apps / MG4Suite.
+
 ## [1.4.0] - 2026-08-02
 
 ### Changed
