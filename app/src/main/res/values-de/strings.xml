@@ -12,6 +12,7 @@
     <string name="cd_settings">Einstellungen</string>
     <string name="cd_files">Dateien</string>
     <string name="cd_back">Zurück</string>
+    <string name="about_action">Über</string>
 
     <!-- Zweite Karussellseite: Live-Systeminfos -->
     <string name="sys_device">Gerät</string>

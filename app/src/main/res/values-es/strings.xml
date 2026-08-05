@@ -12,6 +12,7 @@
     <string name="cd_settings">Ajustes</string>
     <string name="cd_files">Archivos</string>
     <string name="cd_back">Atrás</string>
+    <string name="about_action">Acerca de</string>
 
     <!-- Segunda página del carrusel: info del sistema en vivo -->
     <string name="sys_device">Dispositivo</string>
