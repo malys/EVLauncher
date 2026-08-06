@@ -35,4 +35,13 @@
     <string name="update_downloading">Descargando unstable %1$s</string>
     <string name="update_already_downloaded">Actualización ya descargada — ábrela desde Descargas</string>
     <string name="update_rejected">Actualización rechazada: firma incorrecta</string>
+    <string name="about_title">Acerca de MG4 Simple Launcher</string>
+    <string name="about_version">Versión %1$s</string>
+    <string name="about_attribution">Mantenido por malys\nFork de Tommasov/MG4_Simple_Launcher</string>
+    <string name="about_repository">github.com/malys/MG4SimpleLauncher</string>
+    <string name="about_made_with_love">Hecho con ❤ por malys</string>
+    <string name="about_logo_description">Logotipo de MG4 Simple Launcher</string>
+    <string name="about_qr_description">Código QR para el repositorio del proyecto</string>
+    <string name="about_version_unknown">desconocido</string>
+    <string name="about_close">Cerrar</string>
 </resources>
