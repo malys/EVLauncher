@@ -6,10 +6,13 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
 
-    <!-- System-info page: read the active connection type and Wi-Fi link speed. Neither
-         permission opens a socket; INTERNET is declared by the unstable flavor only. -->
+    <!-- System-info page: read the active connection type and Wi-Fi link speed. -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- Used only after the user opens MG4Suite and taps Refresh or Download. There is no
+         background check, self-update, installer permission, or privileged UID. -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"

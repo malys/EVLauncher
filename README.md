@@ -68,11 +68,10 @@ reset.
   - **All apps** (top card): every launchable app, in a grid.
   - **Two fixed shortcuts** (bottom card): the Android 9 default **Files** and
     **Settings** apps, side by side as icons.
-- **System apps & updates**: inside the *All apps* drawer, the header carries a
-  **System apps** button (only system apps, `FLAG_SYSTEM`) next to **Check for
-  updates** (unstable channel only), plus a **back** button to return home.
-- **MG4Suite manager**: the **MG4Suite** button detects suite apps and, on unstable,
-  checks their GitHub releases for missing installs and updates with changelogs.
+- **System apps**: inside the *All apps* drawer, the header filters system apps
+  (`FLAG_SYSTEM`) and provides a **back** button to return home.
+- **MG4Suite manager**: the **MG4Suite** button checks stable/offline GitHub releases only
+  on request, shows changelogs, and downloads verified APKs for manual installation.
 - **MG4 suite theme**: dark Material 3 on the shared `mg4_*` colour and spacing
   tokens, with the suite's 72 dp touch target. Dark is imposed rather than
   following the system: the screen faces the driver at night, and a light
@@ -83,27 +82,25 @@ reset.
 ## Channels
 Two build flavors, like the sibling apps:
 
-- **stable** — tagged releases, **no self-update**. The updater class is not in the
-  APK and the manifest declares no `INTERNET` permission. Installed offline, from a
-  USB stick.
-- **unstable** — a pre-release published on every push to `master`, with OTA so
-  testers stay current without manual work. Application id
+- **stable** — tagged releases with no self-update or installer capability.
+- **unstable** — a pre-release published on every push to `master`, also without
+  self-update or installer capability. Application id
   `com.mg4.launcher.simple.unstable`, so it installs beside a stable build (only one
   of the two can be the default home at a time).
 
-The unstable updater downloads to private cache, validates https and the GitHub allowlist
-at every redirect, verifies the running app's certificate, then installs automatically via
-`pm`. The suite manager uses the same path after explicit confirmation. Cached APKs are
-always deleted. See
-[SECURITY.md](SECURITY.md).
+Both channels update manually. The suite manager validates HTTPS and the GitHub allowlist
+at every redirect, verifies package identity and the suite certificate, then asks Android
+where to save the APK. It never invokes an installer, and private temporary APKs are always
+deleted. See [SECURITY.md](SECURITY.md).
 
 ## MG4Suite releases
 
-From **All apps → MG4Suite**, stable lists installed suite apps without network access.
-Unstable checks MG4Control's latest online release and each other app's rolling `unstable`
-GitHub prerelease, compares the numeric version carried by the APK asset name, and shows
-the changelog before download. Repositories and package names use a fixed allowlist. Every
-downloaded APK must carry the launcher's signing certificate and match its catalogue entry.
+From **All apps → MG4Suite**, tap **Refresh** to check each app's latest stable/offline
+GitHub release. Select an available version to read its changelog, then choose **Download
+APK** and a save location. To install, park the car, open **Files**, select the downloaded
+APK, review Android's app name and permissions, then tap **Install**. Repositories and
+package names use a fixed allowlist, every APK must carry the suite signing certificate,
+and the launcher cleans private MG4Suite APKs after export.
 
 ## Changing a pinned app
 **Long-press** a card to choose between *replace* and *remove*; replacing opens the
@@ -128,7 +125,7 @@ Standard Android project (Java + Kotlin, AGP 8.6, Gradle 8.7, `minSdk 28` /
 
 ```
 mise run build            # stable debug APK
-mise run build-unstable   # unstable debug APK (OTA enabled)
+mise run build-unstable   # unstable debug APK (manual updates only)
 mise run test             # JVM unit tests, both channels
 mise run permissions      # permission-drift gate, same check the CI runs
 ```
@@ -190,7 +187,7 @@ Every `uses-permission` must be listed with a justification in
 `.github/security/permission-allowlist.txt`, or the build fails.
 
 ## Project documents
-- [SECURITY.md](SECURITY.md) — threat model, what the OTA path guarantees, how to report
+- [SECURITY.md](SECURITY.md) — threat model, what the download path guarantees, how to report
   a vulnerability privately
 - [DISCLAIMER.md](DISCLAIMER.md) — no warranty, no liability, and what running this on a
   vehicle head unit means concretely

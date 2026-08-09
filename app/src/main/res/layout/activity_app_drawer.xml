@@ -60,12 +60,6 @@
             android:layout_marginEnd="@dimen/spacing_sm"
             android:text="@string/about_action" />
 
-        <TextView
-            android:id="@+id/check_updates_button"
-            style="@style/Widget.MG4.HeaderButton"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/touch_target"
-            android:text="@string/update_check_action" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

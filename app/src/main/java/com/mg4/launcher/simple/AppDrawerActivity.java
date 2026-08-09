@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.mg4.launcher.simple.update.UpdateHook;
 import com.mg4.launcher.simple.suite.SuiteManagerActivity;
 
 import java.util.ArrayList;
@@ -70,14 +69,6 @@ public class AppDrawerActivity extends AppCompatActivity {
         // Explicit back affordance for the head unit, mirroring the system back gesture.
         findViewById(R.id.drawer_back_button).setOnClickListener(v -> finish());
 
-        // The manual update check belongs in the browsing drawers, not the favorite picker,
-        // and only exists at all on the unstable channel — a stable build has no updater.
-        View checkUpdates = findViewById(R.id.check_updates_button);
-        if (MODE_PICK.equals(mode) || !BuildConfig.OTA_ENABLED) {
-            checkUpdates.setVisibility(View.GONE);
-        } else {
-            checkUpdates.setOnClickListener(v -> UpdateHook.checkInBackground(this, true));
-        }
 
         // System apps are reached from the "all apps" drawer header; redundant elsewhere.
         View systemApps = findViewById(R.id.system_apps_button);

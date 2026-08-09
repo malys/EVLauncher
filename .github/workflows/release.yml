@@ -4,7 +4,7 @@ name: Release
 #
 # Signed with the SAME platform key as the rest of the MG4 suite. The launcher needs no
 # privileged permission of its own; the shared key is what makes the suite one installable
-# set, and it is what an unstable build's OTA signature check compares against.
+# set, and it is what the manual suite downloader compares incoming APKs against.
 on:
   push:
     tags:
@@ -78,9 +78,9 @@ jobs:
           body: |
             ## MG4 Simple Launcher ${{ github.ref_name }}
 
-            Manual, offline installation. This build embeds **no auto-updater** and
-            contacts no server: the stable flavor has neither the updater code nor the
-            INTERNET permission.
+            This build has **no auto-updater** and no silent installer. The MG4Suite screen
+            checks allowlisted GitHub releases only after the user opens it, shows the
+            changelog, and exports verified APKs for manual installation.
 
             ### Install
             Copy the APK to a USB stick, open the car's Files app and tap it. Then set it

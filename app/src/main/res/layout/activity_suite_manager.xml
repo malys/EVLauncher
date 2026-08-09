@@ -60,6 +60,12 @@
                 android:layout_marginTop="@dimen/spacing_md"
                 android:text="@string/suite_loading"
                 android:textAppearance="@style/Text.MG4.Body" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_lg"
+                android:text="@string/suite_manual_install_help"
+                android:textAppearance="@style/Text.MG4.Secondary" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/suite_app_list"

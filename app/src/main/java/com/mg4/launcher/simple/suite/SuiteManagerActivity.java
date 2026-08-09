@@ -1,11 +1,14 @@
 package com.mg4.launcher.simple.suite;
 
 import android.os.Bundle;
+import android.net.Uri;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,13 +17,19 @@ import com.mg4.launcher.simple.R;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 
-/** Installed-app inventory plus the unstable channel's signed GitHub release catalogue. */
+/** User-initiated release check and verified APK export. Installation is always manual. */
 public final class SuiteManagerActivity extends AppCompatActivity {
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private RecyclerView list;
     private TextView repositoryStatus;
-    private boolean firstResume = true;
+    private File pendingApk;
+    private final ActivityResultLauncher<String> saveApk = registerForActivityResult(
+            new ActivityResultContracts.CreateDocument("application/vnd.android.package-archive"),
+            this::copyPendingApk);
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,23 +42,17 @@ public final class SuiteManagerActivity extends AppCompatActivity {
         refresh();
     }
 
-    @Override protected void onResume() {
-        super.onResume();
-        if (firstResume) firstResume = false; else refresh();
-    }
-
     private void refresh() {
         repositoryStatus.setText(R.string.suite_loading);
         executor.execute(() -> {
-            java.util.List<SuiteAppState> apps = SuiteRepositoryHook.inspect(this);
+            java.util.List<SuiteAppState> apps = SuiteRepository.inspect(this);
             runOnUiThread(() -> render(apps));
         });
     }
 
     private void render(java.util.List<SuiteAppState> apps) {
         if (isFinishing() || isDestroyed()) return;
-        repositoryStatus.setText(SuiteRepositoryHook.isOnline()
-                ? R.string.suite_online_ready : R.string.suite_stable_offline);
+        repositoryStatus.setText(R.string.suite_online_ready);
         list.setAdapter(new SuiteAppAdapter(apps, this::onAction));
     }
 
@@ -63,33 +66,68 @@ public final class SuiteManagerActivity extends AppCompatActivity {
                 ? getString(R.string.suite_no_release_notes) : app.changelog;
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.suite_release_notes, app.localVersion))
-                .setMessage(notes)
+                .setMessage(notes + "\n\n" + getString(R.string.suite_manual_install_help))
                 .setNegativeButton(R.string.suite_cancel, null)
-                .setPositiveButton(R.string.suite_confirm_install, (dialog, which) -> downloadAndInstall(app))
+                .setPositiveButton(R.string.suite_confirm_download, (dialog, which) -> download(app))
                 .show();
     }
 
-    private void downloadAndInstall(SuiteAppState app) {
+    private void download(SuiteAppState app) {
         repositoryStatus.setText(getString(R.string.suite_downloading, app.name));
         executor.execute(() -> {
-            java.io.File apk = SuiteRepositoryHook.download(this, app);
-            boolean installed = apk != null && SuiteRepositoryHook.install(this, app, apk);
-            if (apk != null && apk.exists()) apk.delete();
+            File apk = SuiteRepository.download(this, app);
             runOnUiThread(() -> {
                 if (isFinishing() || isDestroyed()) return;
                 if (apk == null) {
                     repositoryStatus.setText(R.string.suite_download_failed);
                     return;
                 }
-                repositoryStatus.setText(installed
-                        ? R.string.suite_install_complete : R.string.suite_install_failed);
-                if (installed) refresh();
+                pendingApk = apk;
+                repositoryStatus.setText(R.string.suite_choose_destination);
+                saveApk.launch(safeFileName(app));
             });
+        });
+    }
+
+    private String safeFileName(SuiteAppState app) {
+        String version = app.localVersion == null ? "latest"
+                : app.localVersion.replaceAll("[^0-9A-Za-z._-]", "_");
+        return app.name.replaceAll("[^0-9A-Za-z._-]", "-") + "-" + version + ".apk";
+    }
+
+    private void copyPendingApk(Uri destination) {
+        File source = pendingApk;
+        pendingApk = null;
+        if (source == null) return;
+        if (destination == null) {
+            source.delete();
+            repositoryStatus.setText(R.string.suite_online_ready);
+            return;
+        }
+        executor.execute(() -> {
+            boolean saved = false;
+            try (FileInputStream input = new FileInputStream(source);
+                 OutputStream output = getContentResolver().openOutputStream(destination, "w")) {
+                if (output == null) throw new java.io.IOException("No destination stream");
+                byte[] buffer = new byte[64 * 1024];
+                int count;
+                while ((count = input.read(buffer)) != -1) output.write(buffer, 0, count);
+                output.flush();
+                saved = true;
+            } catch (Exception ignored) {
+                // The actionable, localized error is shown below; no path or URI is exposed.
+            } finally {
+                source.delete();
+            }
+            boolean result = saved;
+            runOnUiThread(() -> repositoryStatus.setText(result
+                    ? R.string.suite_download_saved : R.string.suite_save_failed));
         });
     }
 
     @Override protected void onDestroy() {
         super.onDestroy();
+        if (pendingApk != null) pendingApk.delete();
         executor.shutdownNow();
     }
 }

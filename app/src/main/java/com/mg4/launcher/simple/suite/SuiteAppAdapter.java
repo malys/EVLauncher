@@ -41,7 +41,6 @@ final class SuiteAppAdapter extends RecyclerView.Adapter<SuiteAppAdapter.Holder>
     @Override public int getItemCount() { return apps.size(); }
 
     private static String status(View view, SuiteAppState app) {
-        if (app.invalidApk) return view.getContext().getString(R.string.suite_apk_invalid);
         if (app.action == SuiteAppState.Action.UPDATE) return view.getContext().getString(
                 R.string.suite_update_available, app.installedVersion, app.localVersion);
         if (app.action == SuiteAppState.Action.INSTALL) return view.getContext().getString(
@@ -55,8 +54,8 @@ final class SuiteAppAdapter extends RecyclerView.Adapter<SuiteAppAdapter.Holder>
 
     private static int actionLabel(View view, SuiteAppState.Action action) {
         switch (action) {
-            case INSTALL: return R.string.suite_install;
-            case UPDATE: return R.string.suite_update;
+            case INSTALL:
+            case UPDATE: return R.string.suite_download;
             case OPEN: return R.string.suite_open;
             default: return R.string.suite_open;
         }

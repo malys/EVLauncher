@@ -12,9 +12,9 @@ This app is the **home screen of a car**. That single fact drives everything bel
    normal bug: it strands the head unit. Guard every `PackageManager` result, every stored
    package name that may have been uninstalled, and every intent that may resolve to
    nothing.
-3. **Stable stays offline.** The `stable` flavor declares no `INTERNET` permission and
-   contains no updater code, by construction. Anything network-shaped goes in
-   `src/unstable/` behind `BuildConfig.OTA_ENABLED`, or it does not go in.
+3. **Updates stay manual.** Neither flavor contains a self-updater or privileged installer.
+   MG4Suite network access starts only from an explicit user action, and verified APKs are
+   exported through Android's document picker for later manual installation.
 4. **Say what you did not verify.** Most of this can only be confirmed on a head unit.
    "Builds, unit tests pass, tried on the emulator, not on the car" is a good PR note.
    Silence implying it ran in a vehicle is not.
@@ -42,7 +42,7 @@ Any new `uses-permission` fails CI until it is added to
 `.github/security/permission-allowlist.txt` **with a justification comment**. A launcher
 sees every installed package and starts on every boot; it should not gain capabilities
 quietly. The unstable suite manager may pass a GitHub-downloaded, fixed-package,
-suite-signed APK to `pm install` only after explicit confirmation.
+suite-signed APK only after explicit confirmation and never invokes an installer.
 
 ## The two channels
 

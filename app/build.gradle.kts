@@ -11,13 +11,13 @@ android {
         applicationId = "com.mg4.launcher.simple"
         minSdk = 28
         targetSdk = 34
-        versionCode = 5
-        versionName = "1.4"
+        versionCode = 6
+        versionName = "1.5.0"
     }
 
     // Signed with the SAME platform keystore as the rest of the MG4 suite (MG4Control,
     // MG4Tasker). The launcher claims no privileged permission of its own — the shared key
-    // is what makes the suite one installable set, and it is what the unstable OTA
+    // is what makes the suite one installable set, and it is what the manual download
     // signature check compares an incoming APK against.
     val keystorePath = System.getenv("MG4_KEYSTORE") ?: (project.findProperty("mg4.keystore") as String?)
     signingConfigs {
@@ -32,28 +32,24 @@ android {
     }
 
     // Distribution channels (mirrors MG4Tasker / MG4Control / ABRP):
-    //  - stable  : tagged releases, NO self-update. The updater class is not in the APK and
-    //              the manifest carries no INTERNET permission. Installed offline from USB.
-    //  - unstable: pre-releases published on every push to master, with OTA so testers stay
-    //              current without manual work. Installs alongside stable (.unstable suffix).
+    // Both channels have no self-updater and no privileged installer. The MG4Suite screen
+    // may check releases and export a verified APK only after explicit user actions.
     flavorDimensions += "channel"
     productFlavors {
         create("stable") {
             dimension = "channel"
-            buildConfigField("boolean", "OTA_ENABLED", "false")
         }
         create("unstable") {
             dimension = "channel"
             applicationIdSuffix = ".unstable"
             // Package Installer orders updates by versionCode. Keep the rolling build
-            // number in it as well as versionName so each OTA is an actual upgrade.
+            // number in it as well as versionName so Android sees each build as an upgrade.
             versionCode = defaultConfig.versionCode!! * 100_000 +
                 (project.findProperty("unstableBuild")?.toString()?.toIntOrNull() ?: 0)
-            // Version stays numerically comparable for the updater ("1.4.42-unstable"):
+            // Version stays numerically comparable for Android ("1.5.0.42-unstable"):
             // the CI passes -PunstableBuild=<n>; 0 locally.
             versionName = "${defaultConfig.versionName}.${project.findProperty("unstableBuild") ?: "0"}"
             versionNameSuffix = "-unstable"
-            buildConfigField("boolean", "OTA_ENABLED", "true")
         }
     }
 
@@ -97,8 +93,8 @@ kotlin {
 }
 
 // Prints the unstable versionName so the unstable workflow can name the APK asset
-// numerically comparable ("MG4SimpleLauncher-unstable-1.4.42.apk"). The pre-release itself
-// is always tagged "unstable" and overwritten, so the asset name is what the updater reads.
+// numerically comparable ("MG4SimpleLauncher-unstable-1.5.0.42.apk"). The pre-release itself
+// is always tagged "unstable" and overwritten, so the asset name carries the version.
 tasks.register("printUnstableVersion") {
     doLast {
         println("${android.defaultConfig.versionName}.${project.findProperty("unstableBuild") ?: "0"}")

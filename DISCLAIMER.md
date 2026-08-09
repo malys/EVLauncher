@@ -30,10 +30,9 @@ purposes**.
   are project compatibility targets, not a vendor specification. A firmware update can
   change the system UI, the available apps, or the
   launcher selection screen.
-- The **stable channel has no network access at all** — no `INTERNET` permission, no
-  updater code in the APK. The **unstable channel self-updates** from GitHub pre-releases
-  over https, with a host allowlist and a signature check, and is meant for testers, not
-  for a car you depend on. See [`SECURITY.md`](SECURITY.md).
+- Neither channel self-updates or silently installs APKs. The MG4Suite screen can check
+  allowlisted GitHub releases and download a package after confirmation; installation is
+  always a separate manual action. See [`SECURITY.md`](SECURITY.md).
 - Release builds are signed with the **MG4 suite platform key**. Installing them replaces
   any earlier build signed differently — you must uninstall first, and your favorites are
   reset.

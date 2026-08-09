@@ -31,17 +31,18 @@ final class OnlineSuiteRepository {
     private static final Map<String, String> RELEASE_APIS = new HashMap<>();
 
     static {
-        RELEASE_APIS.put("com.mg4.control", "https://api.github.com/repos/malys/MG4Control/releases/latest");
-        RELEASE_APIS.put("com.mg4.tasker.unstable", "https://api.github.com/repos/malys/MG4Tasker/releases/tags/unstable");
-        RELEASE_APIS.put("com.mg4.abrptelemetry.unstable", "https://api.github.com/repos/malys/MG4AbrpUploader/releases/tags/unstable");
-        RELEASE_APIS.put("com.mg4.launcher.swipe.unstable", "https://api.github.com/repos/malys/MG4SwipeLauncher/releases/tags/unstable");
-        RELEASE_APIS.put("com.mg4.launcher.simple.unstable", "https://api.github.com/repos/malys/MG4SimpleLauncher/releases/tags/unstable");
+        RELEASE_APIS.put("com.mg4.control.offline", "https://api.github.com/repos/malys/MG4Control/releases/latest");
+        RELEASE_APIS.put("com.mg4.tasker", "https://api.github.com/repos/malys/MG4Tasker/releases/latest");
+        RELEASE_APIS.put("com.mg4.abrptelemetry", "https://api.github.com/repos/malys/MG4AbrpUploader/releases/latest");
+        RELEASE_APIS.put("com.mg4.launcher.swipe", "https://api.github.com/repos/malys/MG4SwipeLauncher/releases/latest");
+        RELEASE_APIS.put("com.mg4.launcher.simple", "https://api.github.com/repos/malys/MG4SimpleLauncher/releases/latest");
     }
 
     private OnlineSuiteRepository() {}
 
     static List<SuiteAppState> inspect(Context context) {
-        List<SuiteAppState> apps = SuiteCatalog.installedUnstable(context);
+        purgeCachedApks(context);
+        List<SuiteAppState> apps = SuiteCatalog.installed(context);
         ExecutorService pool = Executors.newFixedThreadPool(apps.size());
         List<Future<?>> checks = new ArrayList<>();
         try {
@@ -84,8 +85,9 @@ final class OnlineSuiteRepository {
                 if (asset == null) continue;
                 String name = asset.optString("name", "").toLowerCase(Locale.US);
                 String url = asset.optString("browser_download_url", "");
-                boolean expectedChannel = app.packageName.endsWith(".unstable")
-                        ? name.contains("unstable") : !name.contains("offline") && !name.contains("unstable");
+                boolean expectedChannel = app.packageName.equals("com.mg4.control.offline")
+                        ? name.contains("offline") : !name.contains("offline") && !name.contains("unstable")
+                        && (name.contains("stable") || name.contains("release"));
                 if (name.endsWith(".apk") && expectedChannel && isAllowedUrl(url)) {
                     String assetVersion = versionFromAssetName(name);
                     String tagVersion = release.optString("tag_name", "").replaceFirst("^[vV]", "");
@@ -145,16 +147,12 @@ final class OnlineSuiteRepository {
         return null;
     }
 
-    static boolean install(Context context, SuiteAppState app, File apk) {
-        if (!SuiteApkSecurity.isTrustedSuiteApk(context, apk, app.packageName)) return false;
-        try {
-            Process process = new ProcessBuilder("/system/bin/pm", "install", "-r", apk.getAbsolutePath())
-                    .redirectErrorStream(true).start();
-            String output = readText(process.getInputStream());
-            return process.waitFor() == 0 && output.contains("Success");
-        } catch (Exception e) {
-            Log.w(TAG, "Package installation failed for " + app.packageName, e);
-            return false;
+    static void purgeCachedApks(Context context) {
+        File directory = new File(context.getCacheDir(), "suite-apks");
+        File[] files = directory.listFiles((dir, name) -> name.endsWith(".apk") || name.endsWith(".tmp"));
+        if (files == null) return;
+        for (File file : files) {
+            if (!file.delete()) Log.w(TAG, "Could not delete temporary suite APK: " + file.getName());
         }
     }
 

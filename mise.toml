@@ -48,7 +48,7 @@ description = "Build the stable debug APK"
 run = './gradlew -Dorg.gradle.java.home=$JAVA_HOME assembleStableDebug'
 
 [tasks.build-unstable]
-description = "Build the unstable debug APK (OTA enabled)"
+description = "Build the unstable debug APK (manual updates only)"
 run = './gradlew -Dorg.gradle.java.home=$JAVA_HOME assembleUnstableDebug'
 
 [tasks.test]

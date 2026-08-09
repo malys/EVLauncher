@@ -27,7 +27,7 @@
     <string name="sys_uptime">Allumé depuis %1$s</string>
     <string name="sys_android">Android %1$s · API %2$d</string>
     <string name="sys_launcher">Launcher %1$s (%2$d)</string>
-    <!-- Mise à jour OTA — canal unstable uniquement. Une build stable n\'a pas d\'updater. -->
+    <!-- Noms historiques conservés pour la compatibilité des traductions. -->
     <string name="update_check_action">Rechercher des mises à jour</string>
     <string name="update_up_to_date">Vous avez déjà la dernière version</string>
     <string name="update_check_failed">Impossible de vérifier les mises à jour</string>
@@ -67,4 +67,10 @@
     <string name="about_qr_description">QR code du dépôt du projet</string>
     <string name="about_version_unknown">inconnue</string>
     <string name="about_close">Fermer</string>
+    <string name="suite_download">Télécharger l’APK</string>
+    <string name="suite_confirm_download">Télécharger l’APK</string>
+    <string name="suite_choose_destination">Choisissez où enregistrer l’APK vérifié</string>
+    <string name="suite_download_saved">APK enregistré. Pour l’installer : garez le véhicule, ouvrez Fichiers, sélectionnez l’APK, vérifiez la demande Android, puis appuyez sur Installer.</string>
+    <string name="suite_save_failed">Impossible d’enregistrer l’APK. Choisissez un autre emplacement et réessayez.</string>
+    <string name="suite_manual_install_help">L’installation est toujours manuelle. Garez le véhicule, ouvrez Fichiers, sélectionnez l’APK téléchargé, vérifiez le nom et les autorisations, puis appuyez sur Installer. Les APK MG4Suite temporaires sont supprimés automatiquement.</string>
 </resources>

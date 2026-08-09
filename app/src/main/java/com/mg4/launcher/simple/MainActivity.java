@@ -6,7 +6,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.mg4.launcher.simple.update.UpdateHook;
 
 /**
  * Hosts the two-page home carousel ({@link HomePagerAdapter}) and the bottom pagination
@@ -38,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         pager.post(() -> updateIndicator(pager.getCurrentItem()));
 
         // Unstable builds check the pre-release channel on launch and download in the
-        // background. On stable this call is a no-op stub: the updater is not in the APK.
-        UpdateHook.checkInBackground(this);
     }
 
     /** Highlights the bar of the current page and shrinks the others (SAIC-style pagination). */

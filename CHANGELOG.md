@@ -6,16 +6,19 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-08-09
+
 ### Added
 
-- Added an MG4Suite manager that detects installed apps and, on unstable, reads GitHub
-  releases and changelogs, identifies updates, verifies package identity and the shared
-  signing certificate, and opens Android's installer after explicit confirmation.
-- The unstable suite catalogue follows the rolling `unstable` releases and `.unstable`
-  package IDs used by MG4Tasker, MG4 ABRP Uploader, MG4 Swipe Launcher and this launcher.
+- Added a user-initiated MG4Suite release checker for the stable/offline applications.
+- Added changelog review and verified APK export through Android's document picker.
+- Added manual installation guidance in English, French, German, Spanish and Italian.
 
 ### Changed
 
+- Removed automatic launcher updates from both channels.
+- Removed the privileged UID and silent `pm install` path. Installation is always manual.
+- Private temporary MG4Suite APKs are cleaned after saving, failure or cancellation.
 - Moved the About button from the System page to the app drawer header, next to
   All apps / MG4Suite.
 

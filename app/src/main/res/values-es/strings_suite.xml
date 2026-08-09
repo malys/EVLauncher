@@ -23,4 +23,10 @@
     <string name="suite_confirm_install">Continuar al instalador de Android</string>
     <string name="suite_install_complete">Instalación completada</string>
     <string name="suite_install_failed">No se pudo abrir el instalador de Android.</string>
+    <string name="suite_download">Descargar APK</string>
+    <string name="suite_confirm_download">Descargar APK</string>
+    <string name="suite_choose_destination">Elige dónde guardar el APK verificado</string>
+    <string name="suite_download_saved">APK guardado. Para instalarlo: estaciona el vehículo, abre Archivos, selecciona el APK, revisa el aviso de Android y toca Instalar.</string>
+    <string name="suite_save_failed">No se pudo guardar el APK. Elige otra ubicación e inténtalo de nuevo.</string>
+    <string name="suite_manual_install_help">La instalación siempre es manual. Estaciona el vehículo, abre Archivos, selecciona el APK descargado, revisa el nombre y los permisos y toca Instalar. Los APK temporales de MG4Suite se eliminan automáticamente.</string>
 </resources>

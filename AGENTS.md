@@ -29,21 +29,14 @@ and every `Intent` resolution is a failure path that has to degrade, not throw.
 |---|---|---|
 | Application id | `com.mg4.launcher.simple` | `com.mg4.launcher.simple.unstable` |
 | Published by | `v*` tag → `release.yml` | push to `master` → `unstable.yml`, rolling `unstable` tag |
-| `INTERNET` | absent from the manifest | declared in `src/unstable/AndroidManifest.xml` |
-| `BuildConfig.OTA_ENABLED` | `false` | `true` |
-| Updater | `src/stable/.../UpdateHook.kt` — a no-op | `src/unstable/.../{UpdateHook,OtaUpdater,ApkSignature}.kt` |
+| `INTERNET` | manual MG4Suite checks only | manual MG4Suite checks only |
+| Self-updater | absent | absent |
 
-`UpdateHook` is the flavour-aware seam: `MainActivity` and `AppDrawerActivity` call it
-without knowing which channel they were built into, and the stable variant does nothing.
-The stable APK does not merely disable the updater — the code is not in it. Keep it that
-way: nothing network-shaped in `src/main/`.
-
-The unstable OTA path is automatic: it downloads into app-private `cacheDir`, validates
-`https` plus the GitHub allowlist at every redirect, verifies the APK against the running
-app certificate, then runs `/system/bin/pm install -r`. Success requires both exit code 0
-and `Success` in the command output; the APK is always deleted afterwards. The unstable
-manifest alone opts into `android.uid.system`; stable remains an ordinary offline app.
-`OtaUpdaterTest` covers the pure policy gates and runs in CI.
+Neither channel checks or installs updates automatically. The MG4Suite screen checks only
+after an explicit Refresh, shows release notes, and downloads only after confirmation.
+It verifies the fixed package and suite certificate, exports through Android's document
+picker, and deletes every private temporary APK. Installation remains a separate manual
+action in Files. Neither channel uses `sharedUserId` or installer permissions.
 
 ## Permission allowlist is enforced, not documented
 
@@ -54,11 +47,9 @@ Adding a permission means editing the allowlist **with a justification** in the 
 
 Current surface: `QUERY_ALL_PACKAGES` (drawer), `ACCESS_NETWORK_STATE` +
 `ACCESS_WIFI_STATE` (system-info page, read-only, never SSID/BSSID/MAC),
-and `INTERNET` in unstable only for the confirmed MG4Suite release manager. Stable only
-inventories installed suite apps. The online manager
+and `INTERNET` only for the user-initiated MG4Suite release manager. The manager
 uses fixed GitHub repositories and fails closed on URL, identity or signature.
-It follows MG4Control's online release and the four rolling `unstable` releases; rolling
-versions come from the APK asset name because their fixed tag is always `unstable`.
+It follows the stable/offline releases of all five suite applications.
 
 ## Layout of the code
 
@@ -66,7 +57,7 @@ versions come from the APK asset name because their fixed tag is always `unstabl
 favourite cards, up to `PreferencesManager.MAX_FAVORITES`, plus the trailing "add" tile +
 all-apps / shortcut column) and `SystemInfoFragment` (device, memory, storage, network —
 all permission-free reads, refreshed only while visible). `AppDrawerActivity` is the full
-grid plus the system-apps filter (`FLAG_SYSTEM`) and, on unstable, the update button.
+grid plus the system-apps filter (`FLAG_SYSTEM`).
 `PreferencesManager` persists the chosen packages as one ordered, hole-free list, and
 migrates the old three-slot keys on first read; `AppLauncher`/`AppInfo`/
 `AppListAdapter` are the shared launch-and-list plumbing.
