@@ -11,8 +11,8 @@ android {
         applicationId = "com.mg4.launcher.simple"
         minSdk = 28
         targetSdk = 34
-        versionCode = 6
-        versionName = "1.5.0"
+        versionCode = 7
+        versionName = "1.5.1"
     }
 
     // Signed with the SAME platform keystore as the rest of the MG4 suite (MG4Control,

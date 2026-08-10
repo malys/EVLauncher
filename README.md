@@ -6,7 +6,7 @@
 [![Security](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/security.yml/badge.svg)](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/security.yml)
 [![Unstable](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/unstable.yml/badge.svg)](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/unstable.yml)
 [![Release](https://img.shields.io/github/v/release/malys/MG4_Simple_Launcher?include_prereleases&amp;sort=semver)](https://github.com/malys/MG4_Simple_Launcher/releases)
-[![License](https://img.shields.io/badge/license-see%20LICENSE-blue.svg)](LICENSE.md)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 
 MG4 Simple Launcher is a simple custom home launcher designed for the MG4 head
 unit (1920×720, landscape). It is part of the **MG4 app suite** (MG4Control,
@@ -192,8 +192,8 @@ Every `uses-permission` must be listed with a justification in
 - [DISCLAIMER.md](DISCLAIMER.md) — no warranty, no liability, and what running this on a
   vehicle head unit means concretely
 - [CONTRIBUTING.md](CONTRIBUTING.md) — ground rules and the checks to run before a PR
-- [LICENSE.md](LICENSE.md) — this is a fork of an **unlicensed** upstream project; read it
-  before reusing anything
+- [LICENSE.md](LICENSE.md) — MIT; this is a fork of an upstream project that publishes no
+  licence of its own, read it before reusing anything
 - [AGENTS.md](AGENTS.md) — architecture notes for contributors and coding agents
 
 ## Security

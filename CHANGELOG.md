@@ -6,6 +6,12 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-08-10
+
+### Changed
+
+- Clarified the MIT licensing terms and updated the README licence badge.
+
 ## [1.5.0] - 2026-08-09
 
 ### Added
