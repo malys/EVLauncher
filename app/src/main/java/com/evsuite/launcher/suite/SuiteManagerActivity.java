@@ -1,4 +1,4 @@
-package com.mg4.launcher.simple.suite;
+package com.evsuite.launcher.suite;
 
 import android.os.Bundle;
 import android.net.Uri;
@@ -12,8 +12,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mg4.launcher.simple.AppLauncher;
-import com.mg4.launcher.simple.R;
+import com.evsuite.launcher.AppLauncher;
+import com.evsuite.launcher.R;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

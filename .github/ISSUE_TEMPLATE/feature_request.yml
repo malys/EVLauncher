@@ -12,7 +12,7 @@ body:
 
         Have an idea to improve the launcher? We'd love to hear it!
 
-        **Before requesting:** Please check if a similar feature has been requested in [Discussions](https://github.com/malys/MG4SimpleLauncher/discussions).
+        **Before requesting:** Please check if a similar feature has been requested in [Discussions](https://github.com/malys/EVLauncher/discussions).
 
   - type: checkboxes
     id: checks
@@ -22,7 +22,7 @@ body:
       options:
         - label: I've checked existing issues/discussions and found no duplicate
           required: true
-        - label: This feature is for the launcher (not vehicle control — that's MG4Control/MG4Tasker)
+        - label: This feature is for the launcher (not vehicle control — that's EVProfile/EVTasker)
           required: true
         - label: I understand this project is not affiliated with SAIC/MG Motor
           required: false

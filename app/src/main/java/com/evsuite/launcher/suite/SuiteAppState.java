@@ -1,4 +1,4 @@
-package com.mg4.launcher.simple.suite;
+package com.evsuite.launcher.suite;
 
 final class SuiteAppState {
     enum Action { NONE, OPEN, INSTALL, UPDATE }

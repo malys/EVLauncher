@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sys_device"
-            android:textColor="@color/mg4_text_primary"
+            android:textColor="@color/ev_text_primary"
             android:textSize="@dimen/small_card_label_size"
             android:textStyle="bold" />
 
@@ -35,7 +35,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:lineSpacingExtra="6dp"
-            android:textColor="@color/mg4_text_secondary"
+            android:textColor="@color/ev_text_secondary"
             android:textSize="@dimen/info_card_body_size" />
     </LinearLayout>
 
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sys_memory"
-            android:textColor="@color/mg4_text_primary"
+            android:textColor="@color/ev_text_primary"
             android:textSize="@dimen/small_card_label_size"
             android:textStyle="bold" />
 
@@ -67,7 +67,7 @@
             android:id="@+id/tv_memory_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/mg4_text_primary"
+            android:textColor="@color/ev_text_primary"
             android:textSize="@dimen/sys_value_size"
             android:textStyle="bold" />
 
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sys_used_total"
-            android:textColor="@color/mg4_text_secondary"
+            android:textColor="@color/ev_text_secondary"
             android:textSize="@dimen/info_card_body_size" />
 
         <Space
@@ -99,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sys_storage"
-            android:textColor="@color/mg4_text_primary"
+            android:textColor="@color/ev_text_primary"
             android:textSize="@dimen/small_card_label_size"
             android:textStyle="bold" />
 
@@ -112,7 +112,7 @@
             android:id="@+id/tv_storage_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/mg4_text_primary"
+            android:textColor="@color/ev_text_primary"
             android:textSize="@dimen/sys_value_size"
             android:textStyle="bold" />
 
@@ -120,7 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sys_free_total"
-            android:textColor="@color/mg4_text_secondary"
+            android:textColor="@color/ev_text_secondary"
             android:textSize="@dimen/info_card_body_size" />
 
         <Space
@@ -143,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sys_network"
-            android:textColor="@color/mg4_text_primary"
+            android:textColor="@color/ev_text_primary"
             android:textSize="@dimen/small_card_label_size"
             android:textStyle="bold" />
 
@@ -156,7 +156,7 @@
             android:id="@+id/tv_network_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/mg4_text_primary"
+            android:textColor="@color/ev_text_primary"
             android:textSize="@dimen/sys_value_size"
             android:textStyle="bold" />
 
@@ -164,7 +164,7 @@
             android:id="@+id/tv_network_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/mg4_text_secondary"
+            android:textColor="@color/ev_text_secondary"
             android:textSize="@dimen/info_card_body_size" />
 
         <Space

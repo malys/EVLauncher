@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MG4 Simple Launcher"
+rootProject.name = "EVLauncher"
 include(":app")

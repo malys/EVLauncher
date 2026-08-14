@@ -1,4 +1,4 @@
-package com.mg4.launcher.simple.suite;
+package com.evsuite.launcher.suite;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

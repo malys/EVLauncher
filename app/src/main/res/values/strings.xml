@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MG4 Simple Launcher</string>
+    <string name="app_name">EVLauncher</string>
     <string name="all_apps">All apps</string>
     <string name="system_apps">System apps</string>
     <string name="add_favorite">Tap to choose</string>
@@ -33,7 +33,7 @@
     <string name="update_already_downloaded">Already downloaded</string>
     <string name="update_rejected">Update rejected</string>
 
-    <string name="suite_title">MG4Suite</string>
+    <string name="suite_title">EVSuite</string>
     <string name="suite_repository">Release source</string>
     <string name="suite_refresh">Refresh</string>
     <string name="suite_online_ready">Manual updates · checked on request · no automatic installation</string>
@@ -61,14 +61,14 @@
     <string name="suite_choose_destination">Choose where to save the verified APK</string>
     <string name="suite_download_saved">APK saved. To install: park the car, open Files, select the APK, review Android’s prompt, then tap Install.</string>
     <string name="suite_save_failed">The APK could not be saved. Choose another location and try again.</string>
-    <string name="suite_manual_install_help">Installation is always manual. Park the car, open Files, select the downloaded APK, review the app name and permissions, then tap Install. Old temporary MG4Suite APKs are deleted automatically.</string>
+    <string name="suite_manual_install_help">Installation is always manual. Park the car, open Files, select the downloaded APK, review the app name and permissions, then tap Install. Old temporary EVSuite APKs are deleted automatically.</string>
     <string name="about_action">About</string>
-    <string name="about_title">About MG4 Simple Launcher</string>
+    <string name="about_title">About EVLauncher</string>
     <string name="about_version">Version %1$s</string>
-    <string name="about_attribution">Maintained by malys\nFork of Tommasov/MG4_Simple_Launcher</string>
-    <string name="about_repository">github.com/malys/MG4SimpleLauncher</string>
+    <string name="about_attribution">Maintained by malys\nFork of Tommasov/EV_Simple_Launcher</string>
+    <string name="about_repository">github.com/malys/EVLauncher</string>
     <string name="about_made_with_love">Made with ❤ by malys</string>
-    <string name="about_logo_description">MG4 Simple Launcher logo</string>
+    <string name="about_logo_description">EVLauncher logo</string>
     <string name="about_qr_description">QR code for the project repository</string>
     <string name="about_version_unknown">unknown</string>
     <string name="about_close">Close</string>

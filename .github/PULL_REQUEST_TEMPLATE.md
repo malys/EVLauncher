@@ -78,7 +78,7 @@ Ensure all checks pass:
       `.github/security/permission-allowlist.txt` with a justification
 - [ ] Nothing network-shaped added to `src/main/`; OTA code stays in `src/unstable/` behind
       `BuildConfig.OTA_ENABLED`
-- [ ] New UI uses the shared `mg4_*` tokens and the 64 dp touch target, not hard-coded
+- [ ] New UI uses the shared `ev_*` tokens and the 64 dp touch target, not hard-coded
       colours or sizes
 
 ## Notes for the reviewer

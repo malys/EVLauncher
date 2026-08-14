@@ -1,4 +1,4 @@
-# Allowed permissions for MG4 Simple Launcher.
+# Allowed permissions for EVLauncher.
 # Any uses-permission in a manifest NOT listed here FAILS the CI.
 # Why: this app replaces the home screen. It runs on every boot, sees every installed
 # package, and is the first thing the driver touches. Every new permission widens that
@@ -16,8 +16,8 @@ android.permission.QUERY_ALL_PACKAGES
 android.permission.ACCESS_NETWORK_STATE
 android.permission.ACCESS_WIFI_STATE
 
-# --- User-initiated MG4Suite release checks ---
-# Used only when the MG4Suite screen checks GitHub or downloads a user-confirmed APK.
+# --- User-initiated EVSuite release checks ---
+# Used only when the EVSuite screen checks GitHub or downloads a user-confirmed APK.
 # There is no background check, self-update, silent installer, or remote-control path.
 android.permission.INTERNET
 

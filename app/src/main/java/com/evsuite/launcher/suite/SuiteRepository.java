@@ -1,11 +1,11 @@
-package com.mg4.launcher.simple.suite;
+package com.evsuite.launcher.suite;
 
 import android.content.Context;
 
 import java.io.File;
 import java.util.List;
 
-/** Flavor seam: only unstable contains the network-backed MG4Suite catalogue. */
+/** Flavor seam: only unstable contains the network-backed EVSuite catalogue. */
 public final class SuiteRepository {
     private SuiteRepository() {}
 

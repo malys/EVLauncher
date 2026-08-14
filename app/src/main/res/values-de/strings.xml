@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MG4 Simple Launcher</string>
+    <string name="app_name">EVLauncher</string>
     <string name="all_apps">Alle Apps</string>
     <string name="system_apps">System-Apps</string>
     <string name="add_favorite">Zum Auswählen tippen</string>
@@ -35,12 +35,12 @@
     <string name="update_downloading">Unstable %1$s wird heruntergeladen</string>
     <string name="update_already_downloaded">Update bereits heruntergeladen — in Downloads öffnen</string>
     <string name="update_rejected">Update abgelehnt: falsche Signatur</string>
-    <string name="about_title">Über MG4 Simple Launcher</string>
+    <string name="about_title">Über EVLauncher</string>
     <string name="about_version">Version %1$s</string>
-    <string name="about_attribution">Betreut von malys\nFork von Tommasov/MG4_Simple_Launcher</string>
-    <string name="about_repository">github.com/malys/MG4SimpleLauncher</string>
+    <string name="about_attribution">Betreut von malys\nFork von Tommasov/EV_Simple_Launcher</string>
+    <string name="about_repository">github.com/malys/EVLauncher</string>
     <string name="about_made_with_love">Mit ❤ gemacht von malys</string>
-    <string name="about_logo_description">MG4 Simple Launcher-Logo</string>
+    <string name="about_logo_description">EVLauncher-Logo</string>
     <string name="about_qr_description">QR-Code für das Projekt-Repository</string>
     <string name="about_version_unknown">unbekannt</string>
     <string name="about_close">Schließen</string>

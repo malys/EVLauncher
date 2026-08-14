@@ -1,4 +1,4 @@
-package com.mg4.launcher.simple.suite;
+package com.evsuite.launcher.suite;
 
 import org.junit.Test;
 
@@ -17,8 +17,8 @@ public class OnlineSuiteRepositoryTest {
     }
 
     @Test public void readsVersionOnlyFromVersionedApkName() {
-        assertEquals("1.4.12", OnlineSuiteRepository.versionFromAssetName("MG4Tasker-stable-1.4.12.apk"));
-        assertNull(OnlineSuiteRepository.versionFromAssetName("MG4Tasker-stable.apk"));
-        assertNull(OnlineSuiteRepository.versionFromAssetName("MG4Tasker-stable-1.4.12.zip"));
+        assertEquals("1.4.12", OnlineSuiteRepository.versionFromAssetName("EVTasker-stable-1.4.12.apk"));
+        assertNull(OnlineSuiteRepository.versionFromAssetName("EVTasker-stable.apk"));
+        assertNull(OnlineSuiteRepository.versionFromAssetName("EVTasker-stable-1.4.12.zip"));
     }
 }

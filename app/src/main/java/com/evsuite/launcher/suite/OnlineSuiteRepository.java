@@ -1,4 +1,4 @@
-package com.mg4.launcher.simple.suite;
+package com.evsuite.launcher.suite;
 
 import android.content.Context;
 import android.util.Log;
@@ -31,11 +31,11 @@ final class OnlineSuiteRepository {
     private static final Map<String, String> RELEASE_APIS = new HashMap<>();
 
     static {
-        RELEASE_APIS.put("com.mg4.control.offline", "https://api.github.com/repos/malys/MG4Control/releases/latest");
-        RELEASE_APIS.put("com.mg4.tasker", "https://api.github.com/repos/malys/MG4Tasker/releases/latest");
-        RELEASE_APIS.put("com.mg4.abrptelemetry", "https://api.github.com/repos/malys/MG4AbrpUploader/releases/latest");
-        RELEASE_APIS.put("com.mg4.launcher.swipe", "https://api.github.com/repos/malys/MG4SwipeLauncher/releases/latest");
-        RELEASE_APIS.put("com.mg4.launcher.simple", "https://api.github.com/repos/malys/MG4SimpleLauncher/releases/latest");
+        RELEASE_APIS.put("com.evsuite.profile.offline", "https://api.github.com/repos/malys/EVProfile/releases/latest");
+        RELEASE_APIS.put("com.evsuite.tasker", "https://api.github.com/repos/malys/EVTasker/releases/latest");
+        RELEASE_APIS.put("com.evsuite.abrp", "https://api.github.com/repos/malys/EVABRPUploader/releases/latest");
+        RELEASE_APIS.put("com.evsuite.swipe", "https://api.github.com/repos/malys/EVSwipe/releases/latest");
+        RELEASE_APIS.put("com.evsuite.launcher", "https://api.github.com/repos/malys/EVLauncher/releases/latest");
     }
 
     private OnlineSuiteRepository() {}
@@ -85,7 +85,7 @@ final class OnlineSuiteRepository {
                 if (asset == null) continue;
                 String name = asset.optString("name", "").toLowerCase(Locale.US);
                 String url = asset.optString("browser_download_url", "");
-                boolean expectedChannel = app.packageName.equals("com.mg4.control.offline")
+                boolean expectedChannel = app.packageName.equals("com.evsuite.profile.offline")
                         ? name.contains("offline") : !name.contains("offline") && !name.contains("unstable")
                         && (name.contains("stable") || name.contains("release"));
                 if (name.endsWith(".apk") && expectedChannel && isAllowedUrl(url)) {
@@ -181,7 +181,7 @@ final class OnlineSuiteRepository {
         connection.setConnectTimeout(TIMEOUT_MS);
         connection.setReadTimeout(TIMEOUT_MS);
         connection.setRequestProperty("Accept", "application/vnd.github+json");
-        connection.setRequestProperty("User-Agent", "MG4SimpleLauncher-Android");
+        connection.setRequestProperty("User-Agent", "EVLauncher-Android");
         return connection;
     }
 

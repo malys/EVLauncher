@@ -5,15 +5,15 @@ This app is the **home screen of a car**. That single fact drives everything bel
 ## Ground rules
 
 1. **The launcher holds no vehicle privileges.** No `android.car.*` permission, no
-   `sharedUserId`, no IPC to MG4Control. A patch that reaches the vehicle from here will be
-   rejected regardless of how useful it is — vehicle work belongs in MG4Control, and
-   automation in MG4Tasker.
+   `sharedUserId`, no IPC to EVProfile. A patch that reaches the vehicle from here will be
+   rejected regardless of how useful it is — vehicle work belongs in EVProfile, and
+   automation in EVTasker.
 2. **Never leave the driver without a home screen.** A crash on the home path is not a
    normal bug: it strands the head unit. Guard every `PackageManager` result, every stored
    package name that may have been uninstalled, and every intent that may resolve to
    nothing.
 3. **Updates stay manual.** Neither flavor contains a self-updater or privileged installer.
-   MG4Suite network access starts only from an explicit user action, and verified APKs are
+   EVSuite network access starts only from an explicit user action, and verified APKs are
    exported through Android's document picker for later manual installation.
 4. **Say what you did not verify.** Most of this can only be confirmed on a head unit.
    "Builds, unit tests pass, tried on the emulator, not on the car" is a good PR note.
@@ -49,7 +49,7 @@ suite-signed APK only after explicit confirmation and never invokes an installer
 | | stable | unstable |
 |---|---|---|
 | Published by | `v*` tag | every push to `master` |
-| Application id | `com.mg4.launcher.simple` | `com.mg4.launcher.simple.unstable` |
+| Application id | `com.evsuite.launcher` | `com.evsuite.launcher.unstable` |
 | `INTERNET` | absent | declared in `src/unstable/` |
 | Updater code | not in the APK | https + host allowlist + signature check |
 
@@ -59,7 +59,7 @@ that separation — an updater class reachable from `src/main/`, a permission mo
 
 ## UI
 
-Dark Material 3 on the shared `mg4_*` colour and spacing tokens, 64 dp touch targets. Dark
+Dark Material 3 on the shared `ev_*` colour and spacing tokens, 64 dp touch targets. Dark
 is imposed rather than following the system: the screen faces the driver at night, and a
 light background filling the windscreen is glare, not a preference. Keep new surfaces on
 the tokens instead of hard-coded colours or dimensions.

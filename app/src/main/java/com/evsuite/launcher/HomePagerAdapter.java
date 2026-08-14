@@ -1,4 +1,4 @@
-package com.mg4.launcher.simple;
+package com.evsuite.launcher;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

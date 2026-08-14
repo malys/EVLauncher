@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="120" viewBox="0 0 480 120" role="img" aria-label="MG4 Simple Launcher">
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="120" viewBox="0 0 480 120" role="img" aria-label="EVLauncher">
   <rect x="1" y="1" width="478" height="118" rx="16" fill="#12161a" stroke="#232a31" stroke-width="2"/>
   <g transform="translate(35,28)">
     <rect x="0" y="0" width="20" height="20" rx="4" fill="#e0424c"/><rect x="29" y="0" width="20" height="20" rx="4" fill="#f4f7fa"/>
     <rect x="0" y="29" width="20" height="20" rx="4" fill="#f4f7fa"/><rect x="29" y="29" width="20" height="20" rx="4" fill="#f4f7fa"/>
   </g>
-  <text x="128" y="56" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="31" font-weight="700" fill="#eef2f5">MG4<tspan fill="#e0424c"> Simple Launcher</tspan></text>
+  <text x="128" y="56" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="31" font-weight="700" fill="#eef2f5">EV<tspan fill="#e0424c">Launcher</tspan></text>
   <text x="129" y="82" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="15" fill="#9aa4ad">Fast, focused home screen for the MG4</text>
   <text x="129" y="101" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#5b6670">SAIC MG4 · AAOS 9 · touch-first</text>
 </svg>

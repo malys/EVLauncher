@@ -1,13 +1,13 @@
-# AGENTS.md — MG4 Simple Launcher
+# AGENTS.md — EVLauncher
 
 Custom home launcher for the SAIC MG4 head unit (1920×720, landscape). Part of
-**MG4Suite** alongside [MG4Control](../MG4Control), [MG4Tasker](../MG4Tasker),
-[MG4ABRPUploader](../MG4ABRPUploader) and [MG4 Swipe Launcher](../MG4SwipeLauncher).
+**EVSuite** alongside [EVProfile](../EVProfile), [EVTasker](../EVTasker),
+[EVABRPUploader](../EVABRPUploader) and [EVSwipe](../EVSwipe).
 
 The workspace `AGENTS.md` and normative workspace `DESIGN.md` apply; this file contains
 only launcher-specific additions.
 
-Fork of [Tommasov/MG4_Simple_Launcher](https://github.com/Tommasov/MG4_Simple_Launcher) —
+Fork of [Tommasov/EV_Simple_Launcher](https://github.com/Tommasov/EV_Simple_Launcher) —
 see [`LICENSE.md`](LICENSE.md), the licence situation is not the usual one.
 
 Commit author: malys.training@gmail.com
@@ -15,8 +15,8 @@ Commit author: malys.training@gmail.com
 ## The one rule that shapes everything
 
 **This app never touches the vehicle.** No `android.car.*` permission, no `sharedUserId`,
-no IPC to MG4Control. It is an ordinary app that happens to be `CATEGORY_HOME`. Vehicle
-reads and writes belong in MG4Control; automation belongs in MG4Tasker.
+no IPC to EVProfile. It is an ordinary app that happens to be `CATEGORY_HOME`. Vehicle
+reads and writes belong in EVProfile; automation belongs in EVTasker.
 
 The second rule follows from the first: **it must not strand the driver**. A launcher that
 crashes on the home path leaves the head unit with no home screen. Every
@@ -27,12 +27,12 @@ and every `Intent` resolution is a failure path that has to degrade, not throw.
 
 | | stable | unstable |
 |---|---|---|
-| Application id | `com.mg4.launcher.simple` | `com.mg4.launcher.simple.unstable` |
+| Application id | `com.evsuite.launcher` | `com.evsuite.launcher.unstable` |
 | Published by | `v*` tag → `release.yml` | push to `master` → `unstable.yml`, rolling `unstable` tag |
-| `INTERNET` | manual MG4Suite checks only | manual MG4Suite checks only |
+| `INTERNET` | manual EVSuite checks only | manual EVSuite checks only |
 | Self-updater | absent | absent |
 
-Neither channel checks or installs updates automatically. The MG4Suite screen checks only
+Neither channel checks or installs updates automatically. The EVSuite screen checks only
 after an explicit Refresh, shows release notes, and downloads only after confirmation.
 It verifies the fixed package and suite certificate, exports through Android's document
 picker, and deletes every private temporary APK. Installation remains a separate manual
@@ -47,7 +47,7 @@ Adding a permission means editing the allowlist **with a justification** in the 
 
 Current surface: `QUERY_ALL_PACKAGES` (drawer), `ACCESS_NETWORK_STATE` +
 `ACCESS_WIFI_STATE` (system-info page, read-only, never SSID/BSSID/MAC),
-and `INTERNET` only for the user-initiated MG4Suite release manager. The manager
+and `INTERNET` only for the user-initiated EVSuite release manager. The manager
 uses fixed GitHub repositories and fails closed on URL, identity or signature.
 It follows the stable/offline releases of all five suite applications.
 
@@ -64,12 +64,12 @@ migrates the old three-slot keys on first read; `AppLauncher`/`AppInfo`/
 
 ## Reference patterns (shared with the suite)
 
-- **Signing**: the MG4 suite platform key, path + passwords from env vars (CI) or
+- **Signing**: the EVSuite platform key, path + passwords from env vars (CI) or
   `gradle.properties` (local); the `signingConfig` is created only if the keystore file
   exists. Never a literal secret in a build file.
 - **Security CI**: `.github/workflows/security.yml` — blocking permission-drift gate +
   gitleaks, plus informational SARIF from mobsfscan / semgrep / dependency-check.
-- **Theme**: dark Material 3 on the shared `mg4_*` colour and spacing tokens, 72 dp touch
+- **Theme**: dark Material 3 on the shared `ev_*` colour and spacing tokens, 72 dp touch
   targets. Dark is imposed, not system-following — glare on a windscreen at night.
 - **Language**: English by default (code, comments, commits, docs).
 

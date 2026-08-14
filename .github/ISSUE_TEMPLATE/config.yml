@@ -3,9 +3,9 @@ contact_links:
   - name: Security vulnerability
     url: ../../security/advisories/new
     about: Report privately, never in a public issue.
-  - name: Upstream project (Tommasov/MG4_Simple_Launcher)
-    url: https://github.com/Tommasov/MG4_Simple_Launcher
+  - name: Upstream project (Tommasov/EV_Simple_Launcher)
+    url: https://github.com/Tommasov/EV_Simple_Launcher
     about: This repo is a fork. Anything that also happens on the original belongs there.
-  - name: MG4Control (the bridge / vehicle layer)
-    url: ../../../MG4Control
+  - name: EVProfile (the bridge / vehicle layer)
+    url: ../../../EVProfile
     about: The launcher holds no vehicle privileges. Anything about reading or writing the car belongs there.

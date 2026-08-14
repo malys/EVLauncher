@@ -1,21 +1,22 @@
-# MG4 Simple Launcher
+# EVLauncher
 
-<p align="center"><img src="docs/logo.svg" width="440" alt="MG4 Simple Launcher"></p>
+<p align="center"><img src="docs/logo.svg" width="440" alt="EVLauncher"></p>
 
-[![Tests](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/tests.yml/badge.svg)](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/tests.yml)
-[![Security](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/security.yml/badge.svg)](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/security.yml)
-[![Unstable](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/unstable.yml/badge.svg)](https://github.com/malys/MG4_Simple_Launcher/actions/workflows/unstable.yml)
-[![Release](https://img.shields.io/github/v/release/malys/MG4_Simple_Launcher?include_prereleases&amp;sort=semver)](https://github.com/malys/MG4_Simple_Launcher/releases)
+[![Tests](https://github.com/malys/EV_Simple_Launcher/actions/workflows/tests.yml/badge.svg)](https://github.com/malys/EV_Simple_Launcher/actions/workflows/tests.yml)
+[![Security](https://github.com/malys/EV_Simple_Launcher/actions/workflows/security.yml/badge.svg)](https://github.com/malys/EV_Simple_Launcher/actions/workflows/security.yml)
+[![Unstable](https://github.com/malys/EV_Simple_Launcher/actions/workflows/unstable.yml/badge.svg)](https://github.com/malys/EV_Simple_Launcher/actions/workflows/unstable.yml)
+[![Release](https://img.shields.io/github/v/release/malys/EV_Simple_Launcher?include_prereleases&amp;sort=semver)](https://github.com/malys/EV_Simple_Launcher/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 
-MG4 Simple Launcher is a simple custom home launcher designed for the MG4 head
-unit (1920×720, landscape). It is part of the **MG4 app suite** (MG4Control,
-MG4Tasker, MG4ABRPUploader, MG4 Swipe Launcher) and shares its dark Material 3
+EVLauncher is a simple custom home launcher designed for the MG4 head
+unit (1920×720, landscape). It is part of the **EVSuite** (EVProfile,
+EVTasker, EVABRPUploader, EVSwipe) and shares its dark Material 3
 theme, its CI/CD and security gates, and its two-channel release model.
 
 > ⚠️ **This software runs on a vehicle head unit.** Do not interact with it while
 > driving. Read [DISCLAIMER.md](DISCLAIMER.md) before installing. This independent
-> project is not affiliated with SAIC Motor or MG Motor.
+> project is not affiliated with or approved by SAIC Motor or MG Motor. MG and MG4 are
+> third-party marks used only to identify compatibility.
 
 ---
 
@@ -25,7 +26,7 @@ theme, its CI/CD and security gates, and its two-channel release model.
 - [⚠️ Upgrading from an earlier build — please read](#upgrading-from-an-earlier-build-please-read)
 - [Features](#features)
 - [Channels](#channels)
-- [MG4Suite releases](#mg4suite-releases)
+- [EVSuite releases](#evsuite-releases)
 - [Changing a pinned app](#changing-a-pinned-app)
 - [Second screen (system info)](#second-screen-system-info)
 - [Building](#building)
@@ -40,17 +41,17 @@ theme, its CI/CD and security gates, and its two-channel release model.
 </p>
 
 <p align="center">
-  <img src="https://ws2.tommasovietina.it/mg4/MG4_Simple_Launcher/Screenshot_1782141845.png" alt="MG4 Simple Launcher — home screen" width="800" />
+  <img src="https://ws2.tommasovietina.it/mg4/EV_Simple_Launcher/Screenshot_1782141845.png" alt="EVLauncher — home screen" width="800" />
 </p>
 
 <p align="center">
-  <img src="https://ws2.tommasovietina.it/mg4/MG4_Simple_Launcher/Screenshot_1782141854.png" alt="MG4 Simple Launcher — system info screen" width="800" />
+  <img src="https://ws2.tommasovietina.it/mg4/EV_Simple_Launcher/Screenshot_1782141854.png" alt="EVLauncher — system info screen" width="800" />
 </p>
 
 ## ⚠️ Upgrading from an earlier build — please read
-The application id changed from `com.tommasov.mg4simplelauncher` to
-**`com.mg4.launcher.simple`**, and the app is now signed with the **MG4 suite platform
-key** (the same key as MG4Control and MG4Tasker). Either change alone forces a fresh
+The application id changed from `com.evsuite.launcher` to
+**`com.evsuite.launcher`**, and the app is now signed with the **EVSuite platform
+key** (the same key as EVProfile and EVTasker). Either change alone forces a fresh
 install: **uninstall the previous version first**, then install the new one, then set it
 as the default home again from Android settings. Favorites are stored per-app, so they are
 reset.
@@ -70,9 +71,9 @@ reset.
     **Settings** apps, side by side as icons.
 - **System apps**: inside the *All apps* drawer, the header filters system apps
   (`FLAG_SYSTEM`) and provides a **back** button to return home.
-- **MG4Suite manager**: the **MG4Suite** button checks stable/offline GitHub releases only
+- **EVSuite manager**: the **EVSuite** button checks stable/offline GitHub releases only
   on request, shows changelogs, and downloads verified APKs for manual installation.
-- **MG4 suite theme**: dark Material 3 on the shared `mg4_*` colour and spacing
+- **EVSuite theme**: dark Material 3 on the shared `ev_*` colour and spacing
   tokens, with the suite's 72 dp touch target. Dark is imposed rather than
   following the system: the screen faces the driver at night, and a light
   background filling the windscreen is glare, not a preference.
@@ -85,7 +86,7 @@ Two build flavors, like the sibling apps:
 - **stable** — tagged releases with no self-update or installer capability.
 - **unstable** — a pre-release published on every push to `master`, also without
   self-update or installer capability. Application id
-  `com.mg4.launcher.simple.unstable`, so it installs beside a stable build (only one
+  `com.evsuite.launcher.unstable`, so it installs beside a stable build (only one
   of the two can be the default home at a time).
 
 Both channels update manually. The suite manager validates HTTPS and the GitHub allowlist
@@ -93,14 +94,14 @@ at every redirect, verifies package identity and the suite certificate, then ask
 where to save the APK. It never invokes an installer, and private temporary APKs are always
 deleted. See [SECURITY.md](SECURITY.md).
 
-## MG4Suite releases
+## EVSuite releases
 
-From **All apps → MG4Suite**, tap **Refresh** to check each app's latest stable/offline
+From **All apps → EVSuite**, tap **Refresh** to check each app's latest stable/offline
 GitHub release. Select an available version to read its changelog, then choose **Download
 APK** and a save location. To install, park the car, open **Files**, select the downloaded
 APK, review Android's app name and permissions, then tap **Install**. Repositories and
 package names use a fixed allowlist, every APK must carry the suite signing certificate,
-and the launcher cleans private MG4Suite APKs after export.
+and the launcher cleans private EVSuite APKs after export.
 
 ## Changing a pinned app
 **Long-press** a card to choose between *replace* and *remove*; replacing opens the
@@ -140,13 +141,13 @@ Or directly:
 APKs land under `app/build/outputs/apk/<channel>/debug/`.
 
 To sign locally, in `gradle.properties` (never committed) or as environment
-variables — the same MG4 suite platform key used by MG4Control and MG4Tasker:
+variables — the same EVSuite platform key used by EVProfile and EVTasker:
 
 ```
-mg4.keystore=/path/to/platform.keystore
-mg4.keystore.password=…
-mg4.key.alias=platform
-mg4.key.password=…
+evsuite.keystore=/path/to/platform.keystore
+evsuite.keystore.password=…
+evsuite.key.alias=platform
+evsuite.key.password=…
 ```
 
 
@@ -167,8 +168,8 @@ matters here — the project targets 1920x1080 @ 160dpi
 system UI; set `EMU_HEIGHT=720` in `mise.toml` and re-run `emulator-setup` to model that
 instead.
 
-The AVDs are named per repo (`mg4simple-*`, `mg4swipe-*`), matching the `mg4tasker-*` /
-`mg4abrp-*` convention used by the sibling projects.
+The AVDs are named per repo (`mg4simple-*`, `evswipe-*`), matching the `evtasker-*` /
+`evabrp-*` convention used by the sibling projects.
 
 `mise run run` starts the launcher as an ordinary activity — that does **not** make it the
 default home. Use `mise run set-home` (or press Home on the emulator and pick it in the

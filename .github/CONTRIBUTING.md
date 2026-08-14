@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in contributing to MG4SimpleLauncher! This guide explains how to report issues, suggest features, and submit code contributions—with optional support from Claude AI.
+Thank you for your interest in contributing to EVLauncher! This guide explains how to report issues, suggest features, and submit code contributions—with optional support from Claude AI.
 
 ## Table of Contents
 
@@ -85,7 +85,7 @@ Claude can help you:
 
 1. **Fork** the repository
 2. **Create a branch**: `git checkout -b feature/my-feature` or `git checkout -b fix/my-bug`
-3. **Verify scope**: Is this launcher-only? (Vehicle control → MG4Control, automation → MG4Tasker)
+3. **Verify scope**: Is this launcher-only? (Vehicle control → EVProfile, automation → EVTasker)
 
 ### Code Quality
 

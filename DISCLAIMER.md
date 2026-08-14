@@ -23,25 +23,26 @@ purposes**.
   drawer or browsing system info is parked-only work. Nothing here needs attention on the
   move.
 - The launcher **holds no vehicle privileges**: no `android.car.*` permission, no
-  `sharedUserId`, no bridge to MG4Control. It cannot read or change a vehicle setting, and
+  `sharedUserId`, no bridge to EVProfile. It cannot read or change a vehicle setting, and
   a bug in it cannot write to the car. What it *can* do is start other apps and occupy the
   screen the driver looks at.
 - **Compatibility is inferred, not certified.** The panel geometry and Android version
   are project compatibility targets, not a vendor specification. A firmware update can
   change the system UI, the available apps, or the
   launcher selection screen.
-- Neither channel self-updates or silently installs APKs. The MG4Suite screen can check
+- Neither channel self-updates or silently installs APKs. The EVSuite screen can check
   allowlisted GitHub releases and download a package after confirmation; installation is
   always a separate manual action. See [`SECURITY.md`](SECURITY.md).
-- Release builds are signed with the **MG4 suite platform key**. Installing them replaces
+- Release builds are signed with the **EVSuite platform key**. Installing them replaces
   any earlier build signed differently — you must uninstall first, and your favorites are
   reset.
 
 ## Not affiliated
 
 This project is **not affiliated with, endorsed by, or supported by** SAIC Motor, MG Motor,
-or Google. All trademarks, brand names and graphic resources belong to their respective
-owners and are used only to identify the vehicle the software targets.
+or Google. MG, MG4 and related names and logos are trademarks of their respective owners.
+They are used solely to identify compatibility with certain vehicles; no official origin,
+certification or approval is claimed. Other marks belong to their respective owners.
 
 ## Contributors
 

@@ -1,4 +1,4 @@
-package com.mg4.launcher.simple;
+package com.evsuite.launcher;
 
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.mg4.launcher.simple.suite.SuiteManagerActivity;
+import com.evsuite.launcher.suite.SuiteManagerActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,7 +44,7 @@ public class AppDrawerActivity extends AppCompatActivity {
     public static final String MODE_SYSTEM = "system";
     public static final String MODE_PICK = "pick";
 
-    private static final String REPOSITORY_URL = "https://github.com/malys/MG4SimpleLauncher";
+    private static final String REPOSITORY_URL = "https://github.com/malys/EVLauncher";
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());

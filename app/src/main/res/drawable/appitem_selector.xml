@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- One app tile in the drawer grid. Flat on the background until touched. -->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/mg4_pressed_strong">
+    android:color="@color/ev_pressed_strong">
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/mg4_corner" />
+            <corners android:radius="@dimen/ev_corner" />
             <solid android:color="@android:color/white" />
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/mg4_corner" />
+            <corners android:radius="@dimen/ev_corner" />
             <solid android:color="@android:color/transparent" />
         </shape>
     </item>

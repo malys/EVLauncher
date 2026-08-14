@@ -4,35 +4,35 @@ plugins {
 }
 
 android {
-    namespace = "com.mg4.launcher.simple"
+    namespace = "com.evsuite.launcher"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.mg4.launcher.simple"
+        applicationId = "com.evsuite.launcher"
         minSdk = 28
         targetSdk = 34
         versionCode = 7
         versionName = "1.5.1"
     }
 
-    // Signed with the SAME platform keystore as the rest of the MG4 suite (MG4Control,
-    // MG4Tasker). The launcher claims no privileged permission of its own — the shared key
+    // Signed with the SAME platform keystore as the rest of the EVSuite (EVProfile,
+    // EVTasker). The launcher claims no privileged permission of its own — the shared key
     // is what makes the suite one installable set, and it is what the manual download
     // signature check compares an incoming APK against.
-    val keystorePath = System.getenv("MG4_KEYSTORE") ?: (project.findProperty("mg4.keystore") as String?)
+    val keystorePath = System.getenv("EV_KEYSTORE") ?: (project.findProperty("evsuite.keystore") as String?)
     signingConfigs {
         if (keystorePath != null && file(keystorePath).exists()) {
             create("platform") {
                 storeFile = file(keystorePath)
-                storePassword = System.getenv("MG4_KEYSTORE_PASSWORD") ?: (project.findProperty("mg4.keystore.password") as String?)
-                keyAlias = System.getenv("MG4_KEY_ALIAS") ?: (project.findProperty("mg4.key.alias") as String?) ?: "platform"
-                keyPassword = System.getenv("MG4_KEY_PASSWORD") ?: (project.findProperty("mg4.key.password") as String?)
+                storePassword = System.getenv("EV_KEYSTORE_PASSWORD") ?: (project.findProperty("evsuite.keystore.password") as String?)
+                keyAlias = System.getenv("EV_KEY_ALIAS") ?: (project.findProperty("evsuite.key.alias") as String?) ?: "platform"
+                keyPassword = System.getenv("EV_KEY_PASSWORD") ?: (project.findProperty("evsuite.key.password") as String?)
             }
         }
     }
 
-    // Distribution channels (mirrors MG4Tasker / MG4Control / ABRP):
-    // Both channels have no self-updater and no privileged installer. The MG4Suite screen
+    // Distribution channels (mirrors EVTasker / EVProfile / ABRP):
+    // Both channels have no self-updater and no privileged installer. The EVSuite screen
     // may check releases and export a verified APK only after explicit user actions.
     flavorDimensions += "channel"
     productFlavors {
@@ -93,7 +93,7 @@ kotlin {
 }
 
 // Prints the unstable versionName so the unstable workflow can name the APK asset
-// numerically comparable ("MG4SimpleLauncher-unstable-1.5.0.42.apk"). The pre-release itself
+// numerically comparable ("EVLauncher-unstable-1.5.0.42.apk"). The pre-release itself
 // is always tagged "unstable" and overwritten, so the asset name carries the version.
 tasks.register("printUnstableVersion") {
     doLast {

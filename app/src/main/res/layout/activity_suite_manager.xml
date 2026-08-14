@@ -15,7 +15,7 @@
             android:layout_width="@dimen/touch_target"
             android:layout_height="@dimen/touch_target"
             android:layout_marginEnd="@dimen/spacing_md"
-            android:background="@drawable/mg4_tonal_button"
+            android:background="@drawable/ev_tonal_button"
             android:clickable="true"
             android:contentDescription="@string/cd_back"
             android:focusable="true"
@@ -26,12 +26,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/suite_title"
-            android:textAppearance="@style/Text.MG4.Title"
+            android:textAppearance="@style/Text.EV.Title"
             android:textSize="@dimen/drawer_title_size"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/suite_refresh_button"
-            style="@style/Widget.MG4.HeaderButton"
+            style="@style/Widget.EV.HeaderButton"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/touch_target"
             android:text="@string/suite_refresh" />
@@ -52,20 +52,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/suite_repository"
-                android:textAppearance="@style/Text.MG4.SectionHeader" />
+                android:textAppearance="@style/Text.EV.SectionHeader" />
             <TextView
                 android:id="@+id/suite_repository_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_md"
                 android:text="@string/suite_loading"
-                android:textAppearance="@style/Text.MG4.Body" />
+                android:textAppearance="@style/Text.EV.Body" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_lg"
                 android:text="@string/suite_manual_install_help"
-                android:textAppearance="@style/Text.MG4.Secondary" />
+                android:textAppearance="@style/Text.EV.Secondary" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/suite_app_list"

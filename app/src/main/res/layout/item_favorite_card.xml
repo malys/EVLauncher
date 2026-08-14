@@ -38,6 +38,6 @@
         android:gravity="center"
         android:maxLines="1"
         android:text="@string/add_favorite"
-        android:textColor="@color/mg4_text_primary"
+        android:textColor="@color/ev_text_primary"
         android:textSize="@dimen/favorite_label_size" />
 </LinearLayout>

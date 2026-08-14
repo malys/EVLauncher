@@ -69,7 +69,7 @@ jobs:
         if: always()
         run: |
           {
-            echo "# MG4 Simple Launcher security report"
+            echo "# EVLauncher security report"
             echo "_$(date -u)_"
             echo
             echo "## mobsfscan"
@@ -100,7 +100,7 @@ jobs:
         if: ${{ env.NVD_API_KEY != '' }}
         uses: dependency-check/Dependency-Check_Action@main
         with:
-          project: MG4_Simple_Launcher
+          project: EV_Simple_Launcher
           path: "."
           format: "SARIF"
           args: --nvdApiKey ${{ env.NVD_API_KEY }}

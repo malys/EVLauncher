@@ -1,4 +1,4 @@
-package com.mg4.launcher.simple;
+package com.evsuite.launcher;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,7 +14,7 @@ import java.util.List;
  * {@code favorite_0..2} keys on first read — updating the launcher keeps the home page.
  */
 public class PreferencesManager {
-    private static final String PREFS_NAME = "mg4_system_launcher";
+    private static final String PREFS_NAME = "ev_system_launcher";
     private static final String KEY_FAVORITES = "favorites";
 
     /** Legacy fixed-slot keys, read once and migrated to {@link #KEY_FAVORITES}. */

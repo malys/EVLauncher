@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <!-- Used only after the user opens MG4Suite and taps Refresh or Download. There is no
+    <!-- Used only after the user opens EVSuite and taps Refresh or Download. There is no
          background check, self-update, installer permission, or privileged UID. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -19,7 +19,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MG4SimpleLauncher">
+        android:theme="@style/Theme.EVLauncher">
 
         <activity
             android:name=".MainActivity"
@@ -27,7 +27,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="landscape"
             android:stateNotNeeded="true"
-            android:theme="@style/Theme.MG4SimpleLauncher">
+            android:theme="@style/Theme.EVLauncher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.HOME" />
@@ -40,13 +40,13 @@
             android:name=".AppDrawerActivity"
             android:exported="false"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.MG4SimpleLauncher.Drawer" />
+            android:theme="@style/Theme.EVLauncher.Drawer" />
 
         <activity
             android:name=".suite.SuiteManagerActivity"
             android:exported="false"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.MG4SimpleLauncher.Drawer" />
+            android:theme="@style/Theme.EVLauncher.Drawer" />
     </application>
 
 </manifest>

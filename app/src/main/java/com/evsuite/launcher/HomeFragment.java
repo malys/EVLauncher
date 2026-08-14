@@ -1,4 +1,4 @@
-package com.mg4.launcher.simple;
+package com.evsuite.launcher;
 
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;

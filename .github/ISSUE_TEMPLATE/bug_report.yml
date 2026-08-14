@@ -61,7 +61,7 @@ body:
       label: "Steps to Reproduce"
       description: "Exact steps to reproduce the bug"
       placeholder: |
-        1. Open MG4SimpleLauncher
+        1. Open EVLauncher
         2. Add 16+ apps to favorites
         3. Observe home screen layout
         4. Try to tap bottom-right shortcut

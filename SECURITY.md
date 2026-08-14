@@ -37,7 +37,7 @@ helps; a working exploit is not required.
 
 - **Neither channel self-updates.** There is no background release check, `pm install`
   path, privileged UID, or installer permission. Network activity starts only when the
-  user opens MG4Suite and refreshes or confirms a download.
+  user opens EVSuite and refreshes or confirms a download.
 - **The manual downloader fails closed, twice.** The APK URL comes from a remote JSON
   document and is never trusted: https only, **exact-match** host allowlist (never a suffix
   test, so `github.com.attacker.net` is rejected), re-checked immediately before the URL
@@ -53,11 +53,11 @@ helps; a working exploit is not required.
 - **The previous third-party update server is gone.** Earlier versions fetched a manifest
   from a single personal domain and verified the APK against a SHA-256 published by that
   same host — an integrity check against a corrupt transfer, not against a compromised
-  server. It has been replaced by the MG4 suite's GitHub + signature-match model.
+  server. It has been replaced by the EVSuite's GitHub + signature-match model.
 - **Permission drift is a blocking CI gate.** Every `uses-permission` in every manifest must
   appear in `.github/security/permission-allowlist.txt`, which carries the justification
   for each one. Adding a permission without editing that file fails the build.
-- **Signed with the MG4 suite platform key.** The launcher claims no privileged permission
+- **Signed with the EVSuite platform key.** The launcher claims no privileged permission
   of its own; the shared key is what makes the suite one installable set, and it is what
   the manual download signature check compares an incoming APK against.
 - **The APK is not minified.** R8 is off on release, so a published APK stays verifiable

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="suite_title">MG4Suite</string>
+    <string name="suite_title">EVSuite</string>
     <string name="suite_repository">Fonte delle versioni</string>
     <string name="suite_refresh">Aggiorna</string>
     <string name="suite_online_ready">Release GitHub · verifica della firma attiva</string>
@@ -28,5 +28,5 @@
     <string name="suite_choose_destination">Scegli dove salvare l’APK verificato</string>
     <string name="suite_download_saved">APK salvato. Per installarlo: parcheggia il veicolo, apri File, seleziona l’APK, controlla la richiesta Android e tocca Installa.</string>
     <string name="suite_save_failed">Impossibile salvare l’APK. Scegli un’altra posizione e riprova.</string>
-    <string name="suite_manual_install_help">L’installazione è sempre manuale. Parcheggia il veicolo, apri File, seleziona l’APK scaricato, controlla nome e autorizzazioni e tocca Installa. Gli APK MG4Suite temporanei vengono eliminati automaticamente.</string>
+    <string name="suite_manual_install_help">L’installazione è sempre manuale. Parcheggia il veicolo, apri File, seleziona l’APK scaricato, controlla nome e autorizzazioni e tocca Installa. Gli APK EVSuite temporanei vengono eliminati automaticamente.</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MG4 Simple Launcher</string>
+    <string name="app_name">EVLauncher</string>
     <string name="all_apps">Toutes les applications</string>
     <string name="system_apps">Applications système</string>
     <string name="add_favorite">Appuyez pour choisir</string>
@@ -34,7 +34,7 @@
     <string name="update_downloading">Téléchargement de unstable %1$s</string>
     <string name="update_already_downloaded">Mise à jour déjà téléchargée — ouvrez-la depuis Téléchargements</string>
     <string name="update_rejected">Mise à jour refusée : signature invalide</string>
-    <string name="suite_title">MG4Suite</string>
+    <string name="suite_title">EVSuite</string>
     <string name="suite_repository">Source des versions</string>
     <string name="suite_refresh">Actualiser</string>
     <string name="suite_online_ready">Releases GitHub · vérification de signature active</string>
@@ -58,12 +58,12 @@
     <string name="suite_install_complete">Installation terminée</string>
     <string name="suite_install_failed">Impossible d’ouvrir l’installateur Android.</string>
     <string name="about_action">À propos</string>
-    <string name="about_title">À propos de MG4 Simple Launcher</string>
+    <string name="about_title">À propos de EVLauncher</string>
     <string name="about_version">Version %1$s</string>
-    <string name="about_attribution">Maintenu par malys\nFork de Tommasov/MG4_Simple_Launcher</string>
-    <string name="about_repository">github.com/malys/MG4SimpleLauncher</string>
+    <string name="about_attribution">Maintenu par malys\nFork de Tommasov/EV_Simple_Launcher</string>
+    <string name="about_repository">github.com/malys/EVLauncher</string>
     <string name="about_made_with_love">Fait avec ❤ par malys</string>
-    <string name="about_logo_description">Logo de MG4 Simple Launcher</string>
+    <string name="about_logo_description">Logo de EVLauncher</string>
     <string name="about_qr_description">QR code du dépôt du projet</string>
     <string name="about_version_unknown">inconnue</string>
     <string name="about_close">Fermer</string>
@@ -72,5 +72,5 @@
     <string name="suite_choose_destination">Choisissez où enregistrer l’APK vérifié</string>
     <string name="suite_download_saved">APK enregistré. Pour l’installer : garez le véhicule, ouvrez Fichiers, sélectionnez l’APK, vérifiez la demande Android, puis appuyez sur Installer.</string>
     <string name="suite_save_failed">Impossible d’enregistrer l’APK. Choisissez un autre emplacement et réessayez.</string>
-    <string name="suite_manual_install_help">L’installation est toujours manuelle. Garez le véhicule, ouvrez Fichiers, sélectionnez l’APK téléchargé, vérifiez le nom et les autorisations, puis appuyez sur Installer. Les APK MG4Suite temporaires sont supprimés automatiquement.</string>
+    <string name="suite_manual_install_help">L’installation est toujours manuelle. Garez le véhicule, ouvrez Fichiers, sélectionnez l’APK téléchargé, vérifiez le nom et les autorisations, puis appuyez sur Installer. Les APK EVSuite temporaires sont supprimés automatiquement.</string>
 </resources>

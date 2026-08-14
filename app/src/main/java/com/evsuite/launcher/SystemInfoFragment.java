@@ -1,4 +1,4 @@
-package com.mg4.launcher.simple;
+package com.evsuite.launcher;
 
 import android.app.ActivityManager;
 import android.app.usage.StorageStatsManager;

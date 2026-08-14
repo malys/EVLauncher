@@ -19,7 +19,7 @@
             android:layout_width="@dimen/touch_target"
             android:layout_height="@dimen/touch_target"
             android:layout_marginEnd="@dimen/spacing_md"
-            android:background="@drawable/mg4_tonal_button"
+            android:background="@drawable/ev_tonal_button"
             android:clickable="true"
             android:contentDescription="@string/cd_back"
             android:focusable="true"
@@ -32,13 +32,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAppearance="@style/Text.MG4.Title"
+            android:textAppearance="@style/Text.EV.Title"
             android:textSize="@dimen/drawer_title_size"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/system_apps_button"
-            style="@style/Widget.MG4.HeaderButton"
+            style="@style/Widget.EV.HeaderButton"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/touch_target"
             android:layout_marginEnd="@dimen/spacing_sm"
@@ -46,7 +46,7 @@
 
         <TextView
             android:id="@+id/suite_apps_button"
-            style="@style/Widget.MG4.HeaderButton"
+            style="@style/Widget.EV.HeaderButton"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/touch_target"
             android:layout_marginEnd="@dimen/spacing_sm"
@@ -54,7 +54,7 @@
 
         <TextView
             android:id="@+id/about_button"
-            style="@style/Widget.MG4.HeaderButton"
+            style="@style/Widget.EV.HeaderButton"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/touch_target"
             android:layout_marginEnd="@dimen/spacing_sm"

@@ -1,4 +1,4 @@
-package com.mg4.launcher.simple.suite;
+package com.evsuite.launcher.suite;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -13,11 +13,11 @@ final class SuiteCatalog {
 
     static List<SuiteAppState> apps() {
         List<SuiteAppState> apps = new ArrayList<>();
-        apps.add(new SuiteAppState("MG4 Control · offline", "com.mg4.control.offline"));
-        apps.add(new SuiteAppState("MG4 Tasker", "com.mg4.tasker"));
-        apps.add(new SuiteAppState("MG4 ABRP Uploader", "com.mg4.abrptelemetry"));
-        apps.add(new SuiteAppState("MG4 Swipe Launcher", "com.mg4.launcher.swipe"));
-        apps.add(new SuiteAppState("MG4 Simple Launcher", "com.mg4.launcher.simple"));
+        apps.add(new SuiteAppState("EVProfile · offline", "com.evsuite.profile.offline"));
+        apps.add(new SuiteAppState("EVTasker", "com.evsuite.tasker"));
+        apps.add(new SuiteAppState("EVABRPUploader", "com.evsuite.abrp"));
+        apps.add(new SuiteAppState("EVSwipe", "com.evsuite.swipe"));
+        apps.add(new SuiteAppState("EVLauncher", "com.evsuite.launcher"));
         return apps;
     }
 

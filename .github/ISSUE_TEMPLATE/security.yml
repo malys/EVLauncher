@@ -81,7 +81,7 @@ body:
     attributes:
       label: "Affected Versions"
       description: "Which versions are affected?"
-      placeholder: "MG4SimpleLauncher < 1.2.0 (all builds)"
+      placeholder: "EVLauncher < 1.2.0 (all builds)"
     validations:
       required: true
 
