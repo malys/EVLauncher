@@ -4,7 +4,15 @@ All notable changes to this project are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.0] - 2026-08-15
+
+### ⚠️ Breaking — existing users must install once more
+
+- Renamed from MG4SimpleLauncher to **EVLauncher**, and the application id changed from
+  `com.mg4.launcher.simple` to **`com.evsuite.launcher`**. Android treats this as a
+  different app, so it does not update an existing install: it is added next to it and
+  starts with no favourites. Install this one, set it as the home app again, check it, and
+  only then uninstall the old app.
 
 ## [1.5.1] - 2026-08-10
 

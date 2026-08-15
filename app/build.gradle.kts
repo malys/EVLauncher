@@ -11,8 +11,8 @@ android {
         applicationId = "com.evsuite.launcher"
         minSdk = 28
         targetSdk = 34
-        versionCode = 7
-        versionName = "1.5.1"
+        versionCode = 8
+        versionName = "2.0.0"
     }
 
     // Signed with the SAME platform keystore as the rest of the EVSuite (EVProfile,
