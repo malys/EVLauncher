@@ -57,7 +57,7 @@ run = './gradlew -Dorg.gradle.java.home=$JAVA_HOME testStableDebugUnitTest testU
 
 [tasks.lint]
 description = "Android lint, stable channel"
-run = './gradlew -Dorg.gradle.java.home=$JAVA_HOME lintStableDebug'
+run = './gradlew -Dorg.gradle.java.home=$JAVA_HOME lintStableDebug lintUnstableDebug'
 
 [tasks.permissions]
 description = "Permission-drift gate (same check the CI runs)"
