@@ -4,6 +4,16 @@ All notable changes to this project are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-08-21
+
+### Fixed
+
+- EVSuite now detects an installed **EVProfile**, shows its version and offers its
+  updates. The suite catalogue still looked for the legacy `com.evsuite.profile.offline`
+  application id, which EVProfile stopped publishing when it moved to
+  `com.evsuite.profile`: the entry could never match an install, and its release check
+  only accepted an APK asset whose name contained `offline` — no release ships one.
+
 ## [2.0.0] - 2026-08-15
 
 ### ⚠️ Breaking — existing users must install once more

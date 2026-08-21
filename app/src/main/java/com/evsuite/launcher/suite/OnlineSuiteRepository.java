@@ -31,7 +31,7 @@ final class OnlineSuiteRepository {
     private static final Map<String, String> RELEASE_APIS = new HashMap<>();
 
     static {
-        RELEASE_APIS.put("com.evsuite.profile.offline", "https://api.github.com/repos/malys/EVProfile/releases/latest");
+        RELEASE_APIS.put("com.evsuite.profile", "https://api.github.com/repos/malys/EVProfile/releases/latest");
         RELEASE_APIS.put("com.evsuite.tasker", "https://api.github.com/repos/malys/EVTasker/releases/latest");
         RELEASE_APIS.put("com.evsuite.abrp", "https://api.github.com/repos/malys/EVABRPUploader/releases/latest");
         RELEASE_APIS.put("com.evsuite.swipe", "https://api.github.com/repos/malys/EVSwipe/releases/latest");
@@ -49,7 +49,7 @@ final class OnlineSuiteRepository {
             for (SuiteAppState app : apps) {
                 checks.add(pool.submit(() -> {
                     try {
-                        readRelease(app, RELEASE_APIS.get(app.packageName));
+                        readRelease(app, releaseApi(app.packageName));
                         if (app.downloadUrl == null) return;
                         if (app.installedVersion == null) app.action = SuiteAppState.Action.INSTALL;
                         else if (VersionOrder.isNewer(app.localVersion, app.installedVersion)) {
@@ -70,6 +70,10 @@ final class OnlineSuiteRepository {
         return apps;
     }
 
+    static String releaseApi(String packageName) {
+        return RELEASE_APIS.get(packageName);
+    }
+
     private static void readRelease(SuiteAppState app, String api) throws Exception {
         if (!isAllowedUrl(api)) return;
         HttpURLConnection connection = open(new URL(api));
@@ -85,10 +89,7 @@ final class OnlineSuiteRepository {
                 if (asset == null) continue;
                 String name = asset.optString("name", "").toLowerCase(Locale.US);
                 String url = asset.optString("browser_download_url", "");
-                boolean expectedChannel = app.packageName.equals("com.evsuite.profile.offline")
-                        ? name.contains("offline") : !name.contains("offline") && !name.contains("unstable")
-                        && (name.contains("stable") || name.contains("release"));
-                if (name.endsWith(".apk") && expectedChannel && isAllowedUrl(url)) {
+                if (name.endsWith(".apk") && isStableAsset(name) && isAllowedUrl(url)) {
                     String assetVersion = versionFromAssetName(name);
                     String tagVersion = release.optString("tag_name", "").replaceFirst("^[vV]", "");
                     app.localVersion = assetVersion == null ? tagVersion : assetVersion;
@@ -166,6 +167,11 @@ final class OnlineSuiteRepository {
                     || "objects.githubusercontent.com".equalsIgnoreCase(host)
                     || "release-assets.githubusercontent.com".equalsIgnoreCase(host);
         } catch (Exception ignored) { return false; }
+    }
+
+    /** Every suite release ships its stable APK as {@code <App>-stable-<version>.apk}. */
+    static boolean isStableAsset(String name) {
+        return !name.contains("unstable") && (name.contains("stable") || name.contains("release"));
     }
 
     static String versionFromAssetName(String name) {

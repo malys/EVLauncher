@@ -16,6 +16,13 @@ public class OnlineSuiteRepositoryTest {
         assertFalse(OnlineSuiteRepository.isAllowedUrl("file:///sdcard/file.apk"));
     }
 
+    @Test public void acceptsTheStableAssetOfEverySuiteRelease() {
+        assertTrue(OnlineSuiteRepository.isStableAsset("evprofile-stable-3.0.0.apk"));
+        assertTrue(OnlineSuiteRepository.isStableAsset("evtasker-stable-2.1.0.apk"));
+        assertFalse(OnlineSuiteRepository.isStableAsset("evprofile-unstable-3.0.0.1.apk"));
+        assertFalse(OnlineSuiteRepository.isStableAsset("evprofile-3.0.0.apk"));
+    }
+
     @Test public void readsVersionOnlyFromVersionedApkName() {
         assertEquals("1.4.12", OnlineSuiteRepository.versionFromAssetName("EVTasker-stable-1.4.12.apk"));
         assertNull(OnlineSuiteRepository.versionFromAssetName("EVTasker-stable.apk"));
