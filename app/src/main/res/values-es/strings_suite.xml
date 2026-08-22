@@ -12,8 +12,12 @@
     <string name="suite_ready_to_install">Lista para instalar · %1$s</string>
     <string name="suite_up_to_date">Actualizada · %1$s</string>
     <string name="suite_downloading">Descargando %1$s…</string>
-    <string name="suite_download_failed">Descarga fallida o APK rechazado</string>
     <string name="suite_apk_invalid">APK rechazado: el paquete o la firma no coinciden</string>
+    <string name="suite_download_error_blocked">Descarga rechazada: la URL de la versión no es una dirección de GitHub.</string>
+    <string name="suite_download_error_storage">Error de descarga: no queda espacio en el almacenamiento de la aplicación.</string>
+    <string name="suite_download_error_server">Error de descarga: GitHub rechazó el archivo.</string>
+    <string name="suite_download_error_network">Error de descarga: no se puede contactar con GitHub.</string>
+    <string name="suite_download_error_too_large">Error de descarga: el APK supera los 200 MB.</string>
     <string name="suite_install">Instalar</string>
     <string name="suite_update">Actualizar</string>
     <string name="suite_open">Abrir</string>

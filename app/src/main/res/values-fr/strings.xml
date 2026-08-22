@@ -46,8 +46,12 @@
     <string name="suite_ready_to_install">Prête à installer · %1$s</string>
     <string name="suite_up_to_date">À jour · %1$s</string>
     <string name="suite_downloading">Téléchargement de %1$s…</string>
-    <string name="suite_download_failed">Échec du téléchargement ou APK refusé</string>
     <string name="suite_apk_invalid">APK refusé : package ou signature incorrect</string>
+    <string name="suite_download_error_blocked">Téléchargement refusé : l’URL de la version n’est pas une adresse GitHub.</string>
+    <string name="suite_download_error_storage">Échec du téléchargement : plus d’espace dans le stockage de l’application.</string>
+    <string name="suite_download_error_server">Échec du téléchargement : GitHub a refusé le fichier.</string>
+    <string name="suite_download_error_network">Échec du téléchargement : GitHub est injoignable.</string>
+    <string name="suite_download_error_too_large">Échec du téléchargement : l’APK dépasse 200 Mo.</string>
     <string name="suite_install">Installer</string>
     <string name="suite_update">Mettre à jour</string>
     <string name="suite_open">Ouvrir</string>

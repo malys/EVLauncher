@@ -99,7 +99,8 @@ public final class SuiteManagerActivity extends AppCompatActivity {
         repositoryStatus.setText(getString(R.string.suite_downloading, app.name));
         String fileName = safeFileName(app);
         executor.execute(() -> {
-            File apk = SuiteRepository.download(this, app);
+            SuiteDownload result = SuiteRepository.download(this, app);
+            File apk = result.file;
             // Head units often ship no document picker, so write straight into the public
             // Downloads folder and keep the picker as the fallback.
             boolean exported = apk != null && saveToDownloads(apk, fileName);
@@ -107,7 +108,7 @@ public final class SuiteManagerActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 if (isFinishing() || isDestroyed()) return;
                 if (apk == null) {
-                    repositoryStatus.setText(R.string.suite_download_failed);
+                    repositoryStatus.setText(failureMessage(result));
                     return;
                 }
                 if (exported) {
@@ -127,6 +128,12 @@ public final class SuiteManagerActivity extends AppCompatActivity {
                 }
             });
         });
+    }
+
+    /** Naming the cause is what makes a failed update reportable from the car. */
+    private String failureMessage(SuiteDownload result) {
+        String message = getString(result.failure.messageId);
+        return result.detail == null ? message : message + " (" + result.detail + ")";
     }
 
     /** Writes the verified APK into the public Downloads collection without any picker. */

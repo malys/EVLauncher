@@ -105,26 +105,40 @@ final class OnlineSuiteRepository {
         } finally { connection.disconnect(); }
     }
 
-    static File download(Context context, SuiteAppState app) {
-        if (app.downloadUrl == null || !isAllowedUrl(app.downloadUrl)) return null;
+    static SuiteDownload download(Context context, SuiteAppState app) {
+        if (app.downloadUrl == null || !isAllowedUrl(app.downloadUrl)) {
+            return SuiteDownload.failed(SuiteDownload.Failure.BLOCKED_URL);
+        }
         File directory = new File(context.getCacheDir(), "suite-apks");
-        if (!directory.exists() && !directory.mkdirs()) return null;
+        if (!directory.exists() && !directory.mkdirs()) {
+            Log.w(TAG, "Cannot create the APK cache directory: " + directory);
+            return SuiteDownload.failed(SuiteDownload.Failure.STORAGE);
+        }
         File temporary = new File(directory, app.packageName + ".tmp");
         File target = new File(directory, app.packageName + ".apk");
         try {
             URL current = new URL(app.downloadUrl);
             for (int redirect = 0; redirect < 6; redirect++) {
-                if (!isAllowedUrl(current.toString())) return null;
+                if (!isAllowedUrl(current.toString())) {
+                    return SuiteDownload.failed(SuiteDownload.Failure.BLOCKED_URL);
+                }
                 HttpURLConnection connection = open(current);
                 try {
                     int status = connection.getResponseCode();
                     if (status >= 300 && status <= 399) {
                         String location = connection.getHeaderField("Location");
-                        if (location == null) return null;
+                        if (location == null) {
+                            return SuiteDownload.failed(SuiteDownload.Failure.SERVER,
+                                    status + " without Location");
+                        }
                         current = current.toURI().resolve(location).toURL();
                         continue;
                     }
-                    if (status != 200) return null;
+                    if (status != 200) {
+                        Log.w(TAG, "Asset request answered " + status + " for " + app.packageName);
+                        return SuiteDownload.failed(SuiteDownload.Failure.SERVER,
+                                String.valueOf(status));
+                    }
                     long total = 0;
                     try (InputStream input = connection.getInputStream();
                          FileOutputStream output = new FileOutputStream(temporary)) {
@@ -132,7 +146,9 @@ final class OnlineSuiteRepository {
                         int count;
                         while ((count = input.read(buffer)) != -1) {
                             total += count;
-                            if (total > MAX_APK_BYTES) return null;
+                            if (total > MAX_APK_BYTES) {
+                                return SuiteDownload.failed(SuiteDownload.Failure.TOO_LARGE);
+                            }
                             output.write(buffer, 0, count);
                         }
                         output.getFD().sync();
@@ -140,17 +156,26 @@ final class OnlineSuiteRepository {
                     Files.move(temporary.toPath(), target.toPath(),
                             StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
                     if (!SuiteApkSecurity.isTrustedSuiteApk(context, target, app.packageName)) {
-                        target.delete(); return null;
+                        target.delete();
+                        return SuiteDownload.failed(SuiteDownload.Failure.REJECTED);
                     }
-                    return target;
+                    return SuiteDownload.of(target);
                 } finally { connection.disconnect(); }
             }
+            return SuiteDownload.failed(SuiteDownload.Failure.SERVER, "too many redirects");
+        } catch (java.io.IOException e) {
+            Log.w(TAG, "APK download failed for " + app.packageName, e);
+            // A full or read-only cache reports itself as an IOException on the write.
+            boolean storage = temporary.exists() || !directory.canWrite();
+            return SuiteDownload.failed(
+                    storage ? SuiteDownload.Failure.STORAGE : SuiteDownload.Failure.NETWORK,
+                    e.getClass().getSimpleName());
         } catch (Exception e) {
             Log.w(TAG, "APK download failed for " + app.packageName, e);
+            return SuiteDownload.failed(SuiteDownload.Failure.NETWORK, e.getClass().getSimpleName());
         } finally {
             if (temporary.exists()) temporary.delete();
         }
-        return null;
     }
 
     static void purgeCachedApks(Context context) {

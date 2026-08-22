@@ -12,8 +12,12 @@
     <string name="suite_ready_to_install">Installationsbereit · %1$s</string>
     <string name="suite_up_to_date">Aktuell · %1$s</string>
     <string name="suite_downloading">%1$s wird heruntergeladen…</string>
-    <string name="suite_download_failed">Download fehlgeschlagen oder APK abgelehnt</string>
     <string name="suite_apk_invalid">APK abgelehnt: Paket oder Signatur stimmt nicht überein</string>
+    <string name="suite_download_error_blocked">Download abgelehnt: Die Release-URL ist keine GitHub-Adresse.</string>
+    <string name="suite_download_error_storage">Download fehlgeschlagen: kein Platz mehr im App-Speicher.</string>
+    <string name="suite_download_error_server">Download fehlgeschlagen: GitHub hat die Datei abgelehnt.</string>
+    <string name="suite_download_error_network">Download fehlgeschlagen: GitHub ist nicht erreichbar.</string>
+    <string name="suite_download_error_too_large">Download fehlgeschlagen: Die APK ist größer als 200 MB.</string>
     <string name="suite_install">Installieren</string>
     <string name="suite_update">Aktualisieren</string>
     <string name="suite_open">Öffnen</string>

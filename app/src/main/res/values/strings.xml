@@ -45,8 +45,12 @@
     <string name="suite_ready_to_install">Available to download · %1$s</string>
     <string name="suite_up_to_date">Up to date · %1$s</string>
     <string name="suite_downloading">Downloading %1$s…</string>
-    <string name="suite_download_failed">Download failed or APK rejected</string>
     <string name="suite_apk_invalid">APK rejected: package or signature mismatch</string>
+    <string name="suite_download_error_blocked">Download refused: the release URL is not a GitHub address.</string>
+    <string name="suite_download_error_storage">Download failed: no room left in the app storage.</string>
+    <string name="suite_download_error_server">Download failed: GitHub refused the file.</string>
+    <string name="suite_download_error_network">Download failed: GitHub is unreachable.</string>
+    <string name="suite_download_error_too_large">Download failed: the APK exceeds 200 MB.</string>
     <string name="suite_download">Download APK</string>
     <string name="suite_install">Install</string>
     <string name="suite_update">Update</string>

@@ -15,7 +15,7 @@ public final class SuiteRepository {
     public static List<SuiteAppState> inspect(Context context, File keep) {
         return OnlineSuiteRepository.inspect(context, keep);
     }
-    public static File download(Context context, SuiteAppState app) {
+    public static SuiteDownload download(Context context, SuiteAppState app) {
         return OnlineSuiteRepository.download(context, app);
     }
     public static void purgeCachedApks(Context context) { OnlineSuiteRepository.purgeCachedApks(context); }

@@ -4,6 +4,16 @@ All notable changes to this project are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.3] - 2026-08-22
+
+### Changed
+
+- A failed suite download now names its cause instead of showing one generic "Download
+  failed" line: an unreachable GitHub, a refused file (with the HTTP status), a full app
+  storage, an over-sized asset, a blocked URL, or an APK whose package or signature does
+  not match the suite key. Without that distinction the failure could not be reported from
+  the car, and the export step was fixed in 2.0.2 while the real failure was earlier.
+
 ## [2.0.2] - 2026-08-22
 
 ### Fixed
