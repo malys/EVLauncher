@@ -41,7 +41,12 @@ final class OnlineSuiteRepository {
     private OnlineSuiteRepository() {}
 
     static List<SuiteAppState> inspect(Context context) {
-        purgeCachedApks(context);
+        return inspect(context, null);
+    }
+
+    /** {@code keep} is the verified APK an export still waits on; the purge has to spare it. */
+    static List<SuiteAppState> inspect(Context context, File keep) {
+        purgeCachedApks(context, keep);
         List<SuiteAppState> apps = SuiteCatalog.installed(context);
         ExecutorService pool = Executors.newFixedThreadPool(apps.size());
         List<Future<?>> checks = new ArrayList<>();
@@ -149,10 +154,15 @@ final class OnlineSuiteRepository {
     }
 
     static void purgeCachedApks(Context context) {
+        purgeCachedApks(context, null);
+    }
+
+    static void purgeCachedApks(Context context, File keep) {
         File directory = new File(context.getCacheDir(), "suite-apks");
         File[] files = directory.listFiles((dir, name) -> name.endsWith(".apk") || name.endsWith(".tmp"));
         if (files == null) return;
         for (File file : files) {
+            if (keep != null && keep.getAbsolutePath().equals(file.getAbsolutePath())) continue;
             if (!file.delete()) Log.w(TAG, "Could not delete temporary suite APK: " + file.getName());
         }
     }

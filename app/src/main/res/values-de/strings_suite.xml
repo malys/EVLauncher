@@ -28,5 +28,6 @@
     <string name="suite_choose_destination">Speicherort für die geprüfte APK auswählen</string>
     <string name="suite_download_saved">APK gespeichert. Zum Installieren: Fahrzeug parken, Dateien öffnen, APK auswählen, Android-Abfrage prüfen und Installieren antippen.</string>
     <string name="suite_save_failed">Die APK konnte nicht gespeichert werden. Wählen Sie einen anderen Speicherort und versuchen Sie es erneut.</string>
+    <string name="suite_no_file_picker">Es ist kein Dateimanager zum Speichern der APK verfügbar. Installieren Sie einen und versuchen Sie es erneut.</string>
     <string name="suite_manual_install_help">Die Installation erfolgt immer manuell. Fahrzeug parken, Dateien öffnen, die heruntergeladene APK auswählen, App-Name und Berechtigungen prüfen und Installieren antippen. Temporäre EVSuite-APKs werden automatisch gelöscht.</string>
 </resources>

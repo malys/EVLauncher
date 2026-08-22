@@ -12,6 +12,9 @@ public final class SuiteRepository {
     public static List<SuiteAppState> inspect(Context context) {
         return OnlineSuiteRepository.inspect(context);
     }
+    public static List<SuiteAppState> inspect(Context context, File keep) {
+        return OnlineSuiteRepository.inspect(context, keep);
+    }
     public static File download(Context context, SuiteAppState app) {
         return OnlineSuiteRepository.download(context, app);
     }

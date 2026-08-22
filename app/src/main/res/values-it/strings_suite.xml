@@ -28,5 +28,6 @@
     <string name="suite_choose_destination">Scegli dove salvare l’APK verificato</string>
     <string name="suite_download_saved">APK salvato. Per installarlo: parcheggia il veicolo, apri File, seleziona l’APK, controlla la richiesta Android e tocca Installa.</string>
     <string name="suite_save_failed">Impossibile salvare l’APK. Scegli un’altra posizione e riprova.</string>
+    <string name="suite_no_file_picker">Nessun gestore di file disponibile per salvare l’APK. Installane uno e riprova.</string>
     <string name="suite_manual_install_help">L’installazione è sempre manuale. Parcheggia il veicolo, apri File, seleziona l’APK scaricato, controlla nome e autorizzazioni e tocca Installa. Gli APK EVSuite temporanei vengono eliminati automaticamente.</string>
 </resources>

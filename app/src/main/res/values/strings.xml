@@ -61,6 +61,7 @@
     <string name="suite_choose_destination">Choose where to save the verified APK</string>
     <string name="suite_download_saved">APK saved. To install: park the car, open Files, select the APK, review Android’s prompt, then tap Install.</string>
     <string name="suite_save_failed">The APK could not be saved. Choose another location and try again.</string>
+    <string name="suite_no_file_picker">No file manager is available to save the APK. Install one, then try again.</string>
     <string name="suite_manual_install_help">Installation is always manual. Park the car, open Files, select the downloaded APK, review the app name and permissions, then tap Install. Old temporary EVSuite APKs are deleted automatically.</string>
     <string name="about_action">About</string>
     <string name="about_title">About EVLauncher</string>
