@@ -155,9 +155,11 @@ final class OnlineSuiteRepository {
                     }
                     Files.move(temporary.toPath(), target.toPath(),
                             StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
-                    if (!SuiteApkSecurity.isTrustedSuiteApk(context, target, app.packageName)) {
+                    SuiteApkSecurity.Verdict verdict =
+                            SuiteApkSecurity.inspect(context, target, app.packageName);
+                    if (!verdict.trusted) {
                         target.delete();
-                        return SuiteDownload.failed(SuiteDownload.Failure.REJECTED);
+                        return SuiteDownload.failed(SuiteDownload.Failure.REJECTED, verdict.detail);
                     }
                     return SuiteDownload.of(target);
                 } finally { connection.disconnect(); }

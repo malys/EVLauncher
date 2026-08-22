@@ -4,6 +4,19 @@ All notable changes to this project are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.4] - 2026-08-22
+
+### Fixed
+
+- A suite update signed with the very same key could still be refused as "APK rejected:
+  package or signature mismatch". The check read the archive's certificates from
+  `signingInfo` alone and demanded set equality with the launcher's own: a head unit that
+  fills only the legacy `signatures` array on an archive produced an empty set, and an
+  installed app carrying a signing history could never match a single-certificate APK.
+  The certificates of both are now collected from `signingInfo` **and** the legacy array,
+  and the APK is accepted when it shares one of them — the rule Android itself applies to
+  an update. A refusal now names the two short fingerprints so it can be reported.
+
 ## [2.0.3] - 2026-08-22
 
 ### Changed
