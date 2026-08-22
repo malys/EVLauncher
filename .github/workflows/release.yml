@@ -68,6 +68,15 @@ jobs:
           name: evlauncher-apk
           path: dist/*.apk
 
+      - name: Extract changelog
+        id: changelog
+        run: |
+          {
+            echo 'notes<<CHANGELOG_EOF'
+            ./release-notes.sh "${{ github.ref_name }}" || ./release-notes.sh --latest
+            echo 'CHANGELOG_EOF'
+          } >> "$GITHUB_OUTPUT"
+
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -90,3 +99,6 @@ jobs:
             Signed with the EVSuite platform key. If you are coming from a build signed
             with the old author key, uninstall the previous version first — Android refuses
             an in-place update across a key change.
+
+            ### Changelog
+            ${{ steps.changelog.outputs.notes }}
