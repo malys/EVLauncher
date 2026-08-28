@@ -21,5 +21,19 @@ android.permission.ACCESS_WIFI_STATE
 # There is no background check, self-update, silent installer, or remote-control path.
 android.permission.INTERNET
 
+# --- Vehicle page (carousel page 3) ---
+# READ ONLY. Neither permission permits a vehicle write, and the app calls no setter: every
+# value goes through EVHardware's telemetry reader, which exposes getters only.
+# CAR_ENERGY       — standard AAOS range remaining and charge-port-connected reads.
+# CAR_VENDOR_EXTENSION — the vendor property space cannot be read at all without it; it
+#                    carries the SWI68 fallbacks for state of charge and range.
+# Justification and the reasoning for what was NOT added: docs/CR-010-vehicle-page.md.
+android.car.permission.CAR_ENERGY
+android.car.permission.CAR_VENDOR_EXTENSION
+
 # --- Deliberately NOT allowed ---
+# CAR_SPEED, CAR_EXTERIOR_ENVIRONMENT, CONTROL_CAR_CLIMATE — held by EVChargePilot, not here.
+# The vehicle page shows no speed, no outside temperature and no HVAC state, and the app that
+# owns the home screen holds no permission whose name contains CONTROL.
+# Any android.car.permission.* granting a write, and sharedUserId: never.
 # Installation always remains user-mediated by Android's package installer.

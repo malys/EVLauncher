@@ -1,11 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace = "com.evsuite.launcher"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.evsuite.launcher"
@@ -86,12 +85,6 @@ android {
     }
 }
 
-kotlin {
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-    }
-}
-
 // Prints the unstable versionName so the unstable workflow can name the APK asset
 // numerically comparable ("EVLauncher-unstable-1.5.0.42.apk"). The pre-release itself
 // is always tagged "unstable" and overwritten, so the asset name carries the version.
@@ -102,6 +95,10 @@ tasks.register("printUnstableVersion") {
 }
 
 dependencies {
+    // Read-only vehicle telemetry. The launcher never touches android.car itself: every
+    // vehicle value on the Vehicle page comes through EVHardware's typed nullable API.
+    implementation(project(":evhardware"))
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

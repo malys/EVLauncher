@@ -21,3 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "EVLauncher"
 include(":app")
+
+// Shared vehicle layer, as a git submodule tracking the HEAD of EVHardware master.
+// The launcher consumes its read-only telemetry API only; see AGENTS.md.
+include(":evhardware")
+project(":evhardware").projectDir = file("EVHardware/lib")

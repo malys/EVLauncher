@@ -27,6 +27,19 @@
     <string name="sys_uptime">Allumé depuis %1$s</string>
     <string name="sys_android">Android %1$s · API %2$d</string>
     <string name="sys_launcher">Launcher %1$s (%2$d)</string>
+
+    <!-- Page véhicule (page 3 du carrousel) : télémétrie en lecture seule. -->
+    <string name="veh_charge">Charge</string>
+    <string name="veh_range">Autonomie</string>
+    <string name="veh_charging">Recharge</string>
+    <string name="veh_unknown">—</string>
+    <string name="veh_soc_caption">état de charge</string>
+    <string name="veh_range_caption">restante</string>
+    <string name="veh_charging_caption">état de recharge</string>
+    <string name="veh_plugged_in">Branchée</string>
+    <string name="veh_not_plugged_in">Non branchée</string>
+    <string name="veh_no_vehicle_data">aucune donnée véhicule</string>
+    <string name="veh_unavailable_here">indisponible sur cette voiture</string>
     <!-- Noms historiques conservés pour la compatibilité des traductions. -->
     <string name="update_check_action">Rechercher des mises à jour</string>
     <string name="update_up_to_date">Vous avez déjà la dernière version</string>

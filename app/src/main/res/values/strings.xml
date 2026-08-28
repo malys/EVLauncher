@@ -26,6 +26,20 @@
     <string name="sys_uptime">Uptime %1$s</string>
     <string name="sys_android">Android %1$s · API %2$d</string>
     <string name="sys_launcher">Launcher %1$s (%2$d)</string>
+
+    <!-- Vehicle page (carousel page 3): read-only telemetry. An unreadable value is
+         the dash, never a zero. -->
+    <string name="veh_charge">Charge</string>
+    <string name="veh_range">Range</string>
+    <string name="veh_charging">Charging</string>
+    <string name="veh_unknown">—</string>
+    <string name="veh_soc_caption">state of charge</string>
+    <string name="veh_range_caption">remaining</string>
+    <string name="veh_charging_caption">charging state</string>
+    <string name="veh_plugged_in">Plugged in</string>
+    <string name="veh_not_plugged_in">Not plugged in</string>
+    <string name="veh_no_vehicle_data">no vehicle data</string>
+    <string name="veh_unavailable_here">unavailable on this car</string>
     <string name="update_check_action">Check for updates</string>
     <string name="update_up_to_date">Up to date</string>
     <string name="update_check_failed">Update check failed</string>

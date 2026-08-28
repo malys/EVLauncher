@@ -14,9 +14,16 @@ Commit author: malys.training@gmail.com
 
 ## The one rule that shapes everything
 
-**This app never touches the vehicle.** No `android.car.*` permission, no `sharedUserId`,
-no IPC to EVProfile. It is an ordinary app that happens to be `CATEGORY_HOME`. Vehicle
-reads and writes belong in EVProfile; automation belongs in EVTasker.
+**This app is read-only on the vehicle.** It may present vehicle telemetry, but only from
+EVHardware's typed read-only telemetry API. It never writes a vehicle setting, never owns a
+property id or vendor transaction, never reopens `CarPropertyManager`, and never uses IPC to
+EVProfile. No `sharedUserId` and no setter-capable adapter belong here. Vehicle writes belong
+in EVProfile; automation belongs in EVTasker.
+
+RAM, storage, uptime and network state on the existing system-information page are device
+reads, not vehicle telemetry. A vehicle-information page may add SOC, range and other
+available read-only values, but it must preserve that distinction, render unreadable values
+as unavailable rather than zero, and consume the shared EVHardware fallback/provenance rules.
 
 The second rule follows from the first: **it must not strand the driver**. A launcher that
 crashes on the home path leaves the head unit with no home screen. Every
@@ -46,17 +53,27 @@ reason it exists. `check-permissions.sh` fails the build on anything else, and i
 Adding a permission means editing the allowlist **with a justification** in the same PR.
 
 Current surface: `QUERY_ALL_PACKAGES` (drawer), `ACCESS_NETWORK_STATE` +
-`ACCESS_WIFI_STATE` (system-info page, read-only, never SSID/BSSID/MAC),
-and `INTERNET` only for the user-initiated EVSuite release manager. The manager
-uses fixed GitHub repositories and fails closed on URL, identity or signature.
-It follows the stable/offline releases of all five suite applications.
+`ACCESS_WIFI_STATE` (system-info page, read-only, never SSID/BSSID/MAC), `INTERNET` only for
+the user-initiated EVSuite release manager, and `CAR_ENERGY` + `CAR_VENDOR_EXTENSION` for the
+read-only vehicle page. The manager uses fixed GitHub repositories and fails closed on URL,
+identity or signature. It follows the stable/offline releases of all five suite applications.
+
+The two car permissions are the minimum for the three values the vehicle page shows, and
+neither permits a write. `CAR_SPEED`, `CAR_EXTERIOR_ENVIRONMENT` and `CONTROL_CAR_CLIMATE`
+are held by EVChargePilot and deliberately **not** here. `VehicleBoundaryTest` enforces the
+rule in the test suite as well as in the CI gate: it fails the build on a direct vehicle API,
+on an EVHardware import outside the read-only telemetry surface, on `sharedUserId`, and on any
+car permission the boundary review did not name. Reasoning: `docs/CR-010-vehicle-page.md`.
 
 ## Layout of the code
 
 `MainActivity` hosts the `ViewPager2` carousel: `HomeFragment` (a runtime-built grid of
 favourite cards, up to `PreferencesManager.MAX_FAVORITES`, plus the trailing "add" tile +
-all-apps / shortcut column) and `SystemInfoFragment` (device, memory, storage, network —
-all permission-free reads, refreshed only while visible). `AppDrawerActivity` is the full
+all-apps / shortcut column), `SystemInfoFragment` (device, memory, storage, network — all
+permission-free reads, refreshed only while visible) and `VehicleInfoFragment` (state of
+charge, range, charging state, read only through EVHardware, refreshed only while visible and
+bound only once the driver first swipes to it). The home stays at position 0 whatever is added
+after it. `AppDrawerActivity` is the full
 grid plus the system-apps filter (`FLAG_SYSTEM`).
 `PreferencesManager` persists the chosen packages as one ordered, hole-free list, and
 migrates the old three-slot keys on first read; `AppLauncher`/`AppInfo`/
@@ -73,10 +90,21 @@ migrates the old three-slot keys on first read; `AppLauncher`/`AppInfo`/
   targets. Dark is imposed, not system-following — glare on a windscreen at night.
 - **Language**: English by default (code, comments, commits, docs).
 
+## Consuming EVHardware
+
+Submodule at `./EVHardware`; `settings.gradle.kts` includes `EVHardware/lib` as
+`:evhardware`. It tracks the HEAD of `master` like every other consumer — never pin an older
+commit. The launcher consumes the **read-only telemetry surface only**
+(`telemetry.EnergyTelemetryReader`, `telemetry.EnergySnapshot`, `catalog.VehicleEnums`, and
+the library's `R` for the shared charging vocabulary); `VehicleBoundaryTest` fails the build
+on anything else.
+
 ## Build
 
-`mise run build | build-unstable | test | check | permissions | run`. JDK 17, AGP 8.6,
-Gradle 8.7, `minSdk 28` / `targetSdk 34`. Emulator: `mise run emulator-setup` then
+`mise run build | build-unstable | test | check | permissions | run`. JDK 17, AGP 9.1.1,
+Gradle 9.3.1, `compileSdk 36`, `minSdk 28` / `targetSdk 34`. AGP 9 is not cosmetic here: it
+provides the built-in Kotlin compilation `EVHardware/lib` relies on, which is why the separate
+Kotlin plugin is gone. Emulator: `mise run emulator-setup` then
 `emulator-screen` (API 28 at panel geometry) or `emulator-car` (API 33 Automotive); AVDs
 are named `mg4simple-*`, per-repo like the sibling projects. `mise run run` starts the app
 as an ordinary activity — `mise run set-home` is what makes it the default home.

@@ -4,10 +4,10 @@ This app is the **home screen of a car**. That single fact drives everything bel
 
 ## Ground rules
 
-1. **The launcher holds no vehicle privileges.** No `android.car.*` permission, no
-   `sharedUserId`, no IPC to EVProfile. A patch that reaches the vehicle from here will be
-   rejected regardless of how useful it is — vehicle work belongs in EVProfile, and
-   automation in EVTasker.
+1. **The launcher is read-only on the vehicle.** Vehicle telemetry comes only from
+   EVHardware's typed read-only API. No `sharedUserId`, no IPC to EVProfile, no direct
+   `CarPropertyManager`/vendor service access, and no setter belong here. Vehicle writes
+   belong in EVProfile, and automation in EVTasker.
 2. **Never leave the driver without a home screen.** A crash on the home path is not a
    normal bug: it strands the head unit. Guard every `PackageManager` result, every stored
    package name that may have been uninstalled, and every intent that may resolve to
@@ -92,7 +92,8 @@ A pull request that lands quickly usually carries:
 
 Generate the change locally with whatever model you have, then read every line yourself
 before opening the PR. You are the author, not the model. Unreviewed generated code on a
-path that reaches the vehicle will be sent back.
+vehicle-telemetry path will be sent back. That path must also prove that it is read-only
+and uses EVHardware rather than a second hardware layer.
 
 ## Sponsorship
 

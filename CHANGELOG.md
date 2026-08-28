@@ -4,6 +4,48 @@ All notable changes to this project are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **A third home page, showing what the car itself is doing.** Swipe once more past the system
+  information and the launcher shows state of charge, remaining range and charging state. It is
+  a page of its own rather than three more cards beside the RAM and storage figures for two
+  reasons: seven cards across the panel leaves about 253 dp each, which ellipsizes exactly the
+  two numbers the page exists for, and the head unit's memory and the car's battery are not the
+  same kind of fact. The reasoning, the wireframe and the rejected alternatives are in
+  `docs/CR-010-vehicle-page.md`.
+  **A value the car does not report shows as `—`, never as `0`**, with a caption distinguishing
+  "the vehicle layer is not answering" from "this car does not publish that one". Nothing is
+  read while the page is off-screen, nothing is written to disk, and a driver who never swipes
+  that far never binds the vehicle layer at all.
+- **The suite's shared vehicle layer, as a submodule.** `EVHardware` is now included as the
+  `:evhardware` subproject and is the *only* way this app reaches the car. Clone with
+  `--recurse-submodules`, or run `git submodule update --init` before the first build.
+
+### Security
+
+- **Two read-only car permissions, and a test that keeps them the only ones.**
+  `android.car.permission.CAR_ENERGY` and `android.car.permission.CAR_VENDOR_EXTENSION` are the
+  minimum the three displayed values need, and neither permits a write. `CAR_SPEED`,
+  `CAR_EXTERIOR_ENVIRONMENT` and `CONTROL_CAR_CLIMATE` — all held by EVChargePilot — were
+  deliberately refused: this page shows no speed, no outside temperature and no climate state,
+  and the app that owns the home screen holds no permission whose name contains `CONTROL`.
+  `VehicleBoundaryTest` now fails the build on a direct `android.car` reference, on a
+  `CarPropertyManager`, on an EVHardware import outside the read-only telemetry surface, on
+  `sharedUserId`, and on any car permission the boundary review did not name.
+- **No now-playing card, and the reason is written down.** Reading what another app is playing
+  needs `MEDIA_CONTENT_CONTROL` (signature/privileged) or notification-listener access, which
+  would let the launcher read every notification on the head unit. Both are far larger grants
+  than a track title is worth, so media was left out rather than paid for with a permission.
+
+### Changed
+
+- **AGP 9.1.1 / Gradle 9.3.1, `compileSdk 36`, and the Kotlin plugin is gone.** Not
+  housekeeping: AGP 9's built-in Kotlin compilation is what `EVHardware/lib` relies on, and it
+  is the toolchain every other EVSuite app already runs. The launcher's own sources remain
+  Java.
+
 ## [2.0.4] - 2026-08-22
 
 ### Fixed

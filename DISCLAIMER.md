@@ -22,10 +22,16 @@ purposes**.
 - **Do not configure the launcher while driving.** Assigning favorites, opening the app
   drawer or browsing system info is parked-only work. Nothing here needs attention on the
   move.
-- The launcher **holds no vehicle privileges**: no `android.car.*` permission, no
-  `sharedUserId`, no bridge to EVProfile. It cannot read or change a vehicle setting, and
+- The launcher is **read-only on the vehicle**. Its vehicle page holds two read-only car
+  permissions (`CAR_ENERGY`, `CAR_VENDOR_EXTENSION`) and reads state of charge, range and
+  charging state through EVHardware's typed API. It has no `sharedUserId`, no bridge to
+  EVProfile and no setter-capable vehicle adapter: **it cannot change a vehicle setting**, and
   a bug in it cannot write to the car. What it *can* do is start other apps and occupy the
   screen the driver looks at.
+- **A displayed value is not an instrument reading.** The state of charge and range shown on
+  the vehicle page are what the car reported to an app, at the moment it was asked, and a
+  value the car does not publish is shown as unknown rather than guessed. Do not plan a
+  journey on them in preference to the vehicle's own dashboard.
 - **Compatibility is inferred, not certified.** The panel geometry and Android version
   are project compatibility targets, not a vendor specification. A firmware update can
   change the system UI, the available apps, or the

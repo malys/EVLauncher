@@ -28,6 +28,19 @@
     <string name="sys_uptime">Encendido %1$s</string>
     <string name="sys_android">Android %1$s · API %2$d</string>
     <string name="sys_launcher">Launcher %1$s (%2$d)</string>
+
+    <!-- Página del vehículo (página 3 del carrusel): telemetría de solo lectura. -->
+    <string name="veh_charge">Carga</string>
+    <string name="veh_range">Autonomía</string>
+    <string name="veh_charging">Recarga</string>
+    <string name="veh_unknown">—</string>
+    <string name="veh_soc_caption">estado de carga</string>
+    <string name="veh_range_caption">restante</string>
+    <string name="veh_charging_caption">estado de recarga</string>
+    <string name="veh_plugged_in">Enchufado</string>
+    <string name="veh_not_plugged_in">Sin enchufar</string>
+    <string name="veh_no_vehicle_data">sin datos del vehículo</string>
+    <string name="veh_unavailable_here">no disponible en este coche</string>
     <!-- Nombres históricos conservados para compatibilidad de traducciones. -->
     <string name="update_check_action">Buscar actualizaciones</string>
     <string name="update_up_to_date">Ya tienes la última versión</string>

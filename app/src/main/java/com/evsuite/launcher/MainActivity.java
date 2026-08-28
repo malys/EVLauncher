@@ -8,8 +8,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 
 /**
- * Hosts the two-page home carousel ({@link HomePagerAdapter}) and the bottom pagination
- * bars. Page 1 is the launcher home, page 2 the useful-info screen.
+ * Hosts the three-page home carousel ({@link HomePagerAdapter}) and the bottom pagination
+ * bars. Page 1 is the launcher home, page 2 the head unit's own information, page 3 the
+ * read-only vehicle page.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
         pageBars = new View[]{
                 findViewById(R.id.page_bar_0),
-                findViewById(R.id.page_bar_1)};
+                findViewById(R.id.page_bar_1),
+                findViewById(R.id.page_bar_2)};
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {

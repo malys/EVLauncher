@@ -29,6 +29,19 @@
     <string name="sys_android">Android %1$s · API %2$d</string>
     <string name="sys_launcher">Launcher %1$s (%2$d)</string>
 
+    <!-- Pagina veicolo (pagina 3 del carosello): telemetria in sola lettura. -->
+    <string name="veh_charge">Carica</string>
+    <string name="veh_range">Autonomia</string>
+    <string name="veh_charging">Ricarica</string>
+    <string name="veh_unknown">—</string>
+    <string name="veh_soc_caption">stato di carica</string>
+    <string name="veh_range_caption">residua</string>
+    <string name="veh_charging_caption">stato di ricarica</string>
+    <string name="veh_plugged_in">Collegata</string>
+    <string name="veh_not_plugged_in">Non collegata</string>
+    <string name="veh_no_vehicle_data">nessun dato del veicolo</string>
+    <string name="veh_unavailable_here">non disponibile su questa auto</string>
+
     <!-- Nomi storici conservati per compatibilità delle traduzioni. -->
     <string name="update_check_action">Cerca aggiornamenti</string>
     <string name="update_up_to_date">Hai già l\'ultima versione</string>

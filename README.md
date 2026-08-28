@@ -29,6 +29,7 @@ theme, its CI/CD and security gates, and its two-channel release model.
 - [EVSuite releases](#evsuite-releases)
 - [Changing a pinned app](#changing-a-pinned-app)
 - [Second screen (system info)](#second-screen-system-info)
+- [Third screen (vehicle)](#third-screen-vehicle)
 - [Building](#building)
 - [Project documents](#project-documents)
 - [Security](#security)
@@ -57,9 +58,11 @@ as the default home again from Android settings. Favorites are stored per-app, s
 reset.
 
 ## Features
-- **Swipeable two-page home**: a horizontal carousel (`ViewPager2`). Swipe left/right
-  between the launcher home (page 1) and a **system-info** screen (page 2). A
-  SAIC-style bar indicator at the bottom centre shows the current page.
+- **Swipeable three-page home**: a horizontal carousel (`ViewPager2`). Swipe left/right
+  between the launcher home (page 1), a **system-info** screen (page 2) and a read-only
+  **vehicle** screen (page 3). A SAIC-style bar indicator at the bottom centre shows the
+  current page. The home is always page 1, so pressing Home lands on the favourites grid
+  whatever you last swiped to.
 - **Favorite cards** (page 1): a grid of cards, each launching one app of your
   choice — up to **12**. Tap a card to open its app; **long-press** to replace or
   remove it. The last tile is always a **+**, which is how a new app is added.
@@ -120,9 +123,36 @@ while the page is visible:
 - **Network**: active connection type (Wi-Fi / mobile / Ethernet / offline) and, on
   Wi-Fi, the negotiated link speed.
 
+## Third screen (vehicle)
+Swipe right again to reach the vehicle page (`VehicleInfoFragment` /
+`res/layout/fragment_vehicle.xml`). It shows three values, read from the car and never
+written to it:
+
+- **Charge**: state of charge, in percent.
+- **Range**: remaining range, in kilometres.
+- **Charging**: the charging state — charging on AC or DC, plugged in and not charging,
+  complete, faulted, or unplugged — with whether the port is connected underneath it.
+
+**A value the car does not report is shown as `—`, never as zero**, with a caption saying
+which kind of silence it is: *no vehicle data* when the vehicle layer is not answering at all,
+*unavailable on this car* when everything else answered and this one signal did not.
+
+Every value comes from **EVHardware**, the suite's shared vehicle layer. The launcher holds no
+property id, no vendor transaction and no setter of its own, and `VehicleBoundaryTest` fails
+the build if one appears. Two read-only car permissions are held —
+`android.car.permission.CAR_ENERGY` and `android.car.permission.CAR_VENDOR_EXTENSION` — and
+neither permits a write. Nothing is read while the page is off-screen, nothing is stored, and
+a driver who never swipes this far never binds the vehicle layer at all.
+
+Why it is a page of its own rather than three more cards beside the system stats, what a
+now-playing card would have cost, and which permissions were deliberately refused:
+[docs/CR-010-vehicle-page.md](docs/CR-010-vehicle-page.md).
+
 ## Building
-Standard Android project (Java + Kotlin, AGP 8.6, Gradle 8.7, `minSdk 28` /
-`targetSdk 34`). JDK 17 is required and pinned in `mise.toml`.
+Standard Android project (Java, AGP 9.1.1, Gradle 9.3.1, `compileSdk 36`, `minSdk 28` /
+`targetSdk 34`). JDK 17 is required and pinned in `mise.toml`. The `EVHardware` submodule is
+included as the `:evhardware` subproject — clone with `--recurse-submodules`, or run
+`git submodule update --init` before the first build.
 
 ```
 mise run build            # stable debug APK
@@ -196,6 +226,8 @@ Every `uses-permission` must be listed with a justification in
 - [LICENSE.md](LICENSE.md) — MIT; this is a fork of an upstream project that publishes no
   licence of its own, read it before reusing anything
 - [AGENTS.md](AGENTS.md) — architecture notes for contributors and coding agents
+- [docs/CR-010-vehicle-page.md](docs/CR-010-vehicle-page.md) — the vehicle page: layout decision,
+  the permissions taken and refused, and why there is no now-playing card
 
 ## Security
 See [SECURITY.md](SECURITY.md) for the threat model and how to report a vulnerability

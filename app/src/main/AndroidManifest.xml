@@ -14,6 +14,18 @@
          background check, self-update, installer permission, or privileged UID. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Vehicle page: READ ONLY, and the minimum for the three values it shows.
+         CAR_ENERGY covers the standard AAOS range and charge-port reads; CAR_VENDOR_EXTENSION
+         is what the vendor property space requires to be read at all, and carries the SWI68
+         fallbacks for state of charge and range. Neither permits a write, and this app calls
+         no setter: every vehicle value arrives through EVHardware's telemetry reader, which
+         exposes getters only. Deliberately absent, though EVChargePilot holds them: CAR_SPEED
+         (no speed is shown), CAR_EXTERIOR_ENVIRONMENT (no outside temperature) and
+         CONTROL_CAR_CLIMATE (no HVAC state — and its name alone is a reason not to hold it in
+         the app that owns the home screen). See docs/CR-010-vehicle-page.md. -->
+    <uses-permission android:name="android.car.permission.CAR_ENERGY" />
+    <uses-permission android:name="android.car.permission.CAR_VENDOR_EXTENSION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
