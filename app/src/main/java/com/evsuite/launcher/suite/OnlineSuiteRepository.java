@@ -35,6 +35,7 @@ final class OnlineSuiteRepository {
         RELEASE_APIS.put("com.evsuite.tasker", "https://api.github.com/repos/malys/EVTasker/releases/latest");
         RELEASE_APIS.put("com.evsuite.abrp", "https://api.github.com/repos/malys/EVABRPUploader/releases/latest");
         RELEASE_APIS.put("com.evsuite.swipe", "https://api.github.com/repos/malys/EVSwipe/releases/latest");
+        RELEASE_APIS.put("com.evsuite.chargepilot", "https://api.github.com/repos/malys/EVChargePilot/releases/latest");
         RELEASE_APIS.put("com.evsuite.launcher", "https://api.github.com/repos/malys/EVLauncher/releases/latest");
     }
 

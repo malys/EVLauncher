@@ -10,7 +10,7 @@
 
 EVLauncher is a simple custom home launcher designed for the MG4 head
 unit (1920×720, landscape). It is part of the **EVSuite** (EVProfile,
-EVTasker, EVABRPUploader, EVSwipe) and shares its dark Material 3
+EVTasker, EVABRPUploader, EVSwipe, EVChargePilot) and shares its dark Material 3
 theme, its CI/CD and security gates, and its two-channel release model.
 
 > ⚠️ **This software runs on a vehicle head unit.** Do not interact with it while

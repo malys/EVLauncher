@@ -17,6 +17,7 @@ final class SuiteCatalog {
         apps.add(new SuiteAppState("EVTasker", "com.evsuite.tasker"));
         apps.add(new SuiteAppState("EVABRPUploader", "com.evsuite.abrp"));
         apps.add(new SuiteAppState("EVSwipe", "com.evsuite.swipe"));
+        apps.add(new SuiteAppState("EVChargePilot", "com.evsuite.chargepilot"));
         apps.add(new SuiteAppState("EVLauncher", "com.evsuite.launcher"));
         return apps;
     }
