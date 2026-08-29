@@ -6,6 +6,16 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-08-29
+
+### Added
+
+- **EVChargePilot appears in the suite manager.** The read-only energy dashboard joins the
+  fixed catalogue of suite applications, so the manager reports whether it is installed, which
+  version, and offers the stable APK from its own GitHub releases. The catalogue stays an
+  allowlist: adding an application is a code change here, never something a downloaded
+  manifest can do.
+
 ## [2.1.0] - 2026-08-29
 
 ### Added
