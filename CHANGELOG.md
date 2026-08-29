@@ -6,6 +6,8 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-08-29
+
 ### Added
 
 - **A third home page, showing what the car itself is doing.** Swipe once more past the system
