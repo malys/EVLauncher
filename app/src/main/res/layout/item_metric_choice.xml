@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One metric in the picker grid. Sized on the touch target rather than on its text: the
+     driver is picking from a long catalogue, so every cell has to be hittable without aiming. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/metric_choice_height"
+    android:background="@drawable/appitem_selector"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_md">
+
+    <TextView
+        android:id="@+id/choice_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="2"
+        android:textColor="@color/ev_text_primary"
+        android:textSize="@dimen/metric_choice_label_size" />
+
+    <TextView
+        android:id="@+id/choice_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_xs"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/ev_text_secondary"
+        android:textSize="@dimen/drawer_label_size" />
+</LinearLayout>

@@ -58,7 +58,7 @@ the user-initiated EVSuite release manager, and `CAR_ENERGY` + `CAR_VENDOR_EXTEN
 read-only vehicle page. The manager uses fixed GitHub repositories and fails closed on URL,
 identity or signature. It follows the stable/offline releases of all five suite applications.
 
-The two car permissions are the minimum for the three values the vehicle page shows, and
+The two car permissions are the minimum for the vehicle values the metrics page can show, and
 neither permits a write. `CAR_SPEED`, `CAR_EXTERIOR_ENVIRONMENT` and `CONTROL_CAR_CLIMATE`
 are held by EVChargePilot and deliberately **not** here. `VehicleBoundaryTest` enforces the
 rule in the test suite as well as in the CI gate: it fails the build on a direct vehicle API,
@@ -67,17 +67,28 @@ car permission the boundary review did not name. Reasoning: `docs/CR-010-vehicle
 
 ## Layout of the code
 
-`MainActivity` hosts the `ViewPager2` carousel: `HomeFragment` (a runtime-built grid of
-favourite cards, up to `PreferencesManager.MAX_FAVORITES`, plus the trailing "add" tile +
-all-apps / shortcut column), `SystemInfoFragment` (device, memory, storage, network — all
-permission-free reads, refreshed only while visible) and `VehicleInfoFragment` (state of
-charge, range, charging state, read only through EVHardware, refreshed only while visible and
-bound only once the driver first swipes to it). The home stays at position 0 whatever is added
+`MainActivity` hosts the `ViewPager2` carousel over two pages: `HomeFragment` (a
+runtime-built grid of favourite cards, up to `PreferencesManager.MAX_FAVORITES`, plus the
+trailing "add" tile + all-apps / shortcut column) and `MetricsFragment` (a runtime-built grid
+of up to `PreferencesManager.MAX_METRICS` cards, head-unit and vehicle metrics in one list,
+customised with the same add / replace / remove gestures as the favourites). It merges the old
+`SystemInfoFragment` and `VehicleInfoFragment`: system values are permission-free reads
+refreshed every 3 s while visible, vehicle values come only through EVHardware's read-only
+snapshot at most every 5 s, and the telemetry reader is built only once a vehicle card is
+actually on the page. `Metric` is the catalogue (18 head-unit + 25 vehicle entries) — its constant name is the
+persisted key, so renaming one drops the card from every driver who chose it.
+`MetricPickerActivity` is the full-screen picker: a sectioned grid, not a dialog, and like
+`AppDrawerActivity` it writes the choice itself and finishes rather than returning a result.
+The non-car permissions this added are `PACKAGE_USAGE_STATS` for the data-usage cards and
+`ACCESS_FINE_LOCATION` / `ACCESS_COARSE_LOCATION` for the weather card — the launcher's first
+runtime permission, requested only when a weather card is first displayed, with the position
+subscription held only while the page is visible.
+Reasoning: `docs/CR-011-metrics-page.md`. The home stays at position 0 whatever is added
 after it. `AppDrawerActivity` is the full
 grid plus the system-apps filter (`FLAG_SYSTEM`).
-`PreferencesManager` persists the chosen packages as one ordered, hole-free list, and
-migrates the old three-slot keys on first read; `AppLauncher`/`AppInfo`/
-`AppListAdapter` are the shared launch-and-list plumbing.
+`PreferencesManager` persists both the chosen packages and the chosen metrics as ordered,
+hole-free lists, and migrates the old three-slot favourite keys on first read;
+`AppLauncher`/`AppInfo`/`AppListAdapter` are the shared launch-and-list plumbing.
 
 ## Reference patterns (shared with the suite)
 

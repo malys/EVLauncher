@@ -10,18 +10,41 @@
 # Required on API 30+ to enumerate launchable apps. Without it the drawer is empty.
 android.permission.QUERY_ALL_PACKAGES
 
-# --- System-info page ---
-# Read-only: active connection type and Wi-Fi link speed for the second carousel page.
-# Neither permission opens a socket, and neither exposes SSID/BSSID/MAC (never queried).
+# --- Metrics page (carousel page 2) ---
+# Read-only: active connection type and Wi-Fi link speed. Neither permission opens a
+# socket, and neither exposes SSID/BSSID/MAC (never queried).
 android.permission.ACCESS_NETWORK_STATE
 android.permission.ACCESS_WIFI_STATE
+
+# --- Metrics page, data-usage cards ---
+# Read-only, device-wide byte counters — the same numbers Android's own Settings screen
+# shows. No per-app breakdown is queried, so no inference about which apps the driver uses.
+# The since-boot card needs nothing (TrafficStats); the two windowed cards fall back to
+# "unreadable" rather than to zero when this is not granted, so refusing it degrades two
+# cards and nothing else. Reviewed in docs/CR-011-metrics-page.md.
+android.permission.PACKAGE_USAGE_STATS
+
+# --- Metrics page, weather card ---
+# The head unit's weather service answers for a position, so the weather card needs one.
+# This is the launcher's only runtime permission, and it is confined to that card:
+#   * requested at runtime the FIRST TIME A WEATHER CARD IS DISPLAYED, never at launch —
+#     a driver who does not add the card is never asked;
+#   * the position subscription is held only while the metrics page is visible and only
+#     while a weather card is on it, and is dropped in onPause — no background location;
+#   * the fix is used for one thing, a weather query, and is never stored or transmitted;
+#   * without the grant the card reads "—" and says why. Nothing else on the page changes.
+# Both grades are listed because since API 31 the user may grant the approximate one when
+# the precise one was asked for, and a city's weather does not need the precise one.
+# Reviewed in docs/CR-011-metrics-page.md.
+android.permission.ACCESS_FINE_LOCATION
+android.permission.ACCESS_COARSE_LOCATION
 
 # --- User-initiated EVSuite release checks ---
 # Used only when the EVSuite screen checks GitHub or downloads a user-confirmed APK.
 # There is no background check, self-update, silent installer, or remote-control path.
 android.permission.INTERNET
 
-# --- Vehicle page (carousel page 3) ---
+# --- Vehicle cards on the metrics page ---
 # READ ONLY. Neither permission permits a vehicle write, and the app calls no setter: every
 # value goes through EVHardware's telemetry reader, which exposes getters only.
 # CAR_ENERGY       — standard AAOS range remaining and charge-port-connected reads.
@@ -32,8 +55,12 @@ android.car.permission.CAR_ENERGY
 android.car.permission.CAR_VENDOR_EXTENSION
 
 # --- Deliberately NOT allowed ---
-# CAR_SPEED, CAR_EXTERIOR_ENVIRONMENT, CONTROL_CAR_CLIMATE — held by EVChargePilot, not here.
-# The vehicle page shows no speed, no outside temperature and no HVAC state, and the app that
-# owns the home screen holds no permission whose name contains CONTROL.
+# CAR_SPEED, CAR_EXTERIOR_ENVIRONMENT, CONTROL_CAR_CLIMATE, CAR_MILEAGE, CAR_ENERGY_PORTS,
+# CAR_TIRES — held by EVChargePilot or by nobody in the suite, and not here. The metrics
+# picker offers those cards anyway; without the permission each reads "—" with "unavailable
+# on this car", which is what the page already says about any signal the car does not answer.
+# The app that owns the home screen holds no permission whose name contains CONTROL.
+# ACCESS_BACKGROUND_LOCATION — the weather card reads a position only while the driver is
+# looking at the page. There is no background location path and there must not be one.
 # Any android.car.permission.* granting a write, and sharedUserId: never.
 # Installation always remains user-mediated by Android's package installer.

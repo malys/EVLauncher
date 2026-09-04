@@ -6,15 +6,31 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
 
-    <!-- System-info page: read the active connection type and Wi-Fi link speed. -->
+    <!-- Metrics page: read the active connection type and Wi-Fi link speed. -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- Metrics page, data-usage cards only: the device-wide byte counters Android's own
+         Settings screen shows. Read-only, no per-app breakdown is queried, and the cards fall
+         back to the permission-free since-boot counter when it is not granted. -->
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- Weather card only, and only while that card is on the metrics page: the head unit's
+         weather service answers for a position, so there is nothing to ask without one. Both
+         grades are declared because since API 31 the user may grant the approximate one when
+         the precise one was asked for, and a city's weather does not need the precise one.
+         Requested at runtime the first time a weather card is displayed — never at launch —
+         and the subscription is dropped as soon as the page stops being visible. A driver who
+         never adds the card is never asked and no provider is ever subscribed to. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!-- Used only after the user opens EVSuite and taps Refresh or Download. There is no
          background check, self-update, installer permission, or privileged UID. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- Vehicle page: READ ONLY, and the minimum for the three values it shows.
+    <!-- Vehicle cards on the metrics page: READ ONLY, and the minimum for the values shown.
          CAR_ENERGY covers the standard AAOS range and charge-port reads; CAR_VENDOR_EXTENSION
          is what the vendor property space requires to be read at all, and carries the SWI68
          fallbacks for state of charge and range. Neither permits a write, and this app calls
@@ -47,6 +63,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MetricPickerActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.EVLauncher.Drawer" />
 
         <activity
             android:name=".AppDrawerActivity"

@@ -1,5 +1,11 @@
 # CR-010 — the read-only vehicle page: layout decision
 
+> **Layout superseded by [CR-011](CR-011-metrics-page.md).** The vehicle page and the
+> system-information page are now one customisable metrics grid (`MetricsFragment`), and
+> `VehicleInfoFragment` / `fragment_vehicle.xml` no longer exist. Everything below about the
+> **boundary** — read-only through EVHardware, no property id, no vendor transaction, no
+> setter, and the permissions deliberately refused — is unchanged and still enforced.
+
 ## The decision
 
 **A third carousel page.** Not a section appended to the existing system-information page.

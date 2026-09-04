@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Carousel page 2: the merged, customisable metrics page (head unit + vehicle).
+     The cards are added at runtime because their number follows the driver's choices, so
+     nothing here can be laid out statically. Padding is the screen padding minus the half
+     gap each card carries as a margin, so the outer edge matches the home page.
+     See docs/CR-011-metrics-page.md. -->
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/metrics_grid"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/spacing_md"
+    android:useDefaultMargins="false" />

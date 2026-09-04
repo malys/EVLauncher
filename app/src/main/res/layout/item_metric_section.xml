@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A full-width section header in the picker grid ("Head unit" / "Vehicle"). Two sections is
+     what keeps a forty-entry catalogue scannable. -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/section_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/spacing_sm"
+    android:paddingTop="@dimen/spacing_md"
+    android:paddingEnd="@dimen/spacing_sm"
+    android:paddingBottom="@dimen/spacing_sm"
+    android:textColor="@color/ev_text_secondary"
+    android:textSize="@dimen/small_card_label_size"
+    android:textStyle="bold" />

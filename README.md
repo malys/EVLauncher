@@ -28,8 +28,7 @@ theme, its CI/CD and security gates, and its two-channel release model.
 - [Channels](#channels)
 - [EVSuite releases](#evsuite-releases)
 - [Changing a pinned app](#changing-a-pinned-app)
-- [Second screen (system info)](#second-screen-system-info)
-- [Third screen (vehicle)](#third-screen-vehicle)
+- [Second screen (metrics)](#second-screen-metrics)
 - [Building](#building)
 - [Project documents](#project-documents)
 - [Security](#security)
@@ -58,11 +57,11 @@ as the default home again from Android settings. Favorites are stored per-app, s
 reset.
 
 ## Features
-- **Swipeable three-page home**: a horizontal carousel (`ViewPager2`). Swipe left/right
-  between the launcher home (page 1), a **system-info** screen (page 2) and a read-only
-  **vehicle** screen (page 3). A SAIC-style bar indicator at the bottom centre shows the
-  current page. The home is always page 1, so pressing Home lands on the favourites grid
-  whatever you last swiped to.
+- **Swipeable two-page home**: a horizontal carousel (`ViewPager2`). Swipe left/right
+  between the launcher home (page 1) and a customisable, read-only **metrics** screen
+  (page 2) that carries head-unit and vehicle values in one grid. A SAIC-style bar
+  indicator at the bottom centre shows the current page. The home is always page 1, so
+  pressing Home lands on the favourites grid whatever you last swiped to.
 - **Favorite cards** (page 1): a grid of cards, each launching one app of your
   choice — up to **12**. Tap a card to open its app; **long-press** to replace or
   remove it. The last tile is always a **+**, which is how a new app is added.
@@ -111,10 +110,17 @@ and the launcher cleans private EVSuite APKs after export.
 app picker. To **add** one, tap the trailing **+** tile and pick an app. Your choices
 are saved across reboots.
 
-## Second screen (system info)
-Swipe right from the home to reach the system-info page (`SystemInfoFragment` /
-`res/layout/fragment_system.xml`). It shows live, permission-free stats that refresh
-while the page is visible:
+## Second screen (metrics)
+Swipe right from the home to reach the metrics page (`MetricsFragment` /
+`res/layout/fragment_metrics.xml`). It is one customisable grid of head-unit and
+vehicle values, refreshed while the page is visible — the system cards every 3 s, the
+vehicle snapshot at most every 5 s.
+
+**Customising it works exactly like the home page**: tap the trailing **+** tile to open
+the full-screen metric picker, **long-press** a card to *replace* or *remove* it. Up to
+twelve cards, laid out on one, two or three rows. Your choices are saved across reboots.
+
+A fresh install shows the seven cards the two old fixed pages showed:
 
 - **Device**: manufacturer + model, Android version (release · API), uptime, and the
   installed launcher version.
@@ -122,16 +128,30 @@ while the page is visible:
 - **Storage**: free / total internal storage.
 - **Network**: active connection type (Wi-Fi / mobile / Ethernet / offline) and, on
   Wi-Fi, the negotiated link speed.
-
-## Third screen (vehicle)
-Swipe right again to reach the vehicle page (`VehicleInfoFragment` /
-`res/layout/fragment_vehicle.xml`). It shows three values, read from the car and never
-written to it:
-
 - **Charge**: state of charge, in percent.
 - **Range**: remaining range, in kilometres.
 - **Charging**: the charging state — charging on AC or DC, plugged in and not charging,
   complete, faulted, or unplugged — with whether the port is connected underneath it.
+
+The picker offers forty-three metrics in two sections.
+
+**Head unit** — device, chipset, CPU load, memory, storage, network, IP address, data used
+today / this month / since boot, date, time, weather, uptime, Android version, kernel, screen,
+launcher version.
+
+The **weather** card is the only one that asks for a permission. It reads the head unit's own
+weather service, which answers for a position, so the location permission is requested the
+first time you display the card — never at launch — and the position subscription lives only
+while the page is on screen. Add no weather card and the launcher never asks and never
+subscribes.
+
+**Vehicle** — every value EVHardware's read-only snapshot exposes: charge, range, charging,
+charge port, speed, battery power / energy / capacity / temperature, outside and cabin
+temperature, odometer, gear, the climate state (power, A/C, auto, eco, recirculation, fan,
+driver and passenger targets) and the four tyre pressures. Several of those are standard AAOS
+properties behind car permissions this launcher deliberately does not hold, so they read as
+`—` on the MG4 — `docs/CR-011-metrics-page.md` lists which, and why adding one is a separate
+boundary review.
 
 **A value the car does not report is shown as `—`, never as zero**, with a caption saying
 which kind of silence it is: *no vehicle data* when the vehicle layer is not answering at all,
@@ -144,9 +164,10 @@ the build if one appears. Two read-only car permissions are held —
 neither permits a write. Nothing is read while the page is off-screen, nothing is stored, and
 a driver who never swipes this far never binds the vehicle layer at all.
 
-Why it is a page of its own rather than three more cards beside the system stats, what a
-now-playing card would have cost, and which permissions were deliberately refused:
-[docs/CR-010-vehicle-page.md](docs/CR-010-vehicle-page.md).
+Which permissions were deliberately refused, and what a now-playing card would have cost:
+[docs/CR-010-vehicle-page.md](docs/CR-010-vehicle-page.md). Why the vehicle page and the
+system page later became one customisable grid, and which metrics a refused permission keeps
+at `—`: [docs/CR-011-metrics-page.md](docs/CR-011-metrics-page.md).
 
 ## Building
 Standard Android project (Java, AGP 9.1.1, Gradle 9.3.1, `compileSdk 36`, `minSdk 28` /
@@ -228,6 +249,8 @@ Every `uses-permission` must be listed with a justification in
 - [AGENTS.md](AGENTS.md) — architecture notes for contributors and coding agents
 - [docs/CR-010-vehicle-page.md](docs/CR-010-vehicle-page.md) — the vehicle page: layout decision,
   the permissions taken and refused, and why there is no now-playing card
+- [docs/CR-011-metrics-page.md](docs/CR-011-metrics-page.md) — merging the system and vehicle
+  pages into one customisable metrics grid, and the metrics a refused permission leaves at `—`
 
 ## Security
 See [SECURITY.md](SECURITY.md) for the threat model and how to report a vulnerability

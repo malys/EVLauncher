@@ -54,6 +54,16 @@ public class VehicleBoundaryTest {
             "com.evsuite.hardware.telemetry.EnergySnapshot",
             "com.evsuite.hardware.telemetry.EnergyTelemetryReader",
             "com.evsuite.hardware.catalog.VehicleEnums",
+            // Android's own NetworkStats/TrafficStats counters for the head unit's connection.
+            // It names no vehicle API at all — it lives in EVHardware only because every app
+            // in the suite reads data usage the same awkward way (the modem is an Ethernet
+            // interface, so the public template returns zero).
+            "com.evsuite.hardware.DataUsage",
+            // The head unit's own weather service, queried for a position and nothing else.
+            // It is an app service on the map stack, not a vehicle property: it exposes one
+            // query and no setter, and reaches no car API. Unlike SaicClimate and SaicCharging
+            // — both forbidden above — there is nothing here that could write.
+            "com.evsuite.hardware.saic.SaicWeather",
             "com.evsuite.hardware.R");
 
     private static List<Path> appSources() throws IOException {

@@ -21,6 +21,11 @@
     <dimen name="drawer_icon_size">88dp</dimen>
     <dimen name="drawer_label_size">18sp</dimen>
 
+    <!-- Picker cells are sized on the touch target, not on their text: the metric catalogue
+         is long enough that the driver scans it rather than reads it. -->
+    <dimen name="metric_choice_height">128dp</dimen>
+    <dimen name="metric_choice_label_size">24sp</dimen>
+
     <dimen name="info_card_body_size">22sp</dimen>
     <dimen name="sys_value_size">@dimen/text_display</dimen>
 
