@@ -6,6 +6,37 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-09-04
+
+### Changed
+
+- The system-information page and the vehicle page are now **one customisable metrics page**
+  (`MetricsFragment`). Cards are added, replaced and removed with the same gestures as the
+  favourite apps: tap the trailing **+** tile, long-press a card. Up to twelve cards over one
+  to three rows. A fresh install shows the same seven values the two fixed pages showed.
+  The carousel is two pages instead of three. Reasoning: `docs/CR-011-metrics-page.md`.
+
+### Added
+
+- **Forty-three metrics in the picker**, in two sections. Head unit: device, chipset, CPU
+  load, memory, storage, network, IP address, data used today / this month / since boot,
+  date, time, weather, uptime, Android version, kernel, screen, launcher version. Vehicle:
+  every value of EVHardware's read-only snapshot — charge, range, charging, charge port,
+  speed, battery power / energy /
+  capacity / temperature, outside and cabin temperature, odometer, gear, the eight climate
+  signals and the four tyre pressures.
+- The metric picker is a **full screen** (`MetricPickerActivity`) with a sectioned grid of
+  touch-target-sized cells, replacing the list dialog the first cut used — forty entries in a
+  dialog is the smallest touch target in the app.
+- The **weather** card, from the head unit's own weather service. It needs a position, so
+  `ACCESS_FINE_LOCATION` / `ACCESS_COARSE_LOCATION` are declared and requested at runtime the
+  first time a weather card is displayed — never at launch. The position subscription is held
+  only while the page is visible and only while a weather card is on it. Without the
+  permission the card reads `—` and says so.
+- `android.permission.PACKAGE_USAGE_STATS` for the data-usage cards: read-only, device-wide,
+  not a car permission. Car permissions are unchanged; vehicle signals behind one the launcher
+  deliberately does not hold still read as `—` with *unavailable on this car*.
+
 ## [2.2.0] - 2026-08-29
 
 ### Added
