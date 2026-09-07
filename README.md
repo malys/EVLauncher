@@ -145,13 +145,14 @@ first time you display the card — never at launch — and the position subscri
 while the page is on screen. Add no weather card and the launcher never asks and never
 subscribes.
 
-**Vehicle** — every value EVHardware's read-only snapshot exposes: charge, range, charging,
-charge port, speed, battery power / energy / capacity / temperature, outside and cabin
-temperature, odometer, gear, the climate state (power, A/C, auto, eco, recirculation, fan,
-driver and passenger targets) and the four tyre pressures. Several of those are standard AAOS
-properties behind car permissions this launcher deliberately does not hold, so they read as
-`—` on the MG4 — `docs/CR-011-metrics-page.md` lists which, and why adding one is a separate
-boundary review.
+**Vehicle** — what this car actually answers: charge, range, charging, outside temperature,
+gear, and the climate state (power, A/C, auto, eco, recirculation, fan, driver and passenger
+targets). They come from the SAIC vendor services, which need no car permission, which is why
+they work. The standard AAOS metrics that used to be offered alongside them — speed, cabin
+temperature, odometer, charge port, tyre pressures, battery power / energy / capacity /
+temperature — are **gone**: every one is behind a car permission this launcher does not hold,
+so none could ever show a number. `docs/CR-011-metrics-page.md` lists which and why re-adding
+one is a separate boundary review.
 
 **A value the car does not report is shown as `—`, never as zero**, with a caption saying
 which kind of silence it is: *no vehicle data* when the vehicle layer is not answering at all,

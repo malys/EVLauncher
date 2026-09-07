@@ -36,8 +36,6 @@
     <string name="veh_soc_caption">état de charge</string>
     <string name="veh_range_caption">restante</string>
     <string name="veh_charging_caption">état de recharge</string>
-    <string name="veh_plugged_in">Branchée</string>
-    <string name="veh_not_plugged_in">Non branchée</string>
     <string name="veh_no_vehicle_data">aucune donnée véhicule</string>
     <string name="veh_unavailable_here">indisponible sur cette voiture</string>
 
@@ -50,15 +48,7 @@
     <string name="metric_remove">Retirer de cette page</string>
     <string name="metric_on">Activé</string>
     <string name="metric_off">Désactivé</string>
-    <string name="metric_charge_port">Trappe de charge</string>
-    <string name="metric_speed">Vitesse</string>
-    <string name="metric_battery_power">Puissance batterie</string>
-    <string name="metric_battery_energy">Énergie batterie</string>
-    <string name="metric_battery_capacity">Capacité batterie</string>
-    <string name="metric_battery_temp">Temp. batterie</string>
     <string name="metric_outside_temp">Extérieur</string>
-    <string name="metric_cabin_temp">Habitacle</string>
-    <string name="metric_odometer">Kilométrage</string>
     <string name="metric_parked">Rapport</string>
     <string name="metric_parked_yes">Garée</string>
     <string name="metric_parked_no">En prise</string>
@@ -70,22 +60,11 @@
     <string name="metric_climate_fan">Ventilation</string>
     <string name="metric_climate_driver">Consigne conducteur</string>
     <string name="metric_climate_passenger">Consigne passager</string>
-    <string name="metric_tire_fl">Pneu avant gauche</string>
-    <string name="metric_tire_fr">Pneu avant droit</string>
-    <string name="metric_tire_rl">Pneu arrière gauche</string>
-    <string name="metric_tire_rr">Pneu arrière droit</string>
-    <string name="metric_cap_charge_port">état de la trappe</string>
-    <string name="metric_cap_speed">actuelle</string>
-    <string name="metric_cap_battery_power">+ conso / − charge</string>
-    <string name="metric_cap_battery_energy">restante</string>
-    <string name="metric_cap_battery_capacity">utilisable</string>
     <string name="metric_cap_temp">température</string>
-    <string name="metric_cap_odometer">distance totale</string>
     <string name="metric_cap_parked">position du rapport</string>
     <string name="metric_cap_climate">état de la climatisation</string>
     <string name="metric_cap_fan">niveau de soufflerie</string>
     <string name="metric_cap_target">température de consigne</string>
-    <string name="metric_cap_tire">pression</string>
     <string name="metric_group_system">Système embarqué</string>
     <string name="metric_group_vehicle">Véhicule</string>
     <string name="metric_source_system">système embarqué</string>

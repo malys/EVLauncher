@@ -6,6 +6,33 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+### Removed
+
+- **Twelve vehicle metrics that could never answer on this car**: speed, cabin temperature,
+  odometer, charge port, the four tyre pressures, and battery power / energy / capacity /
+  temperature. Each is a standard AAOS property behind a car permission this launcher does not
+  hold — and, for the `dangerous` ones it does declare, does not request at runtime either, so
+  a manifest line was never a grant. They were offered on the argument that a dash saying
+  *unavailable on this car* is an honest answer; on the vehicle it is noise, since nothing in
+  the picker told the driver which entries can never fill in. EVTasker's diagnostic reports the
+  same signals unreadable there, for the same reason. Reasoning:
+  `docs/CR-011-metrics-page.md`.
+- The charging card's **port-flag caption**. It read `EV_CHARGE_PORT_CONNECTED`, which needs
+  `CAR_ENERGY_PORTS` — held by no app in the suite — so the flag was never once non-null and
+  the caption always fell back.
+
+### Changed
+
+- The picker now offers **thirty-one metrics**: the eighteen head-unit ones, unchanged, and
+  thirteen vehicle ones that answer through the SAIC vendor services — charge, range, charging,
+  outside temperature, the eight climate signals — plus the gear position, which EVHardware
+  reads through the vendor condition manager rather than `CarPropertyManager`. None of them
+  needs a car permission, which is why they work.
+- A metric card a driver had already chosen and that this build dropped is skipped on the next
+  page build, as any unknown key already was. Nothing else on the page changes.
+
+Car permissions are **unchanged**: still `CAR_ENERGY` and `CAR_VENDOR_EXTENSION`, read-only.
+
 ## [2.3.0] - 2026-09-04
 
 ### Changed

@@ -37,8 +37,6 @@
     <string name="veh_soc_caption">Ladezustand</string>
     <string name="veh_range_caption">verbleibend</string>
     <string name="veh_charging_caption">Ladezustand</string>
-    <string name="veh_plugged_in">Angeschlossen</string>
-    <string name="veh_not_plugged_in">Nicht angeschlossen</string>
     <string name="veh_no_vehicle_data">keine Fahrzeugdaten</string>
     <string name="veh_unavailable_here">auf diesem Fahrzeug nicht verfügbar</string>
 
@@ -51,15 +49,7 @@
     <string name="metric_remove">Von dieser Seite entfernen</string>
     <string name="metric_on">Ein</string>
     <string name="metric_off">Aus</string>
-    <string name="metric_charge_port">Ladeklappe</string>
-    <string name="metric_speed">Geschwindigkeit</string>
-    <string name="metric_battery_power">Batterieleistung</string>
-    <string name="metric_battery_energy">Batterieenergie</string>
-    <string name="metric_battery_capacity">Batteriekapazität</string>
-    <string name="metric_battery_temp">Batterietemp.</string>
     <string name="metric_outside_temp">Außen</string>
-    <string name="metric_cabin_temp">Innenraum</string>
-    <string name="metric_odometer">Kilometerstand</string>
     <string name="metric_parked">Gang</string>
     <string name="metric_parked_yes">Geparkt</string>
     <string name="metric_parked_no">Im Gang</string>
@@ -71,22 +61,11 @@
     <string name="metric_climate_fan">Gebläse</string>
     <string name="metric_climate_driver">Sollwert Fahrer</string>
     <string name="metric_climate_passenger">Sollwert Beifahrer</string>
-    <string name="metric_tire_fl">Reifen vorne links</string>
-    <string name="metric_tire_fr">Reifen vorne rechts</string>
-    <string name="metric_tire_rl">Reifen hinten links</string>
-    <string name="metric_tire_rr">Reifen hinten rechts</string>
-    <string name="metric_cap_charge_port">Klappenzustand</string>
-    <string name="metric_cap_speed">aktuell</string>
-    <string name="metric_cap_battery_power">+ Verbrauch / − Laden</string>
-    <string name="metric_cap_battery_energy">verbleibend</string>
-    <string name="metric_cap_battery_capacity">nutzbar</string>
     <string name="metric_cap_temp">Temperatur</string>
-    <string name="metric_cap_odometer">Gesamtstrecke</string>
     <string name="metric_cap_parked">Gangposition</string>
     <string name="metric_cap_climate">Klimazustand</string>
     <string name="metric_cap_fan">Gebläsestufe</string>
     <string name="metric_cap_target">Solltemperatur</string>
-    <string name="metric_cap_tire">Druck</string>
     <string name="metric_group_system">Head-Unit</string>
     <string name="metric_group_vehicle">Fahrzeug</string>
     <string name="metric_source_system">Head-Unit</string>

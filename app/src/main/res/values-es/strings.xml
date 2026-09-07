@@ -37,8 +37,6 @@
     <string name="veh_soc_caption">estado de carga</string>
     <string name="veh_range_caption">restante</string>
     <string name="veh_charging_caption">estado de recarga</string>
-    <string name="veh_plugged_in">Enchufado</string>
-    <string name="veh_not_plugged_in">Sin enchufar</string>
     <string name="veh_no_vehicle_data">sin datos del vehículo</string>
     <string name="veh_unavailable_here">no disponible en este coche</string>
 
@@ -51,15 +49,7 @@
     <string name="metric_remove">Quitar de esta página</string>
     <string name="metric_on">Encendido</string>
     <string name="metric_off">Apagado</string>
-    <string name="metric_charge_port">Toma de carga</string>
-    <string name="metric_speed">Velocidad</string>
-    <string name="metric_battery_power">Potencia de batería</string>
-    <string name="metric_battery_energy">Energía de batería</string>
-    <string name="metric_battery_capacity">Capacidad de batería</string>
-    <string name="metric_battery_temp">Temp. batería</string>
     <string name="metric_outside_temp">Exterior</string>
-    <string name="metric_cabin_temp">Habitáculo</string>
-    <string name="metric_odometer">Cuentakilómetros</string>
     <string name="metric_parked">Marcha</string>
     <string name="metric_parked_yes">Aparcado</string>
     <string name="metric_parked_no">Con marcha</string>
@@ -71,22 +61,11 @@
     <string name="metric_climate_fan">Ventilación</string>
     <string name="metric_climate_driver">Consigna conductor</string>
     <string name="metric_climate_passenger">Consigna acompañante</string>
-    <string name="metric_tire_fl">Neumático del. izq.</string>
-    <string name="metric_tire_fr">Neumático del. der.</string>
-    <string name="metric_tire_rl">Neumático tras. izq.</string>
-    <string name="metric_tire_rr">Neumático tras. der.</string>
-    <string name="metric_cap_charge_port">estado de la toma</string>
-    <string name="metric_cap_speed">actual</string>
-    <string name="metric_cap_battery_power">+ consumo / − carga</string>
-    <string name="metric_cap_battery_energy">restante</string>
-    <string name="metric_cap_battery_capacity">utilizable</string>
     <string name="metric_cap_temp">temperatura</string>
-    <string name="metric_cap_odometer">distancia total</string>
     <string name="metric_cap_parked">posición de la marcha</string>
     <string name="metric_cap_climate">estado del clima</string>
     <string name="metric_cap_fan">nivel del ventilador</string>
     <string name="metric_cap_target">temperatura de consigna</string>
-    <string name="metric_cap_tire">presión</string>
     <string name="metric_group_system">Unidad central</string>
     <string name="metric_group_vehicle">Vehículo</string>
     <string name="metric_source_system">unidad central</string>

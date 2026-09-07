@@ -14,10 +14,12 @@ import androidx.annotation.StringRes;
  * vehicle layer, exactly as the standalone vehicle page used not to. It is also what the
  * picker groups by, which is why the two blocks below are declared in display order.
  *
- * <p>The vehicle entries cover EVHardware's whole read-only snapshot, including signals this
- * launcher holds no car permission for. Those are not a lie: they read as {@code —} with
- * "unavailable on this car", which is what the page already says about anything the vehicle
- * does not answer. See {@code docs/CR-011-metrics-page.md}.
+ * <p>The vehicle entries are the ones this launcher can actually read: the SAIC vendor
+ * services, which are bound AIDL interfaces needing no car permission, plus the gear position,
+ * which EVHardware reads the same vendor way. The standard AAOS properties are gone — every one
+ * of them is gated behind a car permission this app does not hold and does not request, so they
+ * could only ever have rendered {@code —} on this car. Offering a card that cannot answer is
+ * worse than not offering it. See {@code docs/CR-011-metrics-page.md}.
  */
 public enum Metric {
 
@@ -44,19 +46,11 @@ public enum Metric {
     SCREEN(R.string.metric_screen, false),
     LAUNCHER_VERSION(R.string.metric_launcher_version, false),
 
-    // Vehicle — every field of EVHardware's EnergySnapshot.
+    // Vehicle — the fields of EVHardware's EnergySnapshot the vendor services answer.
     SOC(R.string.veh_charge, true),
     RANGE(R.string.veh_range, true),
     CHARGING(R.string.veh_charging, true),
-    CHARGE_PORT(R.string.metric_charge_port, true),
-    SPEED(R.string.metric_speed, true),
-    BATTERY_POWER(R.string.metric_battery_power, true),
-    BATTERY_ENERGY(R.string.metric_battery_energy, true),
-    BATTERY_CAPACITY(R.string.metric_battery_capacity, true),
-    BATTERY_TEMP(R.string.metric_battery_temp, true),
     OUTSIDE_TEMP(R.string.metric_outside_temp, true),
-    CABIN_TEMP(R.string.metric_cabin_temp, true),
-    ODOMETER(R.string.metric_odometer, true),
     PARKED(R.string.metric_parked, true),
     CLIMATE_POWER(R.string.metric_climate_power, true),
     CLIMATE_AC(R.string.metric_climate_ac, true),
@@ -65,11 +59,7 @@ public enum Metric {
     CLIMATE_RECIRC(R.string.metric_climate_recirc, true),
     CLIMATE_FAN(R.string.metric_climate_fan, true),
     CLIMATE_DRIVER_TEMP(R.string.metric_climate_driver, true),
-    CLIMATE_PASSENGER_TEMP(R.string.metric_climate_passenger, true),
-    TIRE_FRONT_LEFT(R.string.metric_tire_fl, true),
-    TIRE_FRONT_RIGHT(R.string.metric_tire_fr, true),
-    TIRE_REAR_LEFT(R.string.metric_tire_rl, true),
-    TIRE_REAR_RIGHT(R.string.metric_tire_rr, true);
+    CLIMATE_PASSENGER_TEMP(R.string.metric_climate_passenger, true);
 
     @StringRes
     public final int labelRes;

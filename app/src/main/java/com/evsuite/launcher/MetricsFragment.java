@@ -836,32 +836,9 @@ public class MetricsFragment extends Fragment {
                 return card(number(s.getRangeKm(), "%.0f km"), R.string.veh_range_caption, absent);
             case CHARGING:
                 return charging(s, absent);
-            case CHARGE_PORT:
-                return card(plugged(s.getChargePortConnected()),
-                        R.string.metric_cap_charge_port, absent);
-            case SPEED:
-                return card(number(s.getSpeedKmh(), "%.0f km/h"), R.string.metric_cap_speed, absent);
-            case BATTERY_POWER:
-                return card(number(s.getBatteryPowerKw(), "%+.1f kW"),
-                        R.string.metric_cap_battery_power, absent);
-            case BATTERY_ENERGY:
-                return card(number(s.getBatteryEnergyKwh(), "%.1f kWh"),
-                        R.string.metric_cap_battery_energy, absent);
-            case BATTERY_CAPACITY:
-                return card(number(s.getBatteryCapacityKwh(), "%.1f kWh"),
-                        R.string.metric_cap_battery_capacity, absent);
-            case BATTERY_TEMP:
-                return card(number(s.getBatteryTempCelsius(), "%.0f °C"),
-                        R.string.metric_cap_temp, absent);
             case OUTSIDE_TEMP:
                 return card(number(s.getOutsideTempCelsius(), "%.0f °C"),
                         R.string.metric_cap_temp, absent);
-            case CABIN_TEMP:
-                return card(number(s.getCabinTempCelsius(), "%.0f °C"),
-                        R.string.metric_cap_temp, absent);
-            case ODOMETER:
-                return card(number(s.getOdometerKm(), "%.0f km"),
-                        R.string.metric_cap_odometer, absent);
             case PARKED:
                 return card(parked(s.getParked()), R.string.metric_cap_parked, absent);
             case CLIMATE_POWER:
@@ -881,56 +858,24 @@ public class MetricsFragment extends Fragment {
                 return card(number(s.getClimate().getDriverTargetCelsius(), "%.1f °C"),
                         R.string.metric_cap_target, absent);
             case CLIMATE_PASSENGER_TEMP:
+            default:
                 return card(number(s.getClimate().getPassengerTargetCelsius(), "%.1f °C"),
                         R.string.metric_cap_target, absent);
-            case TIRE_FRONT_LEFT:
-                return card(number(s.getTirePressures().getFrontLeftKpa(), "%.0f kPa"),
-                        R.string.metric_cap_tire, absent);
-            case TIRE_FRONT_RIGHT:
-                return card(number(s.getTirePressures().getFrontRightKpa(), "%.0f kPa"),
-                        R.string.metric_cap_tire, absent);
-            case TIRE_REAR_LEFT:
-                return card(number(s.getTirePressures().getRearLeftKpa(), "%.0f kPa"),
-                        R.string.metric_cap_tire, absent);
-            case TIRE_REAR_RIGHT:
-            default:
-                return card(number(s.getTirePressures().getRearRightKpa(), "%.0f kPa"),
-                        R.string.metric_cap_tire, absent);
         }
     }
 
     /**
-     * The charging card reads two independent signals, and says so.
+     * The charging card, from the vendor charging service alone.
      *
-     * <p>The status is the vendor charging service's; the port flag is a standard AAOS
-     * property. Either can answer while the other does not, and "plugged in" is worth showing
-     * on its own — it is the difference between a cable the driver forgot and a charge that
-     * never started.
+     * <p>It used to add the AAOS charge-port flag as its caption. That property needs
+     * {@code CAR_ENERGY_PORTS}, which no app in the suite holds, so the flag was always null
+     * and the caption always the fallback — a second signal that never once answered.
      */
     private String[] charging(EnergySnapshot s, String absent) {
         Integer status = s.getChargingStatus();
-        Boolean port = s.getChargePortConnected();
-
-        String value;
-        if (status != null) {
-            value = chargingStatusLabel(status);
-        } else if (port != null) {
-            value = plugged(port);
-        } else {
-            value = getString(R.string.veh_unknown);
-        }
-
-        String caption;
-        if (status == null && port == null) {
-            caption = absent;
-        } else if (port == null) {
-            caption = getString(R.string.veh_charging_caption);
-        } else {
-            caption = port
-                    ? getString(R.string.veh_plugged_in)
-                    : getString(R.string.veh_not_plugged_in);
-        }
-        return new String[]{value, caption};
+        return status == null
+                ? new String[]{getString(R.string.veh_unknown), absent}
+                : new String[]{chargingStatusLabel(status), getString(R.string.veh_charging_caption)};
     }
 
     /**
@@ -985,13 +930,6 @@ public class MetricsFragment extends Fragment {
     @Nullable
     private String onOff(@Nullable Boolean on) {
         return on == null ? null : getString(on ? R.string.metric_on : R.string.metric_off);
-    }
-
-    @Nullable
-    private String plugged(@Nullable Boolean connected) {
-        return connected == null ? null : getString(connected
-                ? R.string.veh_plugged_in
-                : R.string.veh_not_plugged_in);
     }
 
     @Nullable

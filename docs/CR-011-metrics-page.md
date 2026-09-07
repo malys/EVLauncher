@@ -115,33 +115,40 @@ map stack with one query and no setter, and it reaches no car API — unlike `Sa
 `SaicCharging`, which stay forbidden. Forecasts are not offered: the service declares no
 transaction that answers one.
 
-## Vehicle signals the launcher holds no permission for
+## The catalogue is what this car answers — corrected
 
-The **car** permissions are deliberately unchanged: `CAR_ENERGY` and `CAR_VENDOR_EXTENSION`,
-the two read-only permissions CR-010 reviewed. Several of the offered vehicle metrics are
-standard AAOS properties gated behind permissions this app does **not** hold, and therefore
-read as `—` with *unavailable on this car*:
+The first cut of this page offered every field of `EnergySnapshot`, including the standard
+AAOS properties this app has no permission for, on the argument that a dash with *unavailable
+on this car* was an honest answer and made the gap legible.
 
-| Metric | AAOS property | Permission not held here |
+On the vehicle it was not honest, it was noise. A driver picking from the list has no way to
+know which entries can never answer, and EVTasker's diagnostic — the reference for what this
+head unit actually gives up — shows the same signals unreadable there for the same reason. So
+the catalogue now lists only what can answer, and the rest are **removed**:
+
+| Removed metric | Read path | Why it can never answer here |
 |---|---|---|
-| Speed | `PERF_VEHICLE_SPEED` | `CAR_SPEED` |
-| Outside temperature | `ENV_OUTSIDE_TEMPERATURE` | `CAR_EXTERIOR_ENVIRONMENT` |
-| Cabin temperature | `HVAC_TEMPERATURE_CURRENT` | `CONTROL_CAR_CLIMATE` |
-| Odometer | `PERF_ODOMETER` | `CAR_MILEAGE` |
-| Charge port | `EV_CHARGE_PORT_CONNECTED` | `CAR_ENERGY_PORTS` |
-| Tyre pressures | `TIRE_PRESSURE` | `CAR_TIRES` |
+| Speed | `PERF_VEHICLE_SPEED` | `CAR_SPEED`, not declared |
+| Cabin temperature | `HVAC_TEMPERATURE_CURRENT` | `CONTROL_CAR_CLIMATE`, not declared, and `VehicleBoundaryTest` forbids any `CONTROL_` permission here |
+| Odometer | `PERF_ODOMETER` | `CAR_MILEAGE`, privileged. EVHardware grew a `SaicNav` fallback for it *after* the version this app pins, and nothing binds that service here |
+| Charge port | `EV_CHARGE_PORT_CONNECTED` | `CAR_ENERGY_PORTS`, held by no app in the suite |
+| Tyre pressures ×4 | `TIRE_PRESSURE` | `CAR_TIRES`, privileged |
+| Battery capacity | `INFO_EV_BATTERY_CAPACITY` | `CAR_INFO`, not declared |
+| Battery power, energy, temperature | `EV_*`, gated on `CAR_ENERGY` | Declared, but `CAR_ENERGY` is `dangerous`: a manifest entry alone does not grant it (see EVChargePilot's `VehiclePermissions`) and this app requests no car permission at runtime |
 
-Listing them anyway is deliberate. The page's contract is already that a value the car does
-not answer is a dash with a caption, never a zero, and a permission the app does not hold is
-one more reason a car does not answer. Offering the metric costs nothing and makes the gap
-legible; hiding it would make the catalogue depend on a permission set that is a boundary
-decision, not a UI one.
+What is left is what the **vendor AIDL services** answer — state of charge, range, charging
+status, outside temperature, the whole climate block — plus the gear position, which
+`EVHardware.isVehicleInPark` reads through the vendor condition manager rather than
+`CarPropertyManager`. None of those needs a car permission, which is exactly why they work.
 
-Adding any of those permissions is a **separate** change: it needs a boundary review, a new
-entry in `VehicleBoundaryTest`'s manifest allowlist, and a line in `AGENTS.md`, which today
-says `CAR_SPEED` and `CAR_EXTERIOR_ENVIRONMENT` are held by EVChargePilot and deliberately not
-here. The vendor-service signals (state of charge, range, charging status, climate) go through
-`CAR_VENDOR_EXTENSION` and are unaffected.
+The charging card lost its port-flag caption for the same reason: that flag was never once
+non-null on this car.
+
+The **car** permissions are unchanged by this correction: still `CAR_ENERGY` and
+`CAR_VENDOR_EXTENSION`. Re-adding any removed metric is a **separate** change and needs more
+than a manifest line — a boundary review, an entry in `VehicleBoundaryTest`'s manifest
+allowlist, a runtime request for the `dangerous` ones, and on-vehicle evidence that the
+property answers at all (CP-003). A permission that is merely declared buys nothing.
 
 ## Refresh
 
@@ -164,6 +171,6 @@ reconnection watchdog, so nothing here tears a bound service down underneath it.
 - `ConsumptionCalculator.instantaneous` is deliberately **not** offered as a card: it derives
   kWh/100 km from battery power and speed, and speed needs `CAR_SPEED`, so the card could
   never show a number. Offering it would mean widening the EVHardware allowlist for a
-  permanent dash.
+  permanent dash — the same reason the speed card itself is now gone.
 - A stored key this build does not know (a downgrade, or a metric later dropped) is skipped
   rather than shown as an empty card.

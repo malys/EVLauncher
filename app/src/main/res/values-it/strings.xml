@@ -37,8 +37,6 @@
     <string name="veh_soc_caption">stato di carica</string>
     <string name="veh_range_caption">residua</string>
     <string name="veh_charging_caption">stato di ricarica</string>
-    <string name="veh_plugged_in">Collegata</string>
-    <string name="veh_not_plugged_in">Non collegata</string>
     <string name="veh_no_vehicle_data">nessun dato del veicolo</string>
     <string name="veh_unavailable_here">non disponibile su questa auto</string>
 
@@ -51,15 +49,7 @@
     <string name="metric_remove">Rimuovi da questa pagina</string>
     <string name="metric_on">Acceso</string>
     <string name="metric_off">Spento</string>
-    <string name="metric_charge_port">Sportello di ricarica</string>
-    <string name="metric_speed">Velocità</string>
-    <string name="metric_battery_power">Potenza batteria</string>
-    <string name="metric_battery_energy">Energia batteria</string>
-    <string name="metric_battery_capacity">Capacità batteria</string>
-    <string name="metric_battery_temp">Temp. batteria</string>
     <string name="metric_outside_temp">Esterno</string>
-    <string name="metric_cabin_temp">Abitacolo</string>
-    <string name="metric_odometer">Contachilometri</string>
     <string name="metric_parked">Marcia</string>
     <string name="metric_parked_yes">In sosta</string>
     <string name="metric_parked_no">Marcia inserita</string>
@@ -71,22 +61,11 @@
     <string name="metric_climate_fan">Ventilazione</string>
     <string name="metric_climate_driver">Target conducente</string>
     <string name="metric_climate_passenger">Target passeggero</string>
-    <string name="metric_tire_fl">Pneumatico ant. sx</string>
-    <string name="metric_tire_fr">Pneumatico ant. dx</string>
-    <string name="metric_tire_rl">Pneumatico post. sx</string>
-    <string name="metric_tire_rr">Pneumatico post. dx</string>
-    <string name="metric_cap_charge_port">stato sportello</string>
-    <string name="metric_cap_speed">attuale</string>
-    <string name="metric_cap_battery_power">+ consumo / − ricarica</string>
-    <string name="metric_cap_battery_energy">residua</string>
-    <string name="metric_cap_battery_capacity">utilizzabile</string>
     <string name="metric_cap_temp">temperatura</string>
-    <string name="metric_cap_odometer">distanza totale</string>
     <string name="metric_cap_parked">posizione marcia</string>
     <string name="metric_cap_climate">stato climatizzatore</string>
     <string name="metric_cap_fan">livello ventola</string>
     <string name="metric_cap_target">temperatura target</string>
-    <string name="metric_cap_tire">pressione</string>
     <string name="metric_group_system">Unità centrale</string>
     <string name="metric_group_vehicle">Veicolo</string>
     <string name="metric_source_system">unità centrale</string>
