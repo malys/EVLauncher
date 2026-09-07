@@ -6,6 +6,8 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [2.4.0] - 2026-09-07
+
 ### Removed
 
 - **Twelve vehicle metrics that could never answer on this car**: speed, cabin temperature,
