@@ -6,6 +6,12 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [2.4.1] - 2026-09-17
+
+### Changed
+
+- Updated EVHardware to the shared `master` catalogue and telemetry implementation.
+
 ## [2.4.0] - 2026-09-07
 
 ### Removed
