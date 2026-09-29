@@ -18,12 +18,20 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppViewH
         void onAppClick(AppInfo app);
     }
 
+    /** Long-press on a drawer entry — used to jump to its Android app-info screen. */
+    public interface OnAppLongClickListener {
+        void onAppLongClick(AppInfo app);
+    }
+
     private final List<AppInfo> apps;
     private final OnAppClickListener listener;
+    private final OnAppLongClickListener longClickListener;
 
-    public AppListAdapter(List<AppInfo> apps, OnAppClickListener listener) {
+    public AppListAdapter(List<AppInfo> apps, OnAppClickListener listener,
+                           OnAppLongClickListener longClickListener) {
         this.apps = apps;
         this.listener = listener;
+        this.longClickListener = longClickListener;
     }
 
     @NonNull
@@ -40,6 +48,10 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppViewH
         holder.icon.setImageDrawable(app.icon);
         holder.label.setText(app.label);
         holder.itemView.setOnClickListener(v -> listener.onAppClick(app));
+        holder.itemView.setOnLongClickListener(v -> {
+            longClickListener.onAppLongClick(app);
+            return true;
+        });
     }
 
     @Override

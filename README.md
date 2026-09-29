@@ -73,6 +73,8 @@ reset.
     **Settings** apps, side by side as icons.
 - **System apps**: inside the *All apps* drawer, the header filters system apps
   (`FLAG_SYSTEM`) and provides a **back** button to return home.
+- **App info shortcut**: **long-press** any entry in the app drawer to jump straight to
+  its Android app-info screen.
 - **EVSuite manager**: the **EVSuite** button checks stable/offline GitHub releases only
   on request, shows changelogs, and downloads verified APKs for manual installation.
 - **EVSuite theme**: dark Material 3 on the shared `ev_*` colour and spacing

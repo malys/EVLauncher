@@ -6,6 +6,10 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+### Added
+
+- Long-press an entry in the app drawer to jump straight to its Android app-info screen.
+
 ## [2.4.1] - 2026-09-17
 
 ### Changed

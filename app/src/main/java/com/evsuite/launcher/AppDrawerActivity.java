@@ -1,5 +1,6 @@
 package com.evsuite.launcher;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -134,7 +136,7 @@ public class AppDrawerActivity extends AppCompatActivity {
                 if (isFinishing() || isDestroyed()) {
                     return;
                 }
-                grid.setAdapter(new AppListAdapter(apps, this::onAppClick));
+                grid.setAdapter(new AppListAdapter(apps, this::onAppClick, this::onAppLongClick));
             });
         });
     }
@@ -188,6 +190,18 @@ public class AppDrawerActivity extends AppCompatActivity {
     private void launch(String packageName) {
         if (!AppLauncher.launch(this, packageName)) {
             Toast.makeText(this, packageName, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /** Jumps to the app's Android app-info screen — a quick way to check/uninstall it. */
+    private void onAppLongClick(AppInfo app) {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + app.packageName));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, app.packageName, Toast.LENGTH_SHORT).show();
         }
     }
 
