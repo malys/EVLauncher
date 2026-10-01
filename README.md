@@ -40,8 +40,9 @@ Discover the rest of the suite:
 
 ## Contents
 
+- [Part of EVSuite](#part-of-evsuite)
 - [Screenshots](#screenshots)
-- [⚠️ Upgrading from an earlier build](#️-upgrading-from-an-earlier-build)
+- [⚠️ Upgrading from an earlier build](#upgrading-from-an-earlier-build)
 - [Features](#features)
 - [Changing a pinned app](#changing-a-pinned-app)
 - [Second screen (metrics)](#second-screen-metrics)
