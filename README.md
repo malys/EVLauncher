@@ -55,16 +55,13 @@ Discover the rest of the suite:
 - [Legal](#legal)
 
 ## Screenshots
+
 <p align="center">
-  <img width="320" height="180" alt="ezgif-295db3ba8dbf70b5" src="https://github.com/user-attachments/assets/7a3e3bb3-c81e-41d8-ad17-c9b56d28c359" />
+  <img src="screenshots/home.png" alt="EVLauncher favourites on the Automotive emulator" width="800" />
 </p>
 
 <p align="center">
-  <img src="https://ws2.tommasovietina.it/mg4/EV_Simple_Launcher/Screenshot_1782141845.png" alt="EVLauncher — home screen" width="800" />
-</p>
-
-<p align="center">
-  <img src="https://ws2.tommasovietina.it/mg4/EV_Simple_Launcher/Screenshot_1782141854.png" alt="EVLauncher — system info screen" width="800" />
+  <img width="320" height="180" alt="EVLauncher swipe navigation animation" src="https://github.com/user-attachments/assets/7a3e3bb3-c81e-41d8-ad17-c9b56d28c359" />
 </p>
 
 ## Upgrading from an earlier build
