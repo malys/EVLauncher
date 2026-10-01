@@ -58,6 +58,10 @@ the user-initiated EVSuite release manager, and `CAR_ENERGY` + `CAR_VENDOR_EXTEN
 read-only vehicle page. The manager uses fixed GitHub repositories and fails closed on URL,
 identity or signature. It follows the stable/offline releases of all five suite applications.
 
+`CHANGE_COMPONENT_ENABLED_STATE` (signature-level) backs Dealer/Service mode on the EVSuite screen: it disables or
+re-enables the other suite packages, never the launcher itself, and a refusal is shown to the driver. Unproven on
+the vehicle until the launcher's signing key is confirmed to grant it.
+
 The two car permissions are the minimum for the vehicle values the metrics page can show, and
 neither permits a write. `CAR_SPEED`, `CAR_EXTERIOR_ENVIRONMENT` and `CONTROL_CAR_CLIMATE`
 are held by EVChargePilot and deliberately **not** here. `VehicleBoundaryTest` enforces the

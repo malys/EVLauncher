@@ -149,4 +149,10 @@
     <string name="suite_save_failed">Impossible d’enregistrer l’APK. Choisissez un autre emplacement et réessayez.</string>
     <string name="suite_no_file_picker">Aucun gestionnaire de fichiers ne permet d’enregistrer l’APK. Installez-en un, puis réessayez.</string>
     <string name="suite_manual_install_help">L’installation est toujours manuelle. Garez le véhicule, ouvrez Fichiers, sélectionnez l’APK téléchargé, vérifiez le nom et les autorisations, puis appuyez sur Installer. Les APK EVSuite temporaires sont supprimés automatiquement.</string>
+    <string name="service_mode_on">Mode atelier : désactiver</string>
+    <string name="service_mode_off">Mode atelier : réactiver</string>
+    <string name="service_mode_enabled">Mode atelier ACTIF — applis EVSuite désactivées</string>
+    <string name="service_mode_disabled">Mode atelier inactif — applis EVSuite réactivées</string>
+    <string name="service_mode_refused">Refusé : ce build n\'a pas le droit de modifier les autres applis</string>
+    <string name="service_mode_app_disabled">Désactivée (mode atelier)</string>
 </resources>

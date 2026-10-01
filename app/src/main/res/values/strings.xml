@@ -150,4 +150,10 @@
     <string name="about_qr_description">QR code for the project repository</string>
     <string name="about_version_unknown">unknown</string>
     <string name="about_close">Close</string>
+    <string name="service_mode_on">Service mode: disable apps</string>
+    <string name="service_mode_off">Service mode: enable apps</string>
+    <string name="service_mode_enabled">Dealer/Service mode ON — EVSuite apps disabled</string>
+    <string name="service_mode_disabled">Service mode OFF — EVSuite apps enabled</string>
+    <string name="service_mode_refused">Refused: this build lacks permission to change other apps</string>
+    <string name="service_mode_app_disabled">Disabled (service mode)</string>
 </resources>

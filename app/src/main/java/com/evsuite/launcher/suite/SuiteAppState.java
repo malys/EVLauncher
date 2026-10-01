@@ -7,6 +7,7 @@ final class SuiteAppState {
     final String packageName;
     String installedVersion;
     long installedVersionCode = -1;
+    boolean disabled;
     String localVersion;
     String changelog;
     String downloadUrl;

@@ -39,6 +39,7 @@ public final class SuiteManagerActivity extends AppCompatActivity {
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private RecyclerView list;
     private TextView repositoryStatus;
+    private TextView serviceButton;
     private File pendingApk;
     private final ActivityResultLauncher<String> saveApk = registerForActivityResult(
             new ActivityResultContracts.CreateDocument(APK_MIME),
@@ -52,6 +53,8 @@ public final class SuiteManagerActivity extends AppCompatActivity {
         list.setLayoutManager(new LinearLayoutManager(this));
         findViewById(R.id.suite_back_button).setOnClickListener(v -> finish());
         findViewById(R.id.suite_refresh_button).setOnClickListener(v -> refresh());
+        serviceButton = findViewById(R.id.suite_service_button);
+        serviceButton.setOnClickListener(v -> toggleServiceMode());
         if (savedInstanceState != null) {
             String path = savedInstanceState.getString(STATE_PENDING_APK);
             if (path != null) pendingApk = new File(path);
@@ -76,7 +79,19 @@ public final class SuiteManagerActivity extends AppCompatActivity {
     private void render(java.util.List<SuiteAppState> apps) {
         if (isFinishing() || isDestroyed()) return;
         repositoryStatus.setText(R.string.suite_online_ready);
+        serviceButton.setText(ServiceMode.isActive(this)
+                ? R.string.service_mode_off : R.string.service_mode_on);
         list.setAdapter(new SuiteAppAdapter(apps, this::onAction));
+    }
+
+    private void toggleServiceMode() {
+        boolean disable = !ServiceMode.isActive(this);
+        ServiceMode.Result r = ServiceMode.apply(this, disable);
+        // A refusal is never silent: without the signature permission nothing changed.
+        Toast.makeText(this, r.refused > 0 ? getString(R.string.service_mode_refused)
+                : getString(disable ? R.string.service_mode_enabled : R.string.service_mode_disabled),
+                Toast.LENGTH_LONG).show();
+        refresh();
     }
 
     private void onAction(SuiteAppState app) {

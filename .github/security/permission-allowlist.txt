@@ -54,6 +54,13 @@ android.permission.INTERNET
 android.car.permission.CAR_ENERGY
 android.car.permission.CAR_VENDOR_EXTENSION
 
+# --- Dealer/Service mode ---
+# Signature-level. Used only by the EVSuite screen's Service-mode button to disable or
+# re-enable the other EVSuite packages from a fixed catalogue; the launcher never targets
+# itself. Not a vehicle write. On a build without the suite signature the call is refused and
+# reported. Not a privileged UID: no sharedUserId.
+android.permission.CHANGE_COMPONENT_ENABLED_STATE
+
 # --- Deliberately NOT allowed ---
 # CAR_SPEED, CAR_EXTERIOR_ENVIRONMENT, CONTROL_CAR_CLIMATE, CAR_MILEAGE, CAR_ENERGY_PORTS,
 # CAR_TIRES — held by EVChargePilot or by nobody in the suite, and not here. The metrics

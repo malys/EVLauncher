@@ -34,4 +34,10 @@
     <string name="suite_save_failed">Impossibile salvare l’APK. Scegli un’altra posizione e riprova.</string>
     <string name="suite_no_file_picker">Nessun gestore di file disponibile per salvare l’APK. Installane uno e riprova.</string>
     <string name="suite_manual_install_help">L’installazione è sempre manuale. Parcheggia il veicolo, apri File, seleziona l’APK scaricato, controlla nome e autorizzazioni e tocca Installa. Gli APK EVSuite temporanei vengono eliminati automaticamente.</string>
+    <string name="service_mode_on">Modalità officina: disattiva app</string>
+    <string name="service_mode_off">Modalità officina: attiva app</string>
+    <string name="service_mode_enabled">Modalità officina ATTIVA — app EVSuite disattivate</string>
+    <string name="service_mode_disabled">Modalità officina SPENTA — app EVSuite attivate</string>
+    <string name="service_mode_refused">Rifiutato: questa build non può modificare altre app</string>
+    <string name="service_mode_app_disabled">Disattivata (modalità officina)</string>
 </resources>

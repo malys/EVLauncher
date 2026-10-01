@@ -34,4 +34,10 @@
     <string name="suite_save_failed">Die APK konnte nicht gespeichert werden. Wählen Sie einen anderen Speicherort und versuchen Sie es erneut.</string>
     <string name="suite_no_file_picker">Es ist kein Dateimanager zum Speichern der APK verfügbar. Installieren Sie einen und versuchen Sie es erneut.</string>
     <string name="suite_manual_install_help">Die Installation erfolgt immer manuell. Fahrzeug parken, Dateien öffnen, die heruntergeladene APK auswählen, App-Name und Berechtigungen prüfen und Installieren antippen. Temporäre EVSuite-APKs werden automatisch gelöscht.</string>
+    <string name="service_mode_on">Werkstattmodus: Apps deaktivieren</string>
+    <string name="service_mode_off">Werkstattmodus: Apps aktivieren</string>
+    <string name="service_mode_enabled">Werkstattmodus AN — EVSuite-Apps deaktiviert</string>
+    <string name="service_mode_disabled">Werkstattmodus AUS — EVSuite-Apps aktiviert</string>
+    <string name="service_mode_refused">Abgelehnt: Dieser Build darf andere Apps nicht ändern</string>
+    <string name="service_mode_app_disabled">Deaktiviert (Werkstattmodus)</string>
 </resources>

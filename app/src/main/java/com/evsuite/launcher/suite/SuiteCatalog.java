@@ -33,6 +33,7 @@ final class SuiteCatalog {
                 app.installedVersion = info.versionName;
                 app.installedVersionCode = info.getLongVersionCode();
                 app.action = SuiteAppState.Action.OPEN;
+                app.disabled = ServiceMode.isDisabled(context.getPackageManager(), app.packageName);
             } catch (PackageManager.NameNotFoundException ignored) { }
         }
         return apps;

@@ -41,6 +41,7 @@ final class SuiteAppAdapter extends RecyclerView.Adapter<SuiteAppAdapter.Holder>
     @Override public int getItemCount() { return apps.size(); }
 
     private static String status(View view, SuiteAppState app) {
+        if (app.disabled) return view.getContext().getString(R.string.service_mode_app_disabled);
         if (app.action == SuiteAppState.Action.UPDATE) return view.getContext().getString(
                 R.string.suite_update_available, app.installedVersion, app.localVersion);
         if (app.action == SuiteAppState.Action.INSTALL) return view.getContext().getString(

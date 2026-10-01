@@ -42,6 +42,12 @@
     <uses-permission android:name="android.car.permission.CAR_ENERGY" />
     <uses-permission android:name="android.car.permission.CAR_VENDOR_EXTENSION" />
 
+    <!-- Service mode only: lets the EVSuite screen disable/re-enable the OTHER EVSuite apps in one
+         tap. Signature-level — on a build not signed with the suite key the call is refused and the
+         driver is told. Never applied to this launcher itself. See ServiceMode.java. -->
+    <uses-permission android:name="android.permission.CHANGE_COMPONENT_ENABLED_STATE"
+        tools:ignore="ProtectedPermissions" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

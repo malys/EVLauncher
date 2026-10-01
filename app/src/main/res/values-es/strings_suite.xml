@@ -34,4 +34,10 @@
     <string name="suite_save_failed">No se pudo guardar el APK. Elige otra ubicación e inténtalo de nuevo.</string>
     <string name="suite_no_file_picker">No hay ningún gestor de archivos para guardar el APK. Instala uno e inténtalo de nuevo.</string>
     <string name="suite_manual_install_help">La instalación siempre es manual. Estaciona el vehículo, abre Archivos, selecciona el APK descargado, revisa el nombre y los permisos y toca Instalar. Los APK temporales de EVSuite se eliminan automáticamente.</string>
+    <string name="service_mode_on">Modo taller: desactivar apps</string>
+    <string name="service_mode_off">Modo taller: activar apps</string>
+    <string name="service_mode_enabled">Modo taller ACTIVO — apps EVSuite desactivadas</string>
+    <string name="service_mode_disabled">Modo taller INACTIVO — apps EVSuite activadas</string>
+    <string name="service_mode_refused">Rechazado: esta versión no puede modificar otras apps</string>
+    <string name="service_mode_app_disabled">Desactivada (modo taller)</string>
 </resources>
