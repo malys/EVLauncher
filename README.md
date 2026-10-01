@@ -2,33 +2,50 @@
 
 <p align="center"><img src="docs/logo.svg" width="440" alt="EVLauncher"></p>
 
-[![Tests](https://github.com/malys/EV_Simple_Launcher/actions/workflows/tests.yml/badge.svg)](https://github.com/malys/EV_Simple_Launcher/actions/workflows/tests.yml)
-[![Security](https://github.com/malys/EV_Simple_Launcher/actions/workflows/security.yml/badge.svg)](https://github.com/malys/EV_Simple_Launcher/actions/workflows/security.yml)
-[![Unstable](https://github.com/malys/EV_Simple_Launcher/actions/workflows/unstable.yml/badge.svg)](https://github.com/malys/EV_Simple_Launcher/actions/workflows/unstable.yml)
-[![Release](https://img.shields.io/github/v/release/malys/EV_Simple_Launcher?include_prereleases&amp;sort=semver)](https://github.com/malys/EV_Simple_Launcher/releases)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
-
-EVLauncher is a simple custom home launcher designed for the MG4 head
-unit (1920×720, landscape). It is part of the **EVSuite** (EVProfile,
-EVTasker, EVABRPUploader, EVSwipe, EVChargePilot) and shares its dark Material 3
-theme, its CI/CD and security gates, and its two-channel release model.
+[![Tests](https://github.com/malys/EVLauncher/actions/workflows/tests.yml/badge.svg)](https://github.com/malys/EVLauncher/actions/workflows/tests.yml)
+[![Security](https://github.com/malys/EVLauncher/actions/workflows/security.yml/badge.svg)](https://github.com/malys/EVLauncher/actions/workflows/security.yml)
+[![Unstable](https://github.com/malys/EVLauncher/actions/workflows/unstable.yml/badge.svg)](https://github.com/malys/EVLauncher/actions/workflows/unstable.yml)
+[![Release](https://img.shields.io/github/v/release/malys/EVLauncher?include_prereleases&sort=semver)](https://github.com/malys/EVLauncher/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 > ⚠️ **This software runs on a vehicle head unit.** Do not interact with it while
-> driving. Read [DISCLAIMER.md](DISCLAIMER.md) before installing. This independent
-> project is not affiliated with or approved by SAIC Motor or MG Motor. MG and MG4 are
-> third-party marks used only to identify compatibility.
+> driving. Read [DISCLAIMER.md](DISCLAIMER.md) before installing.
+> MG and MG4 are third-party marks used only to identify compatibility; this independent
+> project is not affiliated with or approved by SAIC Motor or MG Motor.
+
+A simple custom home launcher for the MG4 head unit (1920×720, landscape): a grid of up to
+12 favourite apps, an all-apps drawer, and a customisable metrics page, in the suite's dark
+Material 3 theme.
+
+EVLauncher is **independent**. It needs no other EVSuite app; its metrics page reads the
+vehicle through the shared [EVHardware](https://github.com/malys/EVHardware) layer (read-only).
+
+## Part of EVSuite
+
+EVLauncher is one app of [**EVSuite**](https://malys.github.io/EVSuite/), a family of independent,
+offline-first apps for the MG4 head unit (Android Automotive OS 9). Each app installs on its
+own — pick only what you need. User guides and install instructions:
+<https://malys.github.io/EVSuite/>.
+
+Discover the rest of the suite:
+
+[![EVProfile](https://img.shields.io/badge/EVProfile-settings%20%26%20drive%20profiles-2f81f7?logo=github)](https://github.com/malys/EVProfile)
+[![EVTasker](https://img.shields.io/badge/EVTasker-rule%20automation-2f81f7?logo=github)](https://github.com/malys/EVTasker)
+[![EVABRPUploader](https://img.shields.io/badge/EVABRPUploader-ABRP%20telemetry-2f81f7?logo=github)](https://github.com/malys/EVABRPUploader)
+[![EVChargePilot](https://img.shields.io/badge/EVChargePilot-energy%20%26%20trips-2f81f7?logo=github)](https://github.com/malys/EVChargePilot)
+[![EVSwipe](https://img.shields.io/badge/EVSwipe-swipe%20shortcuts-2f81f7?logo=github)](https://github.com/malys/EVSwipe)
+[![EVHardware](https://img.shields.io/badge/EVHardware-shared%20vehicle%20library-2f81f7?logo=github)](https://github.com/malys/EVHardware)
 
 ---
 
 ## Contents
 
 - [Screenshots](#screenshots)
-- [⚠️ Upgrading from an earlier build — please read](#upgrading-from-an-earlier-build-please-read)
+- [⚠️ Upgrading from an earlier build](#️-upgrading-from-an-earlier-build)
 - [Features](#features)
-- [Channels](#channels)
-- [EVSuite releases](#evsuite-releases)
 - [Changing a pinned app](#changing-a-pinned-app)
 - [Second screen (metrics)](#second-screen-metrics)
+- [Install](#install)
 - [Building](#building)
 - [Project documents](#project-documents)
 - [Security](#security)
@@ -48,13 +65,12 @@ theme, its CI/CD and security gates, and its two-channel release model.
   <img src="https://ws2.tommasovietina.it/mg4/EV_Simple_Launcher/Screenshot_1782141854.png" alt="EVLauncher — system info screen" width="800" />
 </p>
 
-## ⚠️ Upgrading from an earlier build — please read
-The application id changed from `com.evsuite.launcher` to
-**`com.evsuite.launcher`**, and the app is now signed with the **EVSuite platform
-key** (the same key as EVProfile and EVTasker). Either change alone forces a fresh
-install: **uninstall the previous version first**, then install the new one, then set it
-as the default home again from Android settings. Favorites are stored per-app, so they are
-reset.
+## ⚠️ Upgrading from an earlier build
+The application id changed from `com.mg4.launcher.simple` to **`com.evsuite.launcher`**,
+and the app is now signed with the **EVSuite platform key** (the same key as the other
+EVSuite apps). Either change alone forces a fresh install: **uninstall the previous
+version first**, then install the new one, then set it as the default home again from
+Android settings. Favorites are stored per-app, so they are reset.
 
 ## Features
 - **Swipeable two-page home**: a horizontal carousel (`ViewPager2`). Swipe left/right
@@ -76,36 +92,14 @@ reset.
 - **App info shortcut**: **long-press** any entry in the app drawer to jump straight to
   its Android app-info screen.
 - **EVSuite manager**: the **EVSuite** button checks stable/offline GitHub releases only
-  on request, shows changelogs, and downloads verified APKs for manual installation.
+  on request, shows changelogs, and downloads verified APKs for manual installation
+  (see [Install](#install)).
 - **EVSuite theme**: dark Material 3 on the shared `ev_*` colour and spacing
   tokens, with the suite's 72 dp touch target. Dark is imposed rather than
   following the system: the screen faces the driver at night, and a light
   background filling the windscreen is glare, not a preference.
 - **Persisted favorites**: the chosen apps are saved across reboots (a home page
   built with an older three-slot version is migrated on first launch).
-
-## Channels
-Two build flavors, like the sibling apps:
-
-- **stable** — tagged releases with no self-update or installer capability.
-- **unstable** — a pre-release published on every push to `master`, also without
-  self-update or installer capability. Application id
-  `com.evsuite.launcher.unstable`, so it installs beside a stable build (only one
-  of the two can be the default home at a time).
-
-Both channels update manually. The suite manager validates HTTPS and the GitHub allowlist
-at every redirect, verifies package identity and the suite certificate, then asks Android
-where to save the APK. It never invokes an installer, and private temporary APKs are always
-deleted. See [SECURITY.md](SECURITY.md).
-
-## EVSuite releases
-
-From **All apps → EVSuite**, tap **Refresh** to check each app's latest stable/offline
-GitHub release. Select an available version to read its changelog, then choose **Download
-APK** and a save location. To install, park the car, open **Files**, select the downloaded
-APK, review Android's app name and permissions, then tap **Install**. Repositories and
-package names use a fixed allowlist, every APK must carry the suite signing certificate,
-and the launcher cleans private EVSuite APKs after export.
 
 ## Changing a pinned app
 **Long-press** a card to choose between *replace* and *remove*; replacing opens the
@@ -172,6 +166,21 @@ Which permissions were deliberately refused, and what a now-playing card would h
 system page later became one customisable grid, and which metrics a refused permission keeps
 at `—`: [docs/CR-011-metrics-page.md](docs/CR-011-metrics-page.md).
 
+## Install
+
+Download the APK from the [releases](https://github.com/malys/EVLauncher/releases) page
+(stable tags; the rolling `unstable` pre-release is the other [channel](#channels)), copy it
+to the head unit, then park the car, open **Files**, select the APK, review Android's app
+name and permissions, and tap **Install**. Set EVLauncher as the default home from Android
+settings (see [Upgrading](#️-upgrading-from-an-earlier-build) if you had an earlier build).
+
+To fetch other EVSuite apps from the launcher itself: **All apps → EVSuite**, tap
+**Refresh** to check each app's latest stable/offline GitHub release, select a version to
+read its changelog, then choose **Download APK** and a save location, and install it from
+**Files** as above. Repositories and package names use a fixed allowlist, every APK must
+carry the suite signing certificate, and the launcher cleans private EVSuite APKs after
+export.
+
 ## Building
 Standard Android project (Java, AGP 9.1.1, Gradle 9.3.1, `compileSdk 36`, `minSdk 28` /
 `targetSdk 34`). JDK 17 is required and pinned in `mise.toml`. The `EVHardware` submodule is
@@ -195,7 +204,7 @@ Or directly:
 APKs land under `app/build/outputs/apk/<channel>/debug/`.
 
 To sign locally, in `gradle.properties` (never committed) or as environment
-variables — the same EVSuite platform key used by EVProfile and EVTasker:
+variables — the same EVSuite platform key used by the other EVSuite apps:
 
 ```
 evsuite.keystore=/path/to/platform.keystore
@@ -204,6 +213,19 @@ evsuite.key.alias=platform
 evsuite.key.password=…
 ```
 
+### Channels
+Two build flavors, like the sibling apps:
+
+- **stable** — tagged releases with no self-update or installer capability.
+- **unstable** — a pre-release published on every push to `master`, also without
+  self-update or installer capability. Application id
+  `com.evsuite.launcher.unstable`, so it installs beside a stable build (only one
+  of the two can be the default home at a time).
+
+Both channels update manually. The suite manager validates HTTPS and the GitHub allowlist
+at every redirect, verifies package identity and the suite certificate, then asks Android
+where to save the APK. It never invokes an installer, and private temporary APKs are always
+deleted. See [SECURITY.md](SECURITY.md).
 
 ### Emulator
 
@@ -222,7 +244,7 @@ matters here — the project targets 1920x1080 @ 160dpi
 system UI; set `EMU_HEIGHT=720` in `mise.toml` and re-run `emulator-setup` to model that
 instead.
 
-The AVDs are named per repo (`mg4simple-*`, `evswipe-*`), matching the `evtasker-*` /
+The AVDs are named per repo (`mg4simple-*`), matching the `evtasker-*` /
 `evabrp-*` convention used by the sibling projects.
 
 `mise run run` starts the launcher as an ordinary activity — that does **not** make it the
@@ -242,18 +264,18 @@ Every `uses-permission` must be listed with a justification in
 `.github/security/permission-allowlist.txt`, or the build fails.
 
 ## Project documents
-- [SECURITY.md](SECURITY.md) — threat model, what the download path guarantees, how to report
-  a vulnerability privately
-- [DISCLAIMER.md](DISCLAIMER.md) — no warranty, no liability, and what running this on a
-  vehicle head unit means concretely
-- [CONTRIBUTING.md](CONTRIBUTING.md) — ground rules and the checks to run before a PR
-- [LICENSE.md](LICENSE.md) — MIT; this is a fork of an upstream project that publishes no
-  licence of its own, read it before reusing anything
-- [AGENTS.md](AGENTS.md) — architecture notes for contributors and coding agents
-- [docs/CR-010-vehicle-page.md](docs/CR-010-vehicle-page.md) — the vehicle page: layout decision,
-  the permissions taken and refused, and why there is no now-playing card
-- [docs/CR-011-metrics-page.md](docs/CR-011-metrics-page.md) — merging the system and vehicle
-  pages into one customisable metrics grid, and the metrics a refused permission leaves at `—`
+
+| Document | What it covers |
+|---|---|
+| [SECURITY.md](SECURITY.md) | Threat model, what the download path guarantees, how to report a vulnerability privately |
+| [DISCLAIMER.md](DISCLAIMER.md) | No warranty, no liability, and what running this on a vehicle head unit means concretely |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Ground rules and the checks to run before a PR |
+| [LICENSE.md](LICENSE.md) | MIT; fork provenance and the upstream's lack of a licence |
+| [AGENTS.md](AGENTS.md) | Architecture notes for contributors and coding agents |
+| [DESIGN.md](DESIGN.md) | Interface design rules |
+| [CHANGELOG.md](CHANGELOG.md) | Release history |
+| [docs/CR-010-vehicle-page.md](docs/CR-010-vehicle-page.md) | The vehicle page: layout decision, permissions taken and refused, why no now-playing card |
+| [docs/CR-011-metrics-page.md](docs/CR-011-metrics-page.md) | Merging the system and vehicle pages into one customisable metrics grid, and the metrics a refused permission leaves at `—` |
 
 ## Security
 See [SECURITY.md](SECURITY.md) for the threat model and how to report a vulnerability
@@ -267,19 +289,13 @@ what would break without them. Anything touching the interface follows
 
 ## Legal
 
-The full text lives in [DISCLAIMER.md](DISCLAIMER.md). In short:
+MIT-licensed — see [LICENSE](LICENSE) and [LICENSE.md](LICENSE.md). EVLauncher is a fork of
+[Tommasov/EV_Simple_Launcher](https://github.com/Tommasov/EV_Simple_Launcher), which publishes
+no licence of its own; the MIT licence applies to this fork as published here, and this
+repository will follow the upstream author if they object or publish a licence.
 
-This project is provided **for study and educational purposes only**. It is an
-experimental, non-commercial project and is not affiliated with, endorsed by, or
-supported by SAIC, MG, or any vehicle manufacturer.
-
-The software is provided "as is", without warranty of any kind, express or
-implied. The author accepts **no liability** for any direct, indirect, incidental,
-or consequential damage of any kind — including but not limited to damage to the
-vehicle, its infotainment system, software, or data, loss of functionality, or
-safety-related consequences — arising from the installation or use of this app.
-You use it entirely **at your own risk**. Do not interact with the app while
-driving.
-
-All graphic resources, trademarks, and brand names belong to their respective
-owners and are used here for study purposes only.
+The full disclaimer lives in [DISCLAIMER.md](DISCLAIMER.md). In short: the software is provided
+"as is", without warranty, for study and educational purposes; the author accepts **no
+liability** for any damage to the vehicle, its infotainment system, software or data, or
+safety-related consequences. You use it entirely **at your own risk**. All graphic resources,
+trademarks and brand names belong to their respective owners.
