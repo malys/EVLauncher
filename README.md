@@ -42,7 +42,7 @@ Discover the rest of the suite:
 
 - [Part of EVSuite](#part-of-evsuite)
 - [Screenshots](#screenshots)
-- [⚠️ Upgrading from an earlier build](#upgrading-from-an-earlier-build)
+- [Upgrading from an earlier build](#upgrading-from-an-earlier-build)
 - [Features](#features)
 - [Changing a pinned app](#changing-a-pinned-app)
 - [Second screen (metrics)](#second-screen-metrics)
@@ -66,7 +66,7 @@ Discover the rest of the suite:
   <img src="https://ws2.tommasovietina.it/mg4/EV_Simple_Launcher/Screenshot_1782141854.png" alt="EVLauncher — system info screen" width="800" />
 </p>
 
-## ⚠️ Upgrading from an earlier build
+## Upgrading from an earlier build
 The application id changed from `com.mg4.launcher.simple` to **`com.evsuite.launcher`**,
 and the app is now signed with the **EVSuite platform key** (the same key as the other
 EVSuite apps). Either change alone forces a fresh install: **uninstall the previous
