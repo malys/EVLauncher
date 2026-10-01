@@ -173,7 +173,7 @@ Download the APK from the [releases](https://github.com/malys/EVLauncher/release
 (stable tags; the rolling `unstable` pre-release is the other [channel](#channels)), copy it
 to the head unit, then park the car, open **Files**, select the APK, review Android's app
 name and permissions, and tap **Install**. Set EVLauncher as the default home from Android
-settings (see [Upgrading](#️-upgrading-from-an-earlier-build) if you had an earlier build).
+settings (see [Upgrading](#upgrading-from-an-earlier-build) if you had an earlier build).
 
 To fetch other EVSuite apps from the launcher itself: **All apps → EVSuite**, tap
 **Refresh** to check each app's latest stable/offline GitHub release, select a version to
