@@ -61,7 +61,7 @@ Discover the rest of the suite:
 </p>
 
 <p align="center">
-  <img width="320" height="180" alt="EVLauncher swipe navigation animation" src="https://github.com/user-attachments/assets/7a3e3bb3-c81e-41d8-ad17-c9b56d28c359" />
+  <img width="320" height="180" alt="EVLauncher running on an MG4 head unit" src="https://github.com/user-attachments/assets/7a3e3bb3-c81e-41d8-ad17-c9b56d28c359" />
 </p>
 
 ## Upgrading from an earlier build
