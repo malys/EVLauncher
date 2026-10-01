@@ -22,10 +22,10 @@ vehicle through the shared [EVHardware](https://github.com/malys/EVHardware) lay
 
 ## Part of EVSuite
 
-EVLauncher is one app of [**EVSuite**](https://malys.github.io/EVSuite/), a family of independent,
+EVLauncher is one app of [**EVSuite**](https://malys.github.io/EVSuite_site/), a family of independent,
 offline-first apps for the MG4 head unit (Android Automotive OS 9). Each app installs on its
 own — pick only what you need. User guides and install instructions:
-<https://malys.github.io/EVSuite/>.
+<https://malys.github.io/EVSuite_site/>.
 
 Discover the rest of the suite:
 
