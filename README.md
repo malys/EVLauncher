@@ -7,7 +7,7 @@
 [![Unstable](https://github.com/malys/EVLauncher/actions/workflows/unstable.yml/badge.svg)](https://github.com/malys/EVLauncher/actions/workflows/unstable.yml)
 [![Release](https://img.shields.io/github/v/release/malys/EVLauncher?include_prereleases&sort=semver)](https://github.com/malys/EVLauncher/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Part of EVSuite](https://img.shields.io/badge/part%20of-EVSuite-2f81f7)](https://malys.github.io/EVSuite_site/)
+[![Part of EVSuite](https://img.shields.io/badge/part%20of-EVSuite-2f81f7)](https://malys.github.io/EVSuite/)
 
 > ⚠️ **This software runs on a vehicle head unit.** Do not interact with it while
 > driving. Read [DISCLAIMER.md](DISCLAIMER.md) before installing.
@@ -23,10 +23,10 @@ vehicle through the shared [EVHardware](https://github.com/malys/EVHardware) lay
 
 ## Part of EVSuite
 
-EVLauncher is one app of [**EVSuite**](https://malys.github.io/EVSuite_site/), a family of independent,
+EVLauncher is one app of [**EVSuite**](https://malys.github.io/EVSuite/), a family of independent,
 offline-first apps for the MG4 head unit (Android Automotive OS 9). Each app installs on its
 own — pick only what you need. User guides and install instructions:
-<https://malys.github.io/EVSuite_site/>.
+<https://malys.github.io/EVSuite/>.
 
 Discover the rest of the suite:
 
