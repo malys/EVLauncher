@@ -6,8 +6,11 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [2.5.0] - 2026-10-02
+
 ### Added
 
+- Dealer/Service mode on the EVSuite screen: one tap disables or re-enables the other EVSuite apps (never the launcher). Needs the signature-level `CHANGE_COMPONENT_ENABLED_STATE`; a refusal is shown, not silent.
 - Long-press an entry in the app drawer to jump straight to its Android app-info screen.
 
 ## [2.4.1] - 2026-09-17
