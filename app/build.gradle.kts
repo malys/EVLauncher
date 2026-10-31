@@ -58,9 +58,10 @@ android {
 
     buildTypes {
         release {
-            // R8 off: an unminified APK stays verifiable line-by-line against this source,
-            // which matters more here than a few hundred kB on a head unit.
-            isMinifyEnabled = false
+            // R8 on: fewer classes to load at every boot of the head unit. The launcher uses
+            // no reflection; EVHardware ships its own keep rules.
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
