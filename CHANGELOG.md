@@ -6,6 +6,14 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [2.6.1] - 2026-10-31
+
+### Fixed
+
+- **Send diagnostic** stamps each log line in seconds since boot, as announced. The
+  log carried UTC wall-clock times instead, which say nothing on the head unit's
+  factory clock.
+
 ## [2.6.0] - 2026-10-31
 
 ### Added
