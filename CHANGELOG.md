@@ -6,6 +6,19 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [2.6.0] - 2026-10-31
+
+### Added
+
+- **About → Send diagnostic.** This app's own log (logcat for its process, stamped in seconds
+  since boot) posted to the driver's HTTPS inbox in the EVSuite format, so `mise run inbox-pull`
+  unpacks it with the others. The address is shown before every send; tokens and API keys are
+  masked.
+
+### Changed
+
+- Tracks EVHardware b6c53c1 (`DiagnosticInbox`).
+
 ## [2.5.0] - 2026-10-02
 
 ### Added
