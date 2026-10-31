@@ -89,7 +89,7 @@ object DiagnosticSender {
     /** An app may read its own log without READ_LOGS; `--pid` keeps a shared uid's neighbours out. */
     private fun ownLogcat(): String = runCatching {
         val proc = ProcessBuilder(
-            "logcat", "-d", "-v", "threadtime", "-v", "uptime",
+            "logcat", "-d", "-v", "threadtime", "-v", "monotonic",
             "--pid=${Process.myPid()}", "-t", MAX_LOG_LINES.toString()
         ).redirectErrorStream(true).start()
         proc.inputStream.bufferedReader().use { it.readText() }
