@@ -155,4 +155,10 @@
     <string name="service_mode_disabled">Mode atelier inactif — applis EVSuite réactivées</string>
     <string name="service_mode_refused">Refusé : ce build n\'a pas le droit de modifier les autres applis</string>
     <string name="service_mode_app_disabled">Désactivée (mode atelier)</string>
+    <string name="diag_send">Envoyer au serveur</string>
+    <string name="diag_send_message">Le journal de l’app part vers cette adresse, en HTTPS. Rien d’autre n’est envoyé.</string>
+    <string name="diag_send_confirm">Envoyer</string>
+    <string name="diag_send_refused">Adresse refusée : %1$s</string>
+    <string name="diag_send_ok">Journal envoyé</string>
+    <string name="diag_send_failed">Envoi impossible : %1$s</string>
 </resources>

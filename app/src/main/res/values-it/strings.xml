@@ -116,4 +116,10 @@
     <string name="about_qr_description">Codice QR del repository del progetto</string>
     <string name="about_version_unknown">sconosciuta</string>
     <string name="about_close">Chiudi</string>
+    <string name="diag_send">Invia al server</string>
+    <string name="diag_send_message">Il registro dell’app viene inviato a questo indirizzo tramite HTTPS. Non viene inviato altro.</string>
+    <string name="diag_send_confirm">Invia</string>
+    <string name="diag_send_refused">Indirizzo rifiutato: %1$s</string>
+    <string name="diag_send_ok">Registro inviato</string>
+    <string name="diag_send_failed">Invio non riuscito: %1$s</string>
 </resources>

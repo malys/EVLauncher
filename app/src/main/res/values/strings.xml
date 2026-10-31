@@ -156,4 +156,11 @@
     <string name="service_mode_disabled">Service mode OFF — EVSuite apps enabled</string>
     <string name="service_mode_refused">Refused: this build lacks permission to change other apps</string>
     <string name="service_mode_app_disabled">Disabled (service mode)</string>
+    <string name="diag_send">Send to server</string>
+    <string name="diag_send_message">The app log goes to this address, over HTTPS. Nothing else is sent.</string>
+    <string name="diag_send_confirm">Send</string>
+    <string name="diag_send_refused">Address refused: %1$s</string>
+    <string name="diag_send_ok">Log sent</string>
+    <string name="diag_send_failed">Could not send: %1$s</string>
+    <string name="diag_send_hint" translatable="false">https://…/evsuite</string>
 </resources>

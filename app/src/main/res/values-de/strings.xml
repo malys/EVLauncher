@@ -115,4 +115,10 @@
     <string name="about_qr_description">QR-Code für das Projekt-Repository</string>
     <string name="about_version_unknown">unbekannt</string>
     <string name="about_close">Schließen</string>
+    <string name="diag_send">An Server senden</string>
+    <string name="diag_send_message">Das App-Protokoll wird per HTTPS an diese Adresse gesendet. Sonst wird nichts gesendet.</string>
+    <string name="diag_send_confirm">Senden</string>
+    <string name="diag_send_refused">Adresse abgelehnt: %1$s</string>
+    <string name="diag_send_ok">Protokoll gesendet</string>
+    <string name="diag_send_failed">Senden fehlgeschlagen: %1$s</string>
 </resources>

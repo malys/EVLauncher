@@ -114,6 +114,8 @@ public class AppDrawerActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(REPOSITORY_URL))));
         AlertDialog dialog = new MaterialAlertDialogBuilder(this).setView(content).create();
         content.<MaterialButton>findViewById(R.id.about_close).setOnClickListener(v -> dialog.dismiss());
+        content.findViewById(R.id.about_send_diagnostic).setOnClickListener(v ->
+                DiagnosticSender.ask(this, "EVLauncher", java.util.Collections.emptyList()));
         dialog.show();
         if (dialog.getWindow() != null) dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
