@@ -6,6 +6,13 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [2.6.2] - 2026-10-31
+
+### Changed
+
+- **Smaller APK.** The release build is shrunk by R8: 2.3 MB instead of 11.7 MB, fewer
+  classes for the head unit to load when the launcher starts.
+
 ## [2.6.1] - 2026-10-31
 
 ### Fixed
