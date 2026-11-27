@@ -6,6 +6,16 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [2.7.0] - 2026-11-27
+
+### Added
+
+- **MG4Link in the suite manager.** The suite page offers MG4Link's stable releases from
+  Skittle6938/MG4Link, to install or update like the suite apps. MG4Link is signed with the
+  public Android test key, so the entry says it is third party and that its signature cannot
+  prove who built it; the download is refused if the key ever changes. Prereleases are not
+  offered.
+
 ## [2.6.2] - 2026-10-31
 
 ### Changed
