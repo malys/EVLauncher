@@ -11,6 +11,9 @@ import java.util.List;
 final class SuiteCatalog {
     private SuiteCatalog() {}
 
+    static final String MG4LINK_SIGNER =
+            "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8";
+
     static List<SuiteAppState> apps() {
         List<SuiteAppState> apps = new ArrayList<>();
         apps.add(new SuiteAppState("EVProfile", "com.evsuite.profile"));
@@ -19,6 +22,10 @@ final class SuiteCatalog {
         apps.add(new SuiteAppState("EVSwipe", "com.evsuite.swipe"));
         apps.add(new SuiteAppState("EVChargePilot", "com.evsuite.chargepilot"));
         apps.add(new SuiteAppState("EVLauncher", "com.evsuite.launcher"));
+        // Third party (Skittle6938/MG4Link), signed with the public AOSP test key: the pin only
+        // stops a switch to another key, it does not prove who built the APK. Owner choice
+        // 2026-11-27, shown on the entry as a warning.
+        apps.add(new SuiteAppState("MG4Link", "com.allgo.app.androidauto", MG4LINK_SIGNER));
         return apps;
     }
 

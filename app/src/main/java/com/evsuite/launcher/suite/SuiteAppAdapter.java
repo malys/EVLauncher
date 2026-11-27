@@ -32,7 +32,11 @@ final class SuiteAppAdapter extends RecyclerView.Adapter<SuiteAppAdapter.Holder>
     @Override public void onBindViewHolder(@NonNull Holder holder, int position) {
         SuiteAppState app = apps.get(position);
         holder.name.setText(app.name);
-        holder.status.setText(status(holder.itemView, app));
+        String status = status(holder.itemView, app);
+        if (app.thirdPartySigner != null) {
+            status += "\n" + holder.itemView.getContext().getString(R.string.suite_third_party_warning);
+        }
+        holder.status.setText(status);
         holder.action.setText(actionLabel(holder.itemView, app.action));
         holder.action.setVisibility(app.action == SuiteAppState.Action.NONE ? View.INVISIBLE : View.VISIBLE);
         holder.action.setOnClickListener(v -> listener.onAction(app));

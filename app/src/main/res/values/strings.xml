@@ -114,6 +114,7 @@
     <string name="suite_loading">Checking installed apps and GitHub releases…</string>
     <string name="suite_installed">Installed · %1$s</string>
     <string name="suite_not_installed">Not installed</string>
+    <string name="suite_third_party_warning">Third party (Skittle6938) · signed with the public Android test key, so the signature cannot prove who built it</string>
     <string name="suite_update_available">Update %1$s → %2$s</string>
     <string name="suite_ready_to_install">Available to download · %1$s</string>
     <string name="suite_up_to_date">Up to date · %1$s</string>

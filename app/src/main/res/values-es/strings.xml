@@ -121,4 +121,5 @@
     <string name="diag_send_refused">Dirección rechazada: %1$s</string>
     <string name="diag_send_ok">Registro enviado</string>
     <string name="diag_send_failed">No se pudo enviar: %1$s</string>
+    <string name="suite_third_party_warning">Terceros (Skittle6938) · firmada con la clave de prueba pública de Android: la firma no demuestra quién la creó</string>
 </resources>

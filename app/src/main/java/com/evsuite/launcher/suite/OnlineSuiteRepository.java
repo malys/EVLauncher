@@ -37,6 +37,7 @@ final class OnlineSuiteRepository {
         RELEASE_APIS.put("com.evsuite.swipe", "https://api.github.com/repos/malys/EVSwipe/releases/latest");
         RELEASE_APIS.put("com.evsuite.chargepilot", "https://api.github.com/repos/malys/EVChargePilot/releases/latest");
         RELEASE_APIS.put("com.evsuite.launcher", "https://api.github.com/repos/malys/EVLauncher/releases/latest");
+        RELEASE_APIS.put("com.allgo.app.androidauto", "https://api.github.com/repos/Skittle6938/MG4Link/releases/latest");
     }
 
     private OnlineSuiteRepository() {}
@@ -95,7 +96,9 @@ final class OnlineSuiteRepository {
                 if (asset == null) continue;
                 String name = asset.optString("name", "").toLowerCase(Locale.US);
                 String url = asset.optString("browser_download_url", "");
-                if (name.endsWith(".apk") && isStableAsset(name) && isAllowedUrl(url)) {
+                // A third party names its APK its own way; `releases/latest` is never a prerelease.
+                boolean stable = app.thirdPartySigner != null || isStableAsset(name);
+                if (name.endsWith(".apk") && stable && isAllowedUrl(url)) {
                     String assetVersion = versionFromAssetName(name);
                     String tagVersion = release.optString("tag_name", "").replaceFirst("^[vV]", "");
                     app.localVersion = assetVersion == null ? tagVersion : assetVersion;
@@ -157,7 +160,7 @@ final class OnlineSuiteRepository {
                     Files.move(temporary.toPath(), target.toPath(),
                             StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
                     SuiteApkSecurity.Verdict verdict =
-                            SuiteApkSecurity.inspect(context, target, app.packageName);
+                            SuiteApkSecurity.inspect(context, target, app.packageName, app.thirdPartySigner);
                     if (!verdict.trusted) {
                         target.delete();
                         return SuiteDownload.failed(SuiteDownload.Failure.REJECTED, verdict.detail);
@@ -214,7 +217,7 @@ final class OnlineSuiteRepository {
 
     static String versionFromAssetName(String name) {
         java.util.regex.Matcher matcher = java.util.regex.Pattern
-                .compile("-(\\d[0-9.]*)\\.apk$", java.util.regex.Pattern.CASE_INSENSITIVE)
+                .compile("[-_](\\d[0-9.]*)\\.apk$", java.util.regex.Pattern.CASE_INSENSITIVE)
                 .matcher(name);
         return matcher.find() ? matcher.group(1) : null;
     }

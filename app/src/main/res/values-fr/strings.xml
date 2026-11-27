@@ -113,6 +113,7 @@
     <string name="suite_loading">Vérification des applications et releases GitHub…</string>
     <string name="suite_installed">Installée · %1$s</string>
     <string name="suite_not_installed">Non installée</string>
+    <string name="suite_third_party_warning">Tierce partie (Skittle6938) · signée avec la clé de test Android publique : la signature ne prouve pas qui l’a construite</string>
     <string name="suite_update_available">Mise à jour %1$s → %2$s</string>
     <string name="suite_ready_to_install">Prête à installer · %1$s</string>
     <string name="suite_up_to_date">À jour · %1$s</string>

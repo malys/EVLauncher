@@ -122,4 +122,5 @@
     <string name="diag_send_refused">Indirizzo rifiutato: %1$s</string>
     <string name="diag_send_ok">Registro inviato</string>
     <string name="diag_send_failed">Invio non riuscito: %1$s</string>
+    <string name="suite_third_party_warning">Terze parti (Skittle6938) · firmata con la chiave di test pubblica di Android: la firma non prova chi l’ha creata</string>
 </resources>

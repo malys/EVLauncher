@@ -33,7 +33,8 @@ final class SuiteApkSecurity {
         }
     }
 
-    static Verdict inspect(Context context, File apk, String expectedPackage) {
+    /** {@code thirdPartySigner} non-null: that one certificate, instead of the suite key. */
+    static Verdict inspect(Context context, File apk, String expectedPackage, String thirdPartySigner) {
         PackageManager pm = context.getPackageManager();
         try {
             PackageInfo archive = pm.getPackageArchiveInfo(apk.getAbsolutePath(), FLAGS);
@@ -42,7 +43,9 @@ final class SuiteApkSecurity {
                 return new Verdict(false, "package " + archive.packageName);
             }
             Set<String> downloaded = fingerprints(archive);
-            Set<String> accepted = fingerprints(pm.getPackageInfo(context.getPackageName(), FLAGS));
+            Set<String> accepted = thirdPartySigner != null
+                    ? Collections.singleton(thirdPartySigner)
+                    : fingerprints(pm.getPackageInfo(context.getPackageName(), FLAGS));
             // Android accepts an update signed by any certificate the installed app knows,
             // current or rotated away; sharing none of them means a different key.
             if (!downloaded.isEmpty() && !Collections.disjoint(downloaded, accepted)) {

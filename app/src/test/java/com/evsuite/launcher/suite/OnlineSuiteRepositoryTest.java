@@ -25,6 +25,7 @@ public class OnlineSuiteRepositoryTest {
 
     @Test public void readsVersionOnlyFromVersionedApkName() {
         assertEquals("1.4.12", OnlineSuiteRepository.versionFromAssetName("EVTasker-stable-1.4.12.apk"));
+        assertEquals("2.2.7", OnlineSuiteRepository.versionFromAssetName("mg4link_2.2.7.apk"));
         assertNull(OnlineSuiteRepository.versionFromAssetName("EVTasker-stable.apk"));
         assertNull(OnlineSuiteRepository.versionFromAssetName("EVTasker-stable-1.4.12.zip"));
     }
