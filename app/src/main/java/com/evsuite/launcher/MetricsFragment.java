@@ -124,6 +124,14 @@ public class MetricsFragment extends Fragment {
     private final List<Metric> shown = new ArrayList<>();
 
     /**
+     * Where each shown card sits in the stored list. They differ when the list holds a key this
+     * build does not know (after a downgrade): it is kept, not shown, so every write to the
+     * list has to go through {@link #stored(int)} or it lands on the wrong entry.
+     */
+    private final List<Integer> storedAt = new ArrayList<>();
+    private int storedCount;
+
+    /**
      * The card picked up with "Move", or -1. While set, a tap on any card drops it there.
      * Cleared when the page goes away, like the home page's.
      */
@@ -235,12 +243,16 @@ public class MetricsFragment extends Fragment {
      */
     private void buildGrid() {
         shown.clear();
-        for (String key : preferencesManager.getMetrics()) {
-            Metric metric = Metric.byKey(key);
+        storedAt.clear();
+        List<String> keys = preferencesManager.getMetrics();
+        storedCount = keys.size();
+        for (int i = 0; i < keys.size(); i++) {
+            Metric metric = Metric.byKey(keys.get(i));
             // A key this build does not know (downgrade, or a metric that was dropped) is
             // skipped rather than shown as an empty card.
             if (metric != null) {
                 shown.add(metric);
+                storedAt.add(i);
             }
         }
 
@@ -267,8 +279,7 @@ public class MetricsFragment extends Fragment {
                     GridLayout.spec(index % columns, 1f));
             params.width = 0;
             params.height = 0;
-            // Half a gap on each side, so the spacing between two cards is one full gap and
-            // the outer edge still lines up with the home page.
+            // Half a gap on each side, so the spacing between two cards is one full gap.
             params.setMargins(gap / 2, gap / 2, gap / 2, gap / 2);
             grid.addView(card, params);
         }
@@ -289,7 +300,7 @@ public class MetricsFragment extends Fragment {
             card.setLongClickable(false);
             if (movingFrom >= 0) {
                 // Dropping on the add card means "at the end".
-                card.setOnClickListener(v -> finishMove(shown.size() - 1));
+                card.setOnClickListener(v -> finishMove(index));
             } else {
                 card.setOnClickListener(v -> showPicker(index));
             }
@@ -330,7 +341,7 @@ public class MetricsFragment extends Fragment {
         }
         items.add(getString(R.string.metric_remove));
         actions.add(() -> {
-            preferencesManager.removeMetric(index);
+            preferencesManager.removeMetric(stored(index));
             buildGrid();
         });
         new AlertDialog.Builder(requireContext())
@@ -351,7 +362,8 @@ public class MetricsFragment extends Fragment {
         int from = movingFrom;
         movingFrom = -1;
         if (from >= 0 && to >= 0) {
-            preferencesManager.moveMetric(from, to);
+            // The add card maps past the end; dropping there means "last".
+            preferencesManager.moveMetric(stored(from), Math.min(stored(to), storedCount - 1));
         }
         buildGrid();
     }
@@ -364,9 +376,14 @@ public class MetricsFragment extends Fragment {
      * {@code onResume} rebuilds the grid from preferences, so there is one owner of the write
      * and no result to plumb back.
      */
+    /** The stored-list index of shown card {@code index}; the add card maps to the end. */
+    private int stored(int index) {
+        return index < storedAt.size() ? storedAt.get(index) : storedCount;
+    }
+
     private void showPicker(int index) {
         Intent intent = new Intent(requireContext(), MetricPickerActivity.class);
-        intent.putExtra(MetricPickerActivity.EXTRA_SLOT, index);
+        intent.putExtra(MetricPickerActivity.EXTRA_SLOT, stored(index));
         startActivity(intent);
     }
 

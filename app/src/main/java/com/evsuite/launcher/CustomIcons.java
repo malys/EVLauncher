@@ -3,8 +3,10 @@ package com.evsuite.launcher;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.util.Log;
 
@@ -90,7 +92,7 @@ final class CustomIcons {
             if (decoded == null) {
                 return false;
             }
-            Bitmap scaled = scale(decoded);
+            Bitmap scaled = scale(decoded, rotation(context, source));
 
             File dir = target.getParentFile();
             if (dir == null || (!dir.isDirectory() && !dir.mkdirs())) {
@@ -163,15 +165,43 @@ final class CustomIcons {
         return sample;
     }
 
-    private static Bitmap scale(Bitmap bitmap) {
+    /** Scales to {@link #MAX_PX} on the longest side and applies the camera's rotation. */
+    private static Bitmap scale(Bitmap bitmap, int degrees) {
         int longest = Math.max(bitmap.getWidth(), bitmap.getHeight());
-        if (longest <= MAX_PX) {
+        if (longest <= MAX_PX && degrees == 0) {
             return bitmap;
         }
-        float ratio = MAX_PX / (float) longest;
-        int width = Math.max(1, Math.round(bitmap.getWidth() * ratio));
-        int height = Math.max(1, Math.round(bitmap.getHeight() * ratio));
-        return Bitmap.createScaledBitmap(bitmap, width, height, true);
+        float ratio = Math.min(1f, MAX_PX / (float) longest);
+        Matrix matrix = new Matrix();
+        matrix.postScale(ratio, ratio);
+        matrix.postRotate(degrees);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
+    /**
+     * The rotation a photo's EXIF orientation asks for: BitmapFactory ignores it, so a portrait
+     * phone photo would otherwise become a sideways icon. Mirrored orientations are left alone;
+     * anything unreadable is "no rotation".
+     */
+    private static int rotation(Context context, Uri source) {
+        try (InputStream in = context.getContentResolver().openInputStream(source)) {
+            if (in == null) {
+                return 0;
+            }
+            switch (new ExifInterface(in).getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    return 90;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    return 180;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    return 270;
+                default:
+                    return 0;
+            }
+        } catch (IOException | RuntimeException e) {
+            return 0;
+        }
     }
 
     @Nullable

@@ -12,7 +12,7 @@ All notable changes to this project are documented here. Format follows
 
 - **Custom icons for home apps.** Long-press a favourite → *Change icon* picks any image
   through the system file picker; it is scaled down and kept by the launcher, keyed by app,
-  so it survives a move. *Restore the app icon* brings the original back.
+  so it survives a move; a phone photo keeps its orientation. *Restore the app icon* brings the original back.
 - **Reorder the home apps and the metrics.** Long-press a card → *Move*, then tap where it
   should go. Works the same on both pages; the **+** tile means "last".
 

@@ -20,9 +20,15 @@ public class SquareIconView extends AppCompatImageView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int side = Math.min(MeasureSpec.getSize(widthMeasureSpec),
-                MeasureSpec.getSize(heightMeasureSpec));
-        side = Math.min(side, getMaxWidth());
+        // An UNSPECIFIED side imposes nothing; it must not shrink the square to 0.
+        int width = MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.UNSPECIFIED
+                ? Integer.MAX_VALUE : MeasureSpec.getSize(widthMeasureSpec);
+        int height = MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.UNSPECIFIED
+                ? Integer.MAX_VALUE : MeasureSpec.getSize(heightMeasureSpec);
+        int side = Math.min(Math.min(width, height), getMaxWidth());
+        if (side == Integer.MAX_VALUE) {
+            side = 0;
+        }
         setMeasuredDimension(side, side);
     }
 }
