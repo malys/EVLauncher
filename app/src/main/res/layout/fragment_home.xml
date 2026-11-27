@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Home page (carousel page 1): a grid of favorite cards + a fourth column with
-     "all apps" and two fixed shortcuts. Landscape (MG4 head unit, 1920x720).
+<!-- Home page (carousel page 1): the favorite grid, then one narrow column with "all apps"
+     and the two fixed shortcuts. Landscape (MG4 head unit, an app gets 1778x640dp of it).
 
      The favorite grid is filled at runtime (see HomeFragment): rows and columns follow how
-     many apps the user has added, so the tiles stay as large as the count allows instead of
-     being fixed at three. -->
+     many apps the user has added, so the tiles stay as large as the count allows. The side
+     column has a fixed width so every other dp goes to the favorites; each of its cards and
+     each tile carries a home_half_gap margin, so two neighbours are spacing_sm apart. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:baselineAligned="false"
-    android:padding="@dimen/screen_padding">
+    android:paddingStart="@dimen/home_edge"
+    android:paddingTop="@dimen/home_edge"
+    android:paddingEnd="@dimen/home_edge"
+    android:paddingBottom="@dimen/home_bottom_clearance">
 
     <GridLayout
         android:id="@+id/favorites_grid"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:layout_marginEnd="@dimen/card_gap" />
-
-    <!-- Fourth column: all apps (top) + two fixed app shortcuts (bottom) -->
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:useDefaultMargins="false" />
+
+    <LinearLayout
+        android:layout_width="@dimen/home_side_width"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
@@ -31,54 +33,57 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginBottom="@dimen/card_gap"
+            android:layout_margin="@dimen/home_half_gap"
             android:background="@drawable/smallcard_selector"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="@dimen/home_side_icon_size"
+                android:layout_height="@dimen/home_side_icon_size"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_apps" />
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
                 android:text="@string/all_apps"
                 android:textColor="@color/ev_text_primary"
-                android:textSize="@dimen/small_card_label_size"
+                android:textSize="@dimen/home_side_label_size"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Two fixed shortcuts (Files + Settings), icons only, side by side on a single card. -->
-        <LinearLayout
+        <!-- Two fixed shortcuts to the Android 9 Files and Settings apps, icons only. -->
+        <ImageView
+            android:id="@+id/icon_files"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_margin="@dimen/home_half_gap"
             android:background="@drawable/smallcard_selector"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/cd_files"
+            android:padding="@dimen/spacing_md"
+            android:scaleType="fitCenter" />
 
-            <ImageView
-                android:id="@+id/icon_files"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/icon_press_selector"
-                android:clickable="true"
-                android:focusable="true"
-                android:contentDescription="@string/cd_files"
-                android:padding="@dimen/fixed_app_padding"
-                android:scaleType="fitCenter" />
-
-            <ImageView
-                android:id="@+id/icon_settings"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/icon_press_selector"
-                android:clickable="true"
-                android:focusable="true"
-                android:contentDescription="@string/cd_settings"
-                android:padding="@dimen/fixed_app_padding"
-                android:scaleType="fitCenter" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/icon_settings"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/home_half_gap"
+            android:background="@drawable/smallcard_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/cd_settings"
+            android:padding="@dimen/spacing_md"
+            android:scaleType="fitCenter" />
     </LinearLayout>
 </LinearLayout>

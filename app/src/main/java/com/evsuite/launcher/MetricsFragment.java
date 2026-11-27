@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -122,6 +123,12 @@ public class MetricsFragment extends Fragment {
     /** The chosen metrics, parallel to the cards in {@link #grid}. */
     private final List<Metric> shown = new ArrayList<>();
 
+    /**
+     * The card picked up with "Move", or -1. While set, a tap on any card drops it there.
+     * Cleared when the page goes away, like the home page's.
+     */
+    private int movingFrom = -1;
+
     @Nullable
     private EnergyTelemetryReader reader;
     @Nullable
@@ -198,6 +205,7 @@ public class MetricsFragment extends Fragment {
         super.onPause();
         handler.removeCallbacks(ticker);
         stopLocationUpdates();
+        movingFrom = -1;
     }
 
     @Override
@@ -236,6 +244,9 @@ public class MetricsFragment extends Fragment {
             }
         }
 
+        if (movingFrom >= shown.size()) {
+            movingFrom = -1;
+        }
         boolean hasRoom = shown.size() < PreferencesManager.MAX_METRICS;
         int tiles = shown.size() + (hasRoom ? 1 : 0);
         int rows = tiles <= MAX_TILES_ONE_ROW ? 1 : (tiles <= MAX_TILES_TWO_ROWS ? 2 : 3);
@@ -274,13 +285,27 @@ public class MetricsFragment extends Fragment {
             label.setText(R.string.metric_add);
             value.setText(R.string.metric_add_sign);
             caption.setText("");
-            card.setOnClickListener(v -> showPicker(index));
             card.setOnLongClickListener(null);
             card.setLongClickable(false);
+            if (movingFrom >= 0) {
+                // Dropping on the add card means "at the end".
+                card.setOnClickListener(v -> finishMove(shown.size() - 1));
+            } else {
+                card.setOnClickListener(v -> showPicker(index));
+            }
             return;
         }
 
         label.setText(metric.labelRes);
+        if (movingFrom >= 0) {
+            if (index == movingFrom) {
+                card.setBackgroundResource(R.drawable.card_moving);
+            }
+            card.setOnClickListener(v -> finishMove(index));
+            card.setOnLongClickListener(null);
+            card.setLongClickable(false);
+            return;
+        }
         card.setOnClickListener(null);
         card.setClickable(false);
         card.setOnLongClickListener(v -> {
@@ -295,21 +320,40 @@ public class MetricsFragment extends Fragment {
      * swapped, never dropped.
      */
     private void showCardMenu(int index) {
+        List<CharSequence> items = new ArrayList<>();
+        List<Runnable> actions = new ArrayList<>();
+        items.add(getString(R.string.metric_replace));
+        actions.add(() -> showPicker(index));
+        if (shown.size() > 1) {
+            items.add(getString(R.string.tile_move));
+            actions.add(() -> startMove(index));
+        }
+        items.add(getString(R.string.metric_remove));
+        actions.add(() -> {
+            preferencesManager.removeMetric(index);
+            buildGrid();
+        });
         new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.metric_menu_title)
-                .setItems(
-                        new CharSequence[]{
-                                getString(R.string.metric_replace),
-                                getString(R.string.metric_remove)},
-                        (dialog, which) -> {
-                            if (which == 0) {
-                                showPicker(index);
-                            } else {
-                                preferencesManager.removeMetric(index);
-                                buildGrid();
-                            }
-                        })
+                .setItems(items.toArray(new CharSequence[0]),
+                        (dialog, which) -> actions.get(which).run())
                 .show();
+    }
+
+    private void startMove(int index) {
+        movingFrom = index;
+        buildGrid();
+        Toast.makeText(requireContext(), R.string.tile_move_hint, Toast.LENGTH_LONG).show();
+    }
+
+    /** Drops the picked-up card at {@code to}; a tap on the card itself puts it back. */
+    private void finishMove(int to) {
+        int from = movingFrom;
+        movingFrom = -1;
+        if (from >= 0 && to >= 0) {
+            preferencesManager.moveMetric(from, to);
+        }
+        buildGrid();
     }
 
     /**

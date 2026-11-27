@@ -78,6 +78,11 @@ public class PreferencesManager {
         removeAt(KEY_FAVORITES, getFavorites(), index);
     }
 
+    /** Moves the tile at {@code from} to position {@code to}; the tiles between shift by one. */
+    public void moveFavorite(int from, int to) {
+        moveAt(KEY_FAVORITES, getFavorites(), from, to);
+    }
+
     /**
      * The chosen metrics in display order, as {@link Metric} names.
      *
@@ -95,6 +100,29 @@ public class PreferencesManager {
 
     public void removeMetric(int index) {
         removeAt(KEY_METRICS, getMetrics(), index);
+    }
+
+    public void moveMetric(int from, int to) {
+        moveAt(KEY_METRICS, getMetrics(), from, to);
+    }
+
+    private void moveAt(String key, List<String> values, int from, int to) {
+        if (move(values, from, to)) {
+            persist(key, values);
+        }
+    }
+
+    /**
+     * Takes the entry at {@code from} out and inserts it at {@code to}. Indices outside the
+     * list, or a move onto itself, change nothing and return false. Kept static and free of
+     * Android so the ordering rule is tested on the JVM.
+     */
+    static boolean move(List<String> values, int from, int to) {
+        if (from < 0 || from >= values.size() || to < 0 || to >= values.size() || from == to) {
+            return false;
+        }
+        values.add(to, values.remove(from));
+        return true;
     }
 
     private void setAt(String key, List<String> values, int index, String value, int max) {

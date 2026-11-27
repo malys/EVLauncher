@@ -6,6 +6,23 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 
+## [2.8.0] - 2026-11-27
+
+### Added
+
+- **Custom icons for home apps.** Long-press a favourite → *Change icon* picks any image
+  through the system file picker; it is scaled down and kept by the launcher, keyed by app,
+  so it survives a move. *Restore the app icon* brings the original back.
+- **Reorder the home apps and the metrics.** Long-press a card → *Move*, then tap where it
+  should go. Works the same on both pages; the **+** tile means "last".
+
+### Changed
+
+- **Larger app tiles.** The all-apps / Files / Settings column is now one narrow column of
+  three cards, screen edges and gaps use the small spacing step, and the icon grows with its
+  tile (up to 288 dp) instead of staying at 160 dp — larger on a one-row page, no longer
+  clipped on a three-row page.
+
 ## [2.7.0] - 2026-11-27
 
 ### Added

@@ -8,6 +8,12 @@
     <string name="favorite_menu_title">Lieblings-App</string>
     <string name="favorite_replace">Durch andere App ersetzen</string>
     <string name="favorite_remove">Vom Startbildschirm entfernen</string>
+    <string name="tile_move">Verschieben</string>
+    <string name="favorite_icon_change">Symbol ändern</string>
+    <string name="favorite_icon_reset">App-Symbol wiederherstellen</string>
+    <string name="tile_move_hint">Auf den Zielplatz tippen</string>
+    <string name="icon_picker_missing">Keine App kann hier ein Bild auswählen</string>
+    <string name="icon_failed">Dieses Bild kann nicht als Symbol verwendet werden</string>
     <string name="empty_favorite">Leer</string>
     <string name="cd_settings">Einstellungen</string>
     <string name="cd_files">Dateien</string>

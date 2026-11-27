@@ -8,6 +8,12 @@
     <string name="favorite_menu_title">App favorita</string>
     <string name="favorite_replace">Sustituir por otra app</string>
     <string name="favorite_remove">Quitar de la pantalla de inicio</string>
+    <string name="tile_move">Mover</string>
+    <string name="favorite_icon_change">Cambiar icono</string>
+    <string name="favorite_icon_reset">Restaurar el icono de la app</string>
+    <string name="tile_move_hint">Toca donde debe ir</string>
+    <string name="icon_picker_missing">Ninguna app permite elegir una imagen</string>
+    <string name="icon_failed">Esta imagen no se puede usar como icono</string>
     <string name="empty_favorite">Vacío</string>
     <string name="cd_settings">Ajustes</string>
     <string name="cd_files">Archivos</string>

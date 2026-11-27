@@ -8,6 +8,12 @@
     <string name="favorite_menu_title">Application favorite</string>
     <string name="favorite_replace">Remplacer par une autre application</string>
     <string name="favorite_remove">Retirer de l’accueil</string>
+    <string name="tile_move">Déplacer</string>
+    <string name="favorite_icon_change">Changer l’icône</string>
+    <string name="favorite_icon_reset">Rétablir l’icône de l’application</string>
+    <string name="tile_move_hint">Touchez l’emplacement voulu</string>
+    <string name="icon_picker_missing">Aucune application ne permet de choisir une image</string>
+    <string name="icon_failed">Cette image ne peut pas servir d’icône</string>
     <string name="empty_favorite">Vide</string>
     <string name="cd_settings">Paramètres</string>
     <string name="cd_files">Fichiers</string>

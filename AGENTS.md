@@ -73,7 +73,8 @@ car permission the boundary review did not name. Reasoning: `docs/CR-010-vehicle
 
 `MainActivity` hosts the `ViewPager2` carousel over two pages: `HomeFragment` (a
 runtime-built grid of favourite cards, up to `PreferencesManager.MAX_FAVORITES`, plus the
-trailing "add" tile + all-apps / shortcut column) and `MetricsFragment` (a runtime-built grid
+trailing "add" tile + a narrow fixed-width all-apps / shortcut column, so the grid takes the
+rest of the 1778 dp) and `MetricsFragment` (a runtime-built grid
 of up to `PreferencesManager.MAX_METRICS` cards, head-unit and vehicle metrics in one list,
 customised with the same add / replace / remove gestures as the favourites). It merges the old
 `SystemInfoFragment` and `VehicleInfoFragment`: system values are permission-free reads
@@ -91,7 +92,14 @@ Reasoning: `docs/CR-011-metrics-page.md`. The home stays at position 0 whatever 
 after it. `AppDrawerActivity` is the full
 grid plus the system-apps filter (`FLAG_SYSTEM`).
 `PreferencesManager` persists both the chosen packages and the chosen metrics as ordered,
-hole-free lists, and migrates the old three-slot favourite keys on first read;
+hole-free lists, and migrates the old three-slot favourite keys on first read. Both pages
+reorder through the long-press "Move" entry (pick up, then tap the destination) rather than
+drag and drop: no gesture to discover, nothing to hold steady while the car moves.
+`CustomIcons` stores a driver-chosen icon per **package** (so a moved tile keeps it) as a
+≤ 288 px PNG in `filesDir/icons`. The source comes from `ACTION_GET_CONTENT` — no storage
+permission — and is decoded subsampled off the main thread: a full-size photo must not cost
+the home screen an out-of-memory crash. `HomeFragment.buildFavorites` is the single place
+orphaned icons are deleted (removed, replaced or uninstalled app);
 `AppLauncher`/`AppInfo`/`AppListAdapter` are the shared launch-and-list plumbing.
 
 ## Reference patterns (shared with the suite)

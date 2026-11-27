@@ -78,14 +78,15 @@ Android settings. Favorites are stored per-app, so they are reset.
   indicator at the bottom centre shows the current page. The home is always page 1, so
   pressing Home lands on the favourites grid whatever you last swiped to.
 - **Favorite cards** (page 1): a grid of cards, each launching one app of your
-  choice — up to **12**. Tap a card to open its app; **long-press** to replace or
-  remove it. The last tile is always a **+**, which is how a new app is added.
+  choice — up to **12**. Tap a card to open its app; **long-press** to replace, move,
+  re-icon or remove it. The last tile is always a **+**, which is how a new app is added.
   Rows and columns follow the number of cards (1 row up to 4 apps, 2 rows up to 8,
-  3 rows beyond), so the tiles stay as large as the count allows.
-- **Fourth column**:
+  3 rows beyond), and the icon grows with its tile, so the tiles stay as large as the
+  count allows.
+- **Side column** (narrow, so the favourites get the rest of the screen):
   - **All apps** (top card): every launchable app, in a grid.
-  - **Two fixed shortcuts** (bottom card): the Android 9 default **Files** and
-    **Settings** apps, side by side as icons.
+  - **Two fixed shortcuts** (below it): the Android 9 default **Files** and
+    **Settings** apps, as icons.
 - **System apps**: inside the *All apps* drawer, the header filters system apps
   (`FLAG_SYSTEM`) and provides a **back** button to return home.
 - **App info shortcut**: **long-press** any entry in the app drawer to jump straight to
@@ -101,9 +102,18 @@ Android settings. Favorites are stored per-app, so they are reset.
   built with an older three-slot version is migrated on first launch).
 
 ## Changing a pinned app
-**Long-press** a card to choose between *replace* and *remove*; replacing opens the
-app picker. To **add** one, tap the trailing **+** tile and pick an app. Your choices
-are saved across reboots.
+**Long-press** a card to choose between:
+
+- *Replace* — opens the app picker.
+- *Move* — the card is outlined; tap the place it should go (the **+** tile means "last",
+  the card itself puts it back).
+- *Change icon* — pick any image with the system file picker. It is scaled down to
+  288 px and kept by the launcher, so the original file can be deleted afterwards.
+  *Restore the app icon* appears once a custom icon is set.
+- *Remove*.
+
+To **add** one, tap the trailing **+** tile and pick an app. Your choices, order and
+icons are saved across reboots.
 
 ## Second screen (metrics)
 Swipe right from the home to reach the metrics page (`MetricsFragment` /
@@ -112,7 +122,7 @@ vehicle values, refreshed while the page is visible — the system cards every 3
 vehicle snapshot at most every 5 s.
 
 **Customising it works exactly like the home page**: tap the trailing **+** tile to open
-the full-screen metric picker, **long-press** a card to *replace* or *remove* it. Up to
+the full-screen metric picker, **long-press** a card to *replace*, *move* or *remove* it. Up to
 twelve cards, laid out on one, two or three rows. Your choices are saved across reboots.
 
 A fresh install shows the seven cards the two old fixed pages showed:

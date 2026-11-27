@@ -7,10 +7,25 @@
 <resources>
     <dimen name="screen_padding">@dimen/spacing_lg</dimen>
     <dimen name="card_gap">@dimen/spacing_md</dimen>
-    <dimen name="fixed_app_padding">@dimen/spacing_lg</dimen>
     <dimen name="info_card_padding">@dimen/spacing_lg</dimen>
 
-    <dimen name="favorite_icon_size">160dp</dimen>
+    <!-- Home page: the favourite grid is the reason the launcher exists, so it takes the
+         space. Edges and gaps use the small step instead of the suite's spacing_lg screen
+         edge (owner decision, 2026-11-27); spacing_sm is still the suite's minimum between
+         two targets. Every tile and side card carries half of it as a margin on each side,
+         and the root padding (home_edge) adds the same again at the screen edge. -->
+    <dimen name="home_half_gap">@dimen/spacing_xs</dimen>
+    <dimen name="home_edge">@dimen/spacing_xs</dimen>
+    <!-- Clears the page indicator pinned to the bottom (12dp margin + 6dp bar). -->
+    <dimen name="home_bottom_clearance">20dp</dimen>
+    <!-- All apps, Files and Settings: one narrow column of three cards. -->
+    <dimen name="home_side_width">184dp</dimen>
+    <dimen name="home_side_icon_size">64dp</dimen>
+    <dimen name="home_side_label_size">@dimen/text_body</dimen>
+
+    <!-- Upper bound of the icon on a large tile. An xxxhdpi launcher icon has 192-288 px;
+         past that it would only be upscaled into blur. -->
+    <dimen name="favorite_icon_max">288dp</dimen>
     <dimen name="favorite_label_size">30sp</dimen>
     <!-- Multi-row grid: the tile is half as tall, so the label has to leave room for
          the icon it describes. -->
