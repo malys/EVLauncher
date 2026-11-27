@@ -107,8 +107,8 @@ Android settings. Favorites are stored per-app, so they are reset.
 - *Replace* — opens the app picker.
 - *Move* — the card is outlined; tap the place it should go (the **+** tile means "last",
   the card itself puts it back).
-- *Change icon* — pick any image with the system file picker. It is kept at
-  288 px at most and kept by the launcher, so the original file can be deleted afterwards.
+- *Change icon* — pick any image with the system file picker. It is stored at
+  288 px at most by the launcher, so the original file can be deleted afterwards.
   *Restore the app icon* appears once a custom icon is set.
 - *Remove*.
 
